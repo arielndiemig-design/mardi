@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  bunec-app:
+    build: .
+    container_name: bunec_suivie_statut_app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
+      - DATABASE_URL=postgres://bunec_admin:bunec_sec_pwd_2026@bunec-db:5432/bunec_etat_civil
+      - REDIS_URL=redis://bunec-redis:6379
+      - BUNEC_HMAC_SECRET=bunec_cameroun_hmac_secret_production_2026
+    depends_on:
+      - bunec-db
+      - bunec-redis
+    networks:
+      - bunec-network
+
+  bunec-db:
+    image: postgres:16-alpine
+    container_name: bunec_postgres_db
+    restart: always
+    environment:
+      POSTGRES_DB: bunec_etat_civil
+      POSTGRES_USER: bunec_admin
+      POSTGRES_PASSWORD: bunec_sec_pwd_2026
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./database/seeds/seed_regions_communes.sql:/docker-entrypoint-initdb.d/02-seeds.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - bunec-network
+
+  bunec-redis:
+    image: redis:7-alpine
+    container_name: bunec_redis_cache
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+    networks:
+      - bunec-network
+
+volumes:
+  pgdata:
+  redisdata:
+
+networks:
+  bunec-network:
+    driver: bridge

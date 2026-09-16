@@ -1,0 +1,32 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Démarrer Plateforme BUNEC (Port 3000)",
+      "type": "shell",
+      "command": "node server.js",
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": {
+          "regexp": "^(.*)$",
+          "message": 1
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".*BUNEC.*",
+          "endsPattern": ".*URL Citoyenne.*"
+        }
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Ouvrir dans le Navigateur Web",
+      "type": "shell",
+      "command": "xdg-open http://localhost:3000 || firefox http://localhost:3000 || chromium http://localhost:3000",
+      "problemMatcher": []
+    }
+  ]
+}

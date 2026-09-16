@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <!-- Dégradés officiels Vert - Rouge - Jaune Cameroun -->
+    <linearGradient id="cmGreenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#007a3d" />
+      <stop offset="100%" stop-color="#00562b" />
+    </linearGradient>
+    <linearGradient id="cmRedGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ce1126" />
+      <stop offset="100%" stop-color="#990012" />
+    </linearGradient>
+    <linearGradient id="cmYellowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fcd116" />
+      <stop offset="100%" stop-color="#e5b800" />
+    </linearGradient>
+    <linearGradient id="goldStarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe600" />
+      <stop offset="100%" stop-color="#d4af37" />
+    </linearGradient>
+    <filter id="dropShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-opacity="0.15" />
+    </filter>
+  </defs>
+
+  <!-- Faisceaux de licteurs croisés à l'arrière-plan -->
+  <g stroke="#334155" stroke-width="4" fill="#94a3b8" filter="url(#dropShadow)">
+    <!-- Faisceau gauche -->
+    <g transform="rotate(-30 250 250)">
+      <rect x="238" y="70" width="24" height="360" rx="6" fill="#64748b" stroke="#1e293b" stroke-width="3"/>
+      <!-- Liens du faisceau -->
+      <line x1="234" y1="120" x2="266" y2="120" stroke="#fcd116" stroke-width="6"/>
+      <line x1="234" y1="200" x2="266" y2="200" stroke="#fcd116" stroke-width="6"/>
+      <line x1="234" y1="280" x2="266" y2="280" stroke="#fcd116" stroke-width="6"/>
+      <line x1="234" y1="360" x2="266" y2="360" stroke="#fcd116" stroke-width="6"/>
+      <!-- Hache républicaine gauche -->
+      <path d="M 238 90 C 200 90, 190 60, 238 50 Z" fill="#cbd5e1" stroke="#1e293b" stroke-width="3"/>
+    </g>
+    <!-- Faisceau droit -->
+    <g transform="rotate(30 250 250)">
+      <rect x="238" y="70" width="24" height="360" rx="6" fill="#64748b" stroke="#1e293b" stroke-width="3"/>
+      <!-- Liens du faisceau -->
+      <line x1="234" y1="120" x2="266" y2="120" stroke="#fcd116" stroke-width="6"/>
+      <line x1="234" y1="200" x2="266" y2="200" stroke="#fcd116" stroke-width="6"/>
+      <line x1="234" y1="280" x2="266" y2="280" stroke="#fcd116" stroke-width="6"/>
+      <line x1="234" y1="360" x2="266" y2="360" stroke="#fcd116" stroke-width="6"/>
+      <!-- Hache républicaine droite -->
+      <path d="M 262 90 C 300 90, 310 60, 262 50 Z" fill="#cbd5e1" stroke="#1e293b" stroke-width="3"/>
+    </g>
+  </g>
+
+  <!-- Écu Républicain (Bouclier aux couleurs nationales) -->
+  <g filter="url(#dropShadow)">
+    <!-- Contour doré du blason -->
+    <path d="M 140 100 Q 250 110 360 100 Q 370 260 250 410 Q 130 260 140 100 Z" fill="#ffffff" stroke="#fcd116" stroke-width="8" />
+    
+    <!-- Partition Tiercée en Pal -->
+    <g clip-path="url(#shieldClip)">
+      <clipPath id="shieldClip">
+        <path d="M 144 104 Q 250 114 356 104 Q 366 258 250 404 Q 134 258 144 104 Z" />
+      </clipPath>
+
+      <!-- Bande Gauche : Vert -->
+      <path d="M 130 90 L 215 90 L 215 420 L 130 420 Z" fill="url(#cmGreenGrad)" />
+
+      <!-- Bande Centrale : Rouge (Triangle/Pal) -->
+      <path d="M 215 90 L 285 90 L 285 420 L 215 420 Z" fill="url(#cmRedGrad)" />
+
+      <!-- Bande Droite : Jaune -->
+      <path d="M 285 90 L 370 90 L 370 420 L 285 420 Z" fill="url(#cmYellowGrad)" />
+
+      <!-- Silhouette Stylisée de la Carte du Cameroun (Au centre de l'écu) -->
+      <path d="M 242 165 C 248 150, 255 150, 258 165 C 265 180, 275 200, 270 220 C 265 240, 272 260, 270 280 C 265 295, 250 300, 235 295 C 230 270, 235 250, 238 230 C 240 210, 235 180, 242 165 Z" fill="#ffffff" opacity="0.95" stroke="#1e293b" stroke-width="2.5" />
+
+      <!-- Balance de la Justice (Symbole d'équité républicaine) -->
+      <!-- Pylône vertical -->
+      <line x1="250" y1="180" x2="250" y2="285" stroke="#1e293b" stroke-width="4" stroke-linecap="round"/>
+      <ellipse cx="250" cy="180" rx="4" ry="4" fill="#fcd116" stroke="#1e293b" stroke-width="2"/>
+      <!-- Fléau horizontal -->
+      <line x1="220" y1="205" x2="280" y2="205" stroke="#1e293b" stroke-width="3.5" stroke-linecap="round"/>
+      <!-- Plateaux suspendus -->
+      <!-- Plateau gauche -->
+      <line x1="220" y1="205" x2="210" y2="235" stroke="#1e293b" stroke-width="1.5"/>
+      <line x1="220" y1="205" x2="230" y2="235" stroke="#1e293b" stroke-width="1.5"/>
+      <path d="M 205 235 Q 220 245 235 235 Z" fill="#fcd116" stroke="#1e293b" stroke-width="2"/>
+      <!-- Plateau droit -->
+      <line x1="280" y1="205" x2="270" y2="235" stroke="#1e293b" stroke-width="1.5"/>
+      <line x1="280" y1="205" x2="290" y2="235" stroke="#1e293b" stroke-width="1.5"/>
+      <path d="M 265 235 Q 280 245 295 235 Z" fill="#fcd116" stroke="#1e293b" stroke-width="2"/>
+
+      <!-- Étoile d'Or Unitaire au Sommet du Bouclier -->
+      <polygon points="250,118 255,133 271,133 258,143 263,158 250,148 237,158 242,143 229,133 245,133" fill="url(#goldStarGrad)" stroke="#b45309" stroke-width="1.5"/>
+    </g>
+  </g>
+
+  <!-- Banderoles Républicaines Supérieures (Devises Bilingues) -->
+  <!-- Banderole Gauche (Français) -->
+  <g filter="url(#dropShadow)">
+    <path d="M 40 55 L 210 55 L 200 85 L 30 85 Z" fill="#ffffff" stroke="#1e293b" stroke-width="2" />
+    <polygon points="30,85 45,70 30,55" fill="#ce1126" />
+    <text x="120" y="70" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="9" font-weight="bold" fill="#007a3d" text-anchor="middle">PAIX - TRAVAIL - PATRIE</text>
+    <text x="120" y="80" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="7" font-weight="bold" fill="#ce1126" text-anchor="middle">RÉPUBLIQUE DU CAMEROUN</text>
+  </g>
+
+  <!-- Banderole Droite (Anglais) -->
+  <g filter="url(#dropShadow)">
+    <path d="M 290 55 L 460 55 L 470 85 L 300 85 Z" fill="#ffffff" stroke="#1e293b" stroke-width="2" />
+    <polygon points="470,85 455,70 470,55" fill="#007a3d" />
+    <text x="380" y="70" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="9" font-weight="bold" fill="#007a3d" text-anchor="middle">PEACE - WORK - FATHERLAND</text>
+    <text x="380" y="80" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-size="7" font-weight="bold" fill="#ce1126" text-anchor="middle">REPUBLIC OF CAMEROON</text>
+  </g>
+
+  <!-- Banderole Inférieure (BUNEC - ÉTAT CIVIL) -->
+  <g filter="url(#dropShadow)">
+    <path d="M 100 425 Q 250 455 400 425 L 415 455 Q 250 485 85 455 Z" fill="#ffffff" stroke="#1e293b" stroke-width="2" />
+    <text x="250" y="448" font-family="'Outfit', 'Plus Jakarta Sans', Arial, sans-serif" font-size="12" font-weight="900" fill="#007a3d" text-anchor="middle" letter-spacing="1">
+      BUREAU NATIONAL DE L'ÉTAT CIVIL (BUNEC)
+    </text>
+    <text x="250" y="462" font-family="'Outfit', 'Plus Jakarta Sans', Arial, sans-serif" font-size="9" font-weight="bold" fill="#1e40af" text-anchor="middle" letter-spacing="2">
+      RÉPUBLIQUE DU CAMEROUN • NATIONAL CIVIL STATUS
+    </text>
+  </g>
+</svg>

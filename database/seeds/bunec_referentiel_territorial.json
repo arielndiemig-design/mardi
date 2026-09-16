@@ -1,0 +1,2242 @@
+[
+  {
+    "id": "AD",
+    "nom": "Adamaoua",
+    "chefLieu": "Ngaoundéré",
+    "code": "01",
+    "communes": [
+      {
+        "id": "AD-NDL",
+        "nom": "Ngaoundal",
+        "code": "NDL",
+        "departement": "Djérem"
+      },
+      {
+        "id": "AD-TIB",
+        "nom": "Tibati",
+        "code": "TIB",
+        "departement": "Djérem"
+      },
+      {
+        "id": "AD-GLT",
+        "nom": "Galim-Tignère",
+        "code": "GLT",
+        "departement": "Faro-et-Déo"
+      },
+      {
+        "id": "AD-KTC",
+        "nom": "Kontcha",
+        "code": "KTC",
+        "departement": "Faro-et-Déo"
+      },
+      {
+        "id": "AD-MBL",
+        "nom": "Mayo-Baléo",
+        "code": "MBL",
+        "departement": "Faro-et-Déo"
+      },
+      {
+        "id": "AD-TIG",
+        "nom": "Tignère",
+        "code": "TIG",
+        "departement": "Faro-et-Déo"
+      },
+      {
+        "id": "AD-BKM",
+        "nom": "Bankim",
+        "code": "BKM",
+        "departement": "Mayo-Banyo"
+      },
+      {
+        "id": "AD-BYO",
+        "nom": "Banyo",
+        "code": "BYO",
+        "departement": "Mayo-Banyo"
+      },
+      {
+        "id": "AD-MDL",
+        "nom": "Mayo-Darlé",
+        "code": "MDL",
+        "departement": "Mayo-Banyo"
+      },
+      {
+        "id": "AD-DIR",
+        "nom": "Dir",
+        "code": "DIR",
+        "departement": "Mbéré"
+      },
+      {
+        "id": "AD-DJH",
+        "nom": "Djohong",
+        "code": "DJH",
+        "departement": "Mbéré"
+      },
+      {
+        "id": "AD-MGA",
+        "nom": "Meiganga",
+        "code": "MGA",
+        "departement": "Mbéré"
+      },
+      {
+        "id": "AD-NGAO",
+        "nom": "Ngaoui",
+        "code": "NGAO",
+        "departement": "Mbéré"
+      },
+      {
+        "id": "AD-BEL",
+        "nom": "Belel",
+        "code": "BEL",
+        "departement": "Vina"
+      },
+      {
+        "id": "AD-MTP",
+        "nom": "Martap",
+        "code": "MTP",
+        "departement": "Vina"
+      },
+      {
+        "id": "AD-MBE",
+        "nom": "Mbe",
+        "code": "MBE",
+        "departement": "Vina"
+      },
+      {
+        "id": "AD-NGA",
+        "nom": "Nganha",
+        "code": "NGA",
+        "departement": "Vina"
+      },
+      {
+        "id": "AD-NG1",
+        "nom": "Ngaoundéré Iᵉʳ",
+        "code": "NG1",
+        "departement": "Vina"
+      },
+      {
+        "id": "AD-NG2",
+        "nom": "Ngaoundéré IIᵉ",
+        "code": "NG2",
+        "departement": "Vina"
+      },
+      {
+        "id": "AD-NG3",
+        "nom": "Ngaoundéré IIIᵉ",
+        "code": "NG3",
+        "departement": "Vina"
+      },
+      {
+        "id": "AD-NYA",
+        "nom": "Nyambaka",
+        "code": "NYA",
+        "departement": "Vina"
+      }
+    ]
+  },
+  {
+    "id": "CE",
+    "nom": "Centre",
+    "chefLieu": "Yaoundé",
+    "code": "02",
+    "communes": [
+      {
+        "id": "CE-BIB",
+        "nom": "Bibey",
+        "code": "BIB",
+        "departement": "Haute-Sanaga"
+      },
+      {
+        "id": "CE-LEMB",
+        "nom": "Lembe-Yezoum",
+        "code": "LEMB",
+        "departement": "Haute-Sanaga"
+      },
+      {
+        "id": "CE-MBJ",
+        "nom": "Mbandjock",
+        "code": "MBJ",
+        "departement": "Haute-Sanaga"
+      },
+      {
+        "id": "CE-MIN",
+        "nom": "Minta",
+        "code": "MIN",
+        "departement": "Haute-Sanaga"
+      },
+      {
+        "id": "CE-NANG",
+        "nom": "Nanga-Eboko",
+        "code": "NANG",
+        "departement": "Haute-Sanaga"
+      },
+      {
+        "id": "CE-NKOT",
+        "nom": "Nkoteng",
+        "code": "NKOT",
+        "departement": "Haute-Sanaga"
+      },
+      {
+        "id": "CE-NSE",
+        "nom": "Nsem",
+        "code": "NSE",
+        "departement": "Haute-Sanaga"
+      },
+      {
+        "id": "CE-BAT",
+        "nom": "Batchenga",
+        "code": "BAT",
+        "departement": "Lekié"
+      },
+      {
+        "id": "CE-EBD",
+        "nom": "Ebébdá",
+        "code": "EBD",
+        "departement": "Lekié"
+      },
+      {
+        "id": "CE-ELM",
+        "nom": "Elig-Mfomo",
+        "code": "ELM",
+        "departement": "Lekié"
+      },
+      {
+        "id": "CE-EVO",
+        "nom": "Evodoula",
+        "code": "EVO",
+        "departement": "Lekié"
+      },
+      {
+        "id": "CE-LOB",
+        "nom": "Lobo",
+        "code": "LOB",
+        "departement": "Lekié"
+      },
+      {
+        "id": "CE-MON",
+        "nom": "Monatélé",
+        "code": "MON",
+        "departement": "Lekié"
+      },
+      {
+        "id": "CE-OBA",
+        "nom": "Obala",
+        "code": "OBA",
+        "departement": "Lekié"
+      },
+      {
+        "id": "CE-OKO",
+        "nom": "Okola",
+        "code": "OKO",
+        "departement": "Lekié"
+      },
+      {
+        "id": "CE-SAA",
+        "nom": "Sa'a",
+        "code": "SAA",
+        "departement": "Lekié"
+      },
+      {
+        "id": "CE-BAF",
+        "nom": "Bafia",
+        "code": "BAF",
+        "departement": "Mbam-et-Inoubou"
+      },
+      {
+        "id": "CE-BOKI",
+        "nom": "Bokito",
+        "code": "BOKI",
+        "departement": "Mbam-et-Inoubou"
+      },
+      {
+        "id": "CE-DEU",
+        "nom": "Deuk",
+        "code": "DEU",
+        "departement": "Mbam-et-Inoubou"
+      },
+      {
+        "id": "CE-KII",
+        "nom": "Kiiki",
+        "code": "KII",
+        "departement": "Mbam-et-Inoubou"
+      },
+      {
+        "id": "CE-KNY",
+        "nom": "Kon-Yambetta",
+        "code": "KNY",
+        "departement": "Mbam-et-Inoubou"
+      },
+      {
+        "id": "CE-MKN",
+        "nom": "Makénéné",
+        "code": "MKN",
+        "departement": "Mbam-et-Inoubou"
+      },
+      {
+        "id": "CE-NDI",
+        "nom": "Ndikiniméki",
+        "code": "NDI",
+        "departement": "Mbam-et-Inoubou"
+      },
+      {
+        "id": "CE-NIT",
+        "nom": "Nitoukou",
+        "code": "NIT",
+        "departement": "Mbam-et-Inoubou"
+      },
+      {
+        "id": "CE-OMB",
+        "nom": "Ombessa",
+        "code": "OMB",
+        "departement": "Mbam-et-Inoubou"
+      },
+      {
+        "id": "CE-MBG",
+        "nom": "Mbangassina",
+        "code": "MBG",
+        "departement": "Mbam-et-Kim"
+      },
+      {
+        "id": "CE-NGT",
+        "nom": "Ngambè-Tikar",
+        "code": "NGT",
+        "departement": "Mbam-et-Kim"
+      },
+      {
+        "id": "CE-NGR",
+        "nom": "Ngoro",
+        "code": "NGR",
+        "departement": "Mbam-et-Kim"
+      },
+      {
+        "id": "CE-NTU",
+        "nom": "Ntui",
+        "code": "NTU",
+        "departement": "Mbam-et-Kim"
+      },
+      {
+        "id": "CE-YOK",
+        "nom": "Yoko",
+        "code": "YOK",
+        "departement": "Mbam-et-Kim"
+      },
+      {
+        "id": "CE-AFA",
+        "nom": "Afanloum",
+        "code": "AFA",
+        "departement": "Méfou-et-Afamba"
+      },
+      {
+        "id": "CE-ASSA",
+        "nom": "Assamba",
+        "code": "ASSA",
+        "departement": "Méfou-et-Afamba"
+      },
+      {
+        "id": "CE-AWA",
+        "nom": "Awaé",
+        "code": "AWA",
+        "departement": "Méfou-et-Afamba"
+      },
+      {
+        "id": "CE-EDZ",
+        "nom": "Edzendouan",
+        "code": "EDZ",
+        "departement": "Méfou-et-Afamba"
+      },
+      {
+        "id": "CE-ESS",
+        "nom": "Esse",
+        "code": "ESS",
+        "departement": "Méfou-et-Afamba"
+      },
+      {
+        "id": "CE-MFOU",
+        "nom": "Mfou",
+        "code": "MFOU",
+        "departement": "Méfou-et-Afamba"
+      },
+      {
+        "id": "CE-NKF",
+        "nom": "Nkolafamba",
+        "code": "NKF",
+        "departement": "Méfou-et-Afamba"
+      },
+      {
+        "id": "CE-SOA",
+        "nom": "Soa",
+        "code": "SOA",
+        "departement": "Méfou-et-Afamba"
+      },
+      {
+        "id": "CE-AKO",
+        "nom": "Akono",
+        "code": "AKO",
+        "departement": "Méfou-et-Akono"
+      },
+      {
+        "id": "CE-BIK",
+        "nom": "Bikok",
+        "code": "BIK",
+        "departement": "Méfou-et-Akono"
+      },
+      {
+        "id": "CE-MBK",
+        "nom": "Mbankomo",
+        "code": "MBK",
+        "departement": "Méfou-et-Akono"
+      },
+      {
+        "id": "CE-NGO",
+        "nom": "Ngoumou",
+        "code": "NGO",
+        "departement": "Méfou-et-Akono"
+      },
+      {
+        "id": "CE-YA1",
+        "nom": "Yaoundé Iᵉʳ",
+        "code": "YA1",
+        "departement": "Mfoundi"
+      },
+      {
+        "id": "CE-YA2",
+        "nom": "Yaoundé IIᵉ",
+        "code": "YA2",
+        "departement": "Mfoundi"
+      },
+      {
+        "id": "CE-YA3",
+        "nom": "Yaoundé IIIᵉ",
+        "code": "YA3",
+        "departement": "Mfoundi"
+      },
+      {
+        "id": "CE-YA4",
+        "nom": "Yaoundé IVᵉ",
+        "code": "YA4",
+        "departement": "Mfoundi"
+      },
+      {
+        "id": "CE-YA5",
+        "nom": "Yaoundé Vᵉ",
+        "code": "YA5",
+        "departement": "Mfoundi"
+      },
+      {
+        "id": "CE-YA6",
+        "nom": "Yaoundé VIᵉ",
+        "code": "YA6",
+        "departement": "Mfoundi"
+      },
+      {
+        "id": "CE-YA7",
+        "nom": "Yaoundé VIIᵉ",
+        "code": "YA7",
+        "departement": "Mfoundi"
+      },
+      {
+        "id": "CE-BIY",
+        "nom": "Biyouha",
+        "code": "BIY",
+        "departement": "Nyong-et-Kéllé"
+      },
+      {
+        "id": "CE-BON",
+        "nom": "Bondjock",
+        "code": "BON",
+        "departement": "Nyong-et-Kéllé"
+      },
+      {
+        "id": "CE-BTM",
+        "nom": "Bot-Makak",
+        "code": "BTM",
+        "departement": "Nyong-et-Kéllé"
+      },
+      {
+        "id": "CE-DIB",
+        "nom": "Dibang",
+        "code": "DIB",
+        "departement": "Nyong-et-Kéllé"
+      },
+      {
+        "id": "CE-ESE",
+        "nom": "Éséka",
+        "code": "ESE",
+        "departement": "Nyong-et-Kéllé"
+      },
+      {
+        "id": "CE-MAK",
+        "nom": "Makak",
+        "code": "MAK",
+        "departement": "Nyong-et-Kéllé"
+      },
+      {
+        "id": "CE-MAT",
+        "nom": "Matomb",
+        "code": "MAT",
+        "departement": "Nyong-et-Kéllé"
+      },
+      {
+        "id": "CE-MES",
+        "nom": "Messondo",
+        "code": "MES",
+        "departement": "Nyong-et-Kéllé"
+      },
+      {
+        "id": "CE-NGM",
+        "nom": "Ngog-Mapubi",
+        "code": "NGM",
+        "departement": "Nyong-et-Kéllé"
+      },
+      {
+        "id": "CE-NGUI",
+        "nom": "Nguibassal",
+        "code": "NGUI",
+        "departement": "Nyong-et-Kéllé"
+      },
+      {
+        "id": "CE-AKL",
+        "nom": "Akonolinga",
+        "code": "AKL",
+        "departement": "Nyong-et-Mfoumou"
+      },
+      {
+        "id": "CE-AYO",
+        "nom": "Ayos",
+        "code": "AYO",
+        "departement": "Nyong-et-Mfoumou"
+      },
+      {
+        "id": "CE-END",
+        "nom": "Endom",
+        "code": "END",
+        "departement": "Nyong-et-Mfoumou"
+      },
+      {
+        "id": "CE-KOB",
+        "nom": "Kobdombo",
+        "code": "KOB",
+        "departement": "Nyong-et-Mfoumou"
+      },
+      {
+        "id": "CE-MEG",
+        "nom": "Mengang",
+        "code": "MEG",
+        "departement": "Nyong-et-Mfoumou"
+      },
+      {
+        "id": "CE-AKM",
+        "nom": "Akoeman",
+        "code": "AKM",
+        "departement": "Nyong-et-So'o"
+      },
+      {
+        "id": "CE-DZEN",
+        "nom": "Dzeng",
+        "code": "DZEN",
+        "departement": "Nyong-et-So'o"
+      },
+      {
+        "id": "CE-MBM",
+        "nom": "Mbalmayo",
+        "code": "MBM",
+        "departement": "Nyong-et-So'o"
+      },
+      {
+        "id": "CE-MGU",
+        "nom": "Mengueme",
+        "code": "MGU",
+        "departement": "Nyong-et-So'o"
+      },
+      {
+        "id": "CE-NGZ",
+        "nom": "Ngomedzap",
+        "code": "NGZ",
+        "departement": "Nyong-et-So'o"
+      },
+      {
+        "id": "CE-NKM",
+        "nom": "Nkolmetet",
+        "code": "NKM",
+        "departement": "Nyong-et-So'o"
+      }
+    ]
+  },
+  {
+    "id": "ES",
+    "nom": "Est",
+    "chefLieu": "Bertoua",
+    "code": "03",
+    "communes": [
+      {
+        "id": "ES-GAR",
+        "nom": "Gari-Gombo",
+        "code": "GAR",
+        "departement": "Boumba-et-Ngoko"
+      },
+      {
+        "id": "ES-MOL",
+        "nom": "Moloundou",
+        "code": "MOL",
+        "departement": "Boumba-et-Ngoko"
+      },
+      {
+        "id": "ES-SAL",
+        "nom": "Salapoumbé",
+        "code": "SAL",
+        "departement": "Boumba-et-Ngoko"
+      },
+      {
+        "id": "ES-YOK",
+        "nom": "Yokadouma",
+        "code": "YOK",
+        "departement": "Boumba-et-Ngoko"
+      },
+      {
+        "id": "ES-ABM",
+        "nom": "Abong-Mbang",
+        "code": "ABM",
+        "departement": "Haut-Nyong"
+      },
+      {
+        "id": "ES-ANG",
+        "nom": "Angossas",
+        "code": "ANG",
+        "departement": "Haut-Nyong"
+      },
+      {
+        "id": "ES-ATK",
+        "nom": "Atok",
+        "code": "ATK",
+        "departement": "Haut-Nyong"
+      },
+      {
+        "id": "ES-DIM",
+        "nom": "Dimako",
+        "code": "DIM",
+        "departement": "Haut-Nyong"
+      },
+      {
+        "id": "ES-DOU",
+        "nom": "Doumaintang",
+        "code": "DOU",
+        "departement": "Haut-Nyong"
+      },
+      {
+        "id": "ES-DME",
+        "nom": "Doumé",
+        "code": "DME",
+        "departement": "Haut-Nyong"
+      },
+      {
+        "id": "ES-LOM",
+        "nom": "Lomié",
+        "code": "LOM",
+        "departement": "Haut-Nyong"
+      },
+      {
+        "id": "ES-MBO",
+        "nom": "Mboma",
+        "code": "MBO",
+        "departement": "Haut-Nyong"
+      },
+      {
+        "id": "ES-MSM",
+        "nom": "Messamena",
+        "code": "MSM",
+        "departement": "Haut-Nyong"
+      },
+      {
+        "id": "ES-MSK",
+        "nom": "Messok",
+        "code": "MSK",
+        "departement": "Haut-Nyong"
+      },
+      {
+        "id": "ES-MIN",
+        "nom": "Mindourou",
+        "code": "MIN",
+        "departement": "Haut-Nyong"
+      },
+      {
+        "id": "ES-NGO",
+        "nom": "Ngoyla",
+        "code": "NGO",
+        "departement": "Haut-Nyong"
+      },
+      {
+        "id": "ES-NGM",
+        "nom": "Nguelemendouka",
+        "code": "NGM",
+        "departement": "Haut-Nyong"
+      },
+      {
+        "id": "ES-SOM",
+        "nom": "Somalomo",
+        "code": "SOM",
+        "departement": "Haut-Nyong"
+      },
+      {
+        "id": "ES-BAT",
+        "nom": "Batouri",
+        "code": "BAT",
+        "departement": "Kadey"
+      },
+      {
+        "id": "ES-KTZ",
+        "nom": "Kentzou",
+        "code": "KTZ",
+        "departement": "Kadey"
+      },
+      {
+        "id": "ES-KTT",
+        "nom": "Kette",
+        "code": "KTT",
+        "departement": "Kadey"
+      },
+      {
+        "id": "ES-MBG",
+        "nom": "Mbang",
+        "code": "MBG",
+        "departement": "Kadey"
+      },
+      {
+        "id": "ES-NDL",
+        "nom": "Ndéléle",
+        "code": "NDL",
+        "departement": "Kadey"
+      },
+      {
+        "id": "ES-NGL",
+        "nom": "Nguelebok",
+        "code": "NGL",
+        "departement": "Kadey"
+      },
+      {
+        "id": "ES-OUL",
+        "nom": "Ouli",
+        "code": "OUL",
+        "departement": "Kadey"
+      },
+      {
+        "id": "ES-BT1",
+        "nom": "Bertoua Iᵉʳ",
+        "code": "BT1",
+        "departement": "Lom-et-Djérem"
+      },
+      {
+        "id": "ES-BT2",
+        "nom": "Bertoua IIᵉ",
+        "code": "BT2",
+        "departement": "Lom-et-Djérem"
+      },
+      {
+        "id": "ES-BEL",
+        "nom": "Bélabo",
+        "code": "BEL",
+        "departement": "Lom-et-Djérem"
+      },
+      {
+        "id": "ES-BTO",
+        "nom": "Bétaré-Oya",
+        "code": "BTO",
+        "departement": "Lom-et-Djérem"
+      },
+      {
+        "id": "ES-DIA",
+        "nom": "Diang",
+        "code": "DIA",
+        "departement": "Lom-et-Djérem"
+      },
+      {
+        "id": "ES-GBL",
+        "nom": "Garoua-Boulaï",
+        "code": "GBL",
+        "departement": "Lom-et-Djérem"
+      },
+      {
+        "id": "ES-MDJ",
+        "nom": "Mandjou",
+        "code": "MDJ",
+        "departement": "Lom-et-Djérem"
+      },
+      {
+        "id": "ES-NGR",
+        "nom": "Ngoura",
+        "code": "NGR",
+        "departement": "Lom-et-Djérem"
+      }
+    ]
+  },
+  {
+    "id": "EN",
+    "nom": "Extrême-Nord",
+    "chefLieu": "Maroua",
+    "code": "04",
+    "communes": [
+      {
+        "id": "EN-BOG",
+        "nom": "Bogo",
+        "code": "BOG",
+        "departement": "Diamaré"
+      },
+      {
+        "id": "EN-DRG",
+        "nom": "Dargala",
+        "code": "DRG",
+        "departement": "Diamaré"
+      },
+      {
+        "id": "EN-GAZ",
+        "nom": "Gazawa",
+        "code": "GAZ",
+        "departement": "Diamaré"
+      },
+      {
+        "id": "EN-MR1",
+        "nom": "Maroua Iᵉʳ",
+        "code": "MR1",
+        "departement": "Diamaré"
+      },
+      {
+        "id": "EN-MR2",
+        "nom": "Maroua IIᵉ",
+        "code": "MR2",
+        "departement": "Diamaré"
+      },
+      {
+        "id": "EN-MR3",
+        "nom": "Maroua IIIᵉ",
+        "code": "MR3",
+        "departement": "Diamaré"
+      },
+      {
+        "id": "EN-MER",
+        "nom": "Meri",
+        "code": "MER",
+        "departement": "Diamaré"
+      },
+      {
+        "id": "EN-NDO",
+        "nom": "Ndoukoula",
+        "code": "NDO",
+        "departement": "Diamaré"
+      },
+      {
+        "id": "EN-PET",
+        "nom": "Petté",
+        "code": "PET",
+        "departement": "Diamaré"
+      },
+      {
+        "id": "EN-BLA",
+        "nom": "Blangoua",
+        "code": "BLA",
+        "departement": "Logone-et-Chari"
+      },
+      {
+        "id": "EN-DAR",
+        "nom": "Darak",
+        "code": "DAR",
+        "departement": "Logone-et-Chari"
+      },
+      {
+        "id": "EN-FOT",
+        "nom": "Fotokol",
+        "code": "FOT",
+        "departement": "Logone-et-Chari"
+      },
+      {
+        "id": "EN-GOU",
+        "nom": "Goulfey",
+        "code": "GOU",
+        "departement": "Logone-et-Chari"
+      },
+      {
+        "id": "EN-HIL",
+        "nom": "Hile-Alifa",
+        "code": "HIL",
+        "departement": "Logone-et-Chari"
+      },
+      {
+        "id": "EN-KOU",
+        "nom": "Kousséri",
+        "code": "KOU",
+        "departement": "Logone-et-Chari"
+      },
+      {
+        "id": "EN-LOG",
+        "nom": "Logone-Birni",
+        "code": "LOG",
+        "departement": "Logone-et-Chari"
+      },
+      {
+        "id": "EN-MAK",
+        "nom": "Makary",
+        "code": "MAK",
+        "departement": "Logone-et-Chari"
+      },
+      {
+        "id": "EN-WAZ",
+        "nom": "Waza",
+        "code": "WAZ",
+        "departement": "Logone-et-Chari"
+      },
+      {
+        "id": "EN-ZIN",
+        "nom": "Zina",
+        "code": "ZIN",
+        "departement": "Logone-et-Chari"
+      },
+      {
+        "id": "EN-DAT",
+        "nom": "Datcheka",
+        "code": "DAT",
+        "departement": "Mayo-Danay"
+      },
+      {
+        "id": "EN-GOB",
+        "nom": "Gobo",
+        "code": "GOB",
+        "departement": "Mayo-Danay"
+      },
+      {
+        "id": "EN-GME",
+        "nom": "Guémé",
+        "code": "GME",
+        "departement": "Mayo-Danay"
+      },
+      {
+        "id": "EN-GRE",
+        "nom": "Guéré",
+        "code": "GRE",
+        "departement": "Mayo-Danay"
+      },
+      {
+        "id": "EN-KAI",
+        "nom": "Kai-Kai",
+        "code": "KAI",
+        "departement": "Mayo-Danay"
+      },
+      {
+        "id": "EN-KAL",
+        "nom": "Kalfou",
+        "code": "KAL",
+        "departement": "Mayo-Danay"
+      },
+      {
+        "id": "EN-KAR",
+        "nom": "Kar-Hay",
+        "code": "KAR",
+        "departement": "Mayo-Danay"
+      },
+      {
+        "id": "EN-MAG",
+        "nom": "Maga",
+        "code": "MAG",
+        "departement": "Mayo-Danay"
+      },
+      {
+        "id": "EN-TCH",
+        "nom": "Tchati-Bali",
+        "code": "TCH",
+        "departement": "Mayo-Danay"
+      },
+      {
+        "id": "EN-VL",
+        "nom": "Vélé",
+        "code": "VL",
+        "departement": "Mayo-Danay"
+      },
+      {
+        "id": "EN-YAG",
+        "nom": "Yagoua",
+        "code": "YAG",
+        "departement": "Mayo-Danay"
+      },
+      {
+        "id": "EN-DZI",
+        "nom": "Dziguilao",
+        "code": "DZI",
+        "departement": "Mayo-Kani"
+      },
+      {
+        "id": "EN-GUI",
+        "nom": "Guidiguis",
+        "code": "GUI",
+        "departement": "Mayo-Kani"
+      },
+      {
+        "id": "EN-KAE",
+        "nom": "Kaélé",
+        "code": "KAE",
+        "departement": "Mayo-Kani"
+      },
+      {
+        "id": "EN-MIN",
+        "nom": "Mindif",
+        "code": "MIN",
+        "departement": "Mayo-Kani"
+      },
+      {
+        "id": "EN-MOU",
+        "nom": "Moulvoudaye",
+        "code": "MOU",
+        "departement": "Mayo-Kani"
+      },
+      {
+        "id": "EN-MTW",
+        "nom": "Moutourwa",
+        "code": "MTW",
+        "departement": "Mayo-Kani"
+      },
+      {
+        "id": "EN-TLM",
+        "nom": "Touloum",
+        "code": "TLM",
+        "departement": "Mayo-Kani"
+      },
+      {
+        "id": "EN-KOL",
+        "nom": "Kolofata",
+        "code": "KOL",
+        "departement": "Mayo-Sava"
+      },
+      {
+        "id": "EN-MOR",
+        "nom": "Mora",
+        "code": "MOR",
+        "departement": "Mayo-Sava"
+      },
+      {
+        "id": "EN-TOK",
+        "nom": "Tokombéré",
+        "code": "TOK",
+        "departement": "Mayo-Sava"
+      },
+      {
+        "id": "EN-BOU",
+        "nom": "Bourrha",
+        "code": "BOU",
+        "departement": "Mayo-Tsanaga"
+      },
+      {
+        "id": "EN-HIN",
+        "nom": "Hina",
+        "code": "HIN",
+        "departement": "Mayo-Tsanaga"
+      },
+      {
+        "id": "EN-KOZA",
+        "nom": "Koza",
+        "code": "KOZA",
+        "departement": "Mayo-Tsanaga"
+      },
+      {
+        "id": "EN-MOG",
+        "nom": "Mogodé",
+        "code": "MOG",
+        "departement": "Mayo-Tsanaga"
+      },
+      {
+        "id": "EN-MOK",
+        "nom": "Mokolo",
+        "code": "MOK",
+        "departement": "Mayo-Tsanaga"
+      },
+      {
+        "id": "EN-MOZ",
+        "nom": "Mozogo",
+        "code": "MOZ",
+        "departement": "Mayo-Tsanaga"
+      },
+      {
+        "id": "EN-SOUL",
+        "nom": "Souledé-Roua",
+        "code": "SOUL",
+        "departement": "Mayo-Tsanaga"
+      }
+    ]
+  },
+  {
+    "id": "LT",
+    "nom": "Littoral",
+    "chefLieu": "Douala",
+    "code": "05",
+    "communes": [
+      {
+        "id": "LT-BAR",
+        "nom": "Baré",
+        "code": "BAR",
+        "departement": "Moungo"
+      },
+      {
+        "id": "LT-BON",
+        "nom": "Bonaléa",
+        "code": "BON",
+        "departement": "Moungo"
+      },
+      {
+        "id": "LT-DBO",
+        "nom": "Dibombari",
+        "code": "DBO",
+        "departement": "Moungo"
+      },
+      {
+        "id": "LT-EBO",
+        "nom": "Ebone",
+        "code": "EBO",
+        "departement": "Moungo"
+      },
+      {
+        "id": "LT-LOU",
+        "nom": "Loum",
+        "code": "LOU",
+        "departement": "Moungo"
+      },
+      {
+        "id": "LT-MAN",
+        "nom": "Manjo",
+        "code": "MAN",
+        "departement": "Moungo"
+      },
+      {
+        "id": "LT-MBA",
+        "nom": "Mbanga",
+        "code": "MBA",
+        "departement": "Moungo"
+      },
+      {
+        "id": "LT-MEL",
+        "nom": "Melong",
+        "code": "MEL",
+        "departement": "Moungo"
+      },
+      {
+        "id": "LT-MOM",
+        "nom": "Mombo",
+        "code": "MOM",
+        "departement": "Moungo"
+      },
+      {
+        "id": "LT-NK1",
+        "nom": "Nkongsamba Iᵉʳ",
+        "code": "NK1",
+        "departement": "Moungo"
+      },
+      {
+        "id": "LT-NK2",
+        "nom": "Nkongsamba IIᵉ",
+        "code": "NK2",
+        "departement": "Moungo"
+      },
+      {
+        "id": "LT-NK3",
+        "nom": "Nkongsamba IIIᵉ",
+        "code": "NK3",
+        "departement": "Moungo"
+      },
+      {
+        "id": "LT-PEN",
+        "nom": "Penja",
+        "code": "PEN",
+        "departement": "Moungo"
+      },
+      {
+        "id": "LT-NDM",
+        "nom": "Ndom",
+        "code": "NDM",
+        "departement": "Nkam"
+      },
+      {
+        "id": "LT-NKD",
+        "nom": "Nkondjock",
+        "code": "NKD",
+        "departement": "Nkam"
+      },
+      {
+        "id": "LT-YAB",
+        "nom": "Yabassi",
+        "code": "YAB",
+        "departement": "Nkam"
+      },
+      {
+        "id": "LT-YIN",
+        "nom": "Yingui",
+        "code": "YIN",
+        "departement": "Nkam"
+      },
+      {
+        "id": "LT-DMB",
+        "nom": "Dibamba",
+        "code": "DMB",
+        "departement": "Sanaga-Maritime"
+      },
+      {
+        "id": "LT-DIZ",
+        "nom": "Dizangué",
+        "code": "DIZ",
+        "departement": "Sanaga-Maritime"
+      },
+      {
+        "id": "LT-ED1",
+        "nom": "Édéa Iᵉʳ",
+        "code": "ED1",
+        "departement": "Sanaga-Maritime"
+      },
+      {
+        "id": "LT-ED2",
+        "nom": "Édéa IIᵉ",
+        "code": "ED2",
+        "departement": "Sanaga-Maritime"
+      },
+      {
+        "id": "LT-MSS",
+        "nom": "Massock-Songloulou",
+        "code": "MSS",
+        "departement": "Sanaga-Maritime"
+      },
+      {
+        "id": "LT-MOU",
+        "nom": "Mouanko",
+        "code": "MOU",
+        "departement": "Sanaga-Maritime"
+      },
+      {
+        "id": "LT-NDB",
+        "nom": "Ndombian",
+        "code": "NDB",
+        "departement": "Sanaga-Maritime"
+      },
+      {
+        "id": "LT-NGA",
+        "nom": "Ngambe",
+        "code": "NGA",
+        "departement": "Sanaga-Maritime"
+      },
+      {
+        "id": "LT-NGW",
+        "nom": "Ngwei",
+        "code": "NGW",
+        "departement": "Sanaga-Maritime"
+      },
+      {
+        "id": "LT-NYA",
+        "nom": "Nyanon",
+        "code": "NYA",
+        "departement": "Sanaga-Maritime"
+      },
+      {
+        "id": "LT-POU",
+        "nom": "Pouma",
+        "code": "POU",
+        "departement": "Sanaga-Maritime"
+      },
+      {
+        "id": "LT-DL1",
+        "nom": "Douala Iᵉʳ",
+        "code": "DL1",
+        "departement": "Wouri"
+      },
+      {
+        "id": "LT-DL2",
+        "nom": "Douala IIᵉ",
+        "code": "DL2",
+        "departement": "Wouri"
+      },
+      {
+        "id": "LT-DL3",
+        "nom": "Douala IIIᵉ",
+        "code": "DL3",
+        "departement": "Wouri"
+      },
+      {
+        "id": "LT-DL4",
+        "nom": "Douala IVᵉ",
+        "code": "DL4",
+        "departement": "Wouri"
+      },
+      {
+        "id": "LT-DL5",
+        "nom": "Douala Vᵉ",
+        "code": "DL5",
+        "departement": "Wouri"
+      },
+      {
+        "id": "LT-DL6",
+        "nom": "Douala VIᵉ",
+        "code": "DL6",
+        "departement": "Wouri"
+      }
+    ]
+  },
+  {
+    "id": "NO",
+    "nom": "Nord",
+    "chefLieu": "Garoua",
+    "code": "06",
+    "communes": [
+      {
+        "id": "NO-BARN",
+        "nom": "Barndaké",
+        "code": "BARN",
+        "departement": "Bénoué"
+      },
+      {
+        "id": "NO-BAS",
+        "nom": "Baschéo",
+        "code": "BAS",
+        "departement": "Bénoué"
+      },
+      {
+        "id": "NO-BIB",
+        "nom": "Bibemi",
+        "code": "BIB",
+        "departement": "Bénoué"
+      },
+      {
+        "id": "NO-DEM",
+        "nom": "Dembo",
+        "code": "DEM",
+        "departement": "Bénoué"
+      },
+      {
+        "id": "NO-GA1",
+        "nom": "Garoua Iᵉʳ",
+        "code": "GA1",
+        "departement": "Bénoué"
+      },
+      {
+        "id": "NO-GA2",
+        "nom": "Garoua IIᵉ",
+        "code": "GA2",
+        "departement": "Bénoué"
+      },
+      {
+        "id": "NO-GA3",
+        "nom": "Garoua IIIᵉ",
+        "code": "GA3",
+        "departement": "Bénoué"
+      },
+      {
+        "id": "NO-GAS",
+        "nom": "Gashiga",
+        "code": "GAS",
+        "departement": "Bénoué"
+      },
+      {
+        "id": "NO-LAG",
+        "nom": "Lagdo",
+        "code": "LAG",
+        "departement": "Bénoué"
+      },
+      {
+        "id": "NO-NGO",
+        "nom": "Ngong",
+        "code": "NGO",
+        "departement": "Bénoué"
+      },
+      {
+        "id": "NO-PIT",
+        "nom": "Pitoa",
+        "code": "PIT",
+        "departement": "Bénoué"
+      },
+      {
+        "id": "NO-TOU",
+        "nom": "Touroua",
+        "code": "TOU",
+        "departement": "Bénoué"
+      },
+      {
+        "id": "NO-BEK",
+        "nom": "Beka",
+        "code": "BEK",
+        "departement": "Faro"
+      },
+      {
+        "id": "NO-POL",
+        "nom": "Poli",
+        "code": "POL",
+        "departement": "Faro"
+      },
+      {
+        "id": "NO-FIG",
+        "nom": "Figuils",
+        "code": "FIG",
+        "departement": "Mayo-Louti"
+      },
+      {
+        "id": "NO-GUID",
+        "nom": "Guider",
+        "code": "GUID",
+        "departement": "Mayo-Louti"
+      },
+      {
+        "id": "NO-MYO",
+        "nom": "Mayo-Oulo",
+        "code": "MYO",
+        "departement": "Mayo-Louti"
+      },
+      {
+        "id": "NO-MAD",
+        "nom": "Madingring",
+        "code": "MAD",
+        "departement": "Mayo-Rey"
+      },
+      {
+        "id": "NO-REY",
+        "nom": "Rey-Bouba",
+        "code": "REY",
+        "departement": "Mayo-Rey"
+      },
+      {
+        "id": "NO-TCH",
+        "nom": "Tcholliré",
+        "code": "TCH",
+        "departement": "Mayo-Rey"
+      },
+      {
+        "id": "NO-TBR",
+        "nom": "Touboro",
+        "code": "TBR",
+        "departement": "Mayo-Rey"
+      }
+    ]
+  },
+  {
+    "id": "NW",
+    "nom": "Nord-Ouest",
+    "chefLieu": "Bamenda",
+    "code": "07",
+    "communes": [
+      {
+        "id": "NW-BEL",
+        "nom": "Belo",
+        "code": "BEL",
+        "departement": "Boyo"
+      },
+      {
+        "id": "NW-FON",
+        "nom": "Fonfuka",
+        "code": "FON",
+        "departement": "Boyo"
+      },
+      {
+        "id": "NW-FUN",
+        "nom": "Fundong",
+        "code": "FUN",
+        "departement": "Boyo"
+      },
+      {
+        "id": "NW-NJN",
+        "nom": "Njinikom",
+        "code": "NJN",
+        "departement": "Boyo"
+      },
+      {
+        "id": "NW-ELA",
+        "nom": "Elak-Oku",
+        "code": "ELA",
+        "departement": "Bui"
+      },
+      {
+        "id": "NW-JAK",
+        "nom": "Jakiri",
+        "code": "JAK",
+        "departement": "Bui"
+      },
+      {
+        "id": "NW-KUM",
+        "nom": "Kumbo",
+        "code": "KUM",
+        "departement": "Bui"
+      },
+      {
+        "id": "NW-MBI",
+        "nom": "Mbiame",
+        "code": "MBI",
+        "departement": "Bui"
+      },
+      {
+        "id": "NW-NKO",
+        "nom": "Nkor",
+        "code": "NKO",
+        "departement": "Bui"
+      },
+      {
+        "id": "NW-NKU",
+        "nom": "Nkum",
+        "code": "NKU",
+        "departement": "Bui"
+      },
+      {
+        "id": "NW-AKO",
+        "nom": "Ako",
+        "code": "AKO",
+        "departement": "Donga-Mantung"
+      },
+      {
+        "id": "NW-MIS",
+        "nom": "Misaje",
+        "code": "MIS",
+        "departement": "Donga-Mantung"
+      },
+      {
+        "id": "NW-NDU",
+        "nom": "Ndu",
+        "code": "NDU",
+        "departement": "Donga-Mantung"
+      },
+      {
+        "id": "NW-NKA",
+        "nom": "Nkambe",
+        "code": "NKA",
+        "departement": "Donga-Mantung"
+      },
+      {
+        "id": "NW-NWA",
+        "nom": "Nwa",
+        "code": "NWA",
+        "departement": "Donga-Mantung"
+      },
+      {
+        "id": "NW-BEN",
+        "nom": "Benakuma",
+        "code": "BEN",
+        "departement": "Menchum"
+      },
+      {
+        "id": "NW-FURU",
+        "nom": "Furu-Awa",
+        "code": "FURU",
+        "departement": "Menchum"
+      },
+      {
+        "id": "NW-WUM",
+        "nom": "Wum",
+        "code": "WUM",
+        "departement": "Menchum"
+      },
+      {
+        "id": "NW-ZHO",
+        "nom": "Zhoa",
+        "code": "ZHO",
+        "departement": "Menchum"
+      },
+      {
+        "id": "NW-BAF",
+        "nom": "Bafut",
+        "code": "BAF",
+        "departement": "Mezam"
+      },
+      {
+        "id": "NW-BAL",
+        "nom": "Bali",
+        "code": "BAL",
+        "departement": "Mezam"
+      },
+      {
+        "id": "NW-BM1",
+        "nom": "Bamenda Iᵉʳ",
+        "code": "BM1",
+        "departement": "Mezam"
+      },
+      {
+        "id": "NW-BM2",
+        "nom": "Bamenda IIᵉ",
+        "code": "BM2",
+        "departement": "Mezam"
+      },
+      {
+        "id": "NW-BM3",
+        "nom": "Bamenda IIIᵉ",
+        "code": "BM3",
+        "departement": "Mezam"
+      },
+      {
+        "id": "NW-SAN",
+        "nom": "Santa",
+        "code": "SAN",
+        "departement": "Mezam"
+      },
+      {
+        "id": "NW-TUB",
+        "nom": "Tubah",
+        "code": "TUB",
+        "departement": "Mezam"
+      },
+      {
+        "id": "NW-AND",
+        "nom": "Andek",
+        "code": "AND",
+        "departement": "Momo"
+      },
+      {
+        "id": "NW-BAT",
+        "nom": "Batibo",
+        "code": "BAT",
+        "departement": "Momo"
+      },
+      {
+        "id": "NW-MBG",
+        "nom": "Mbengwi",
+        "code": "MBG",
+        "departement": "Momo"
+      },
+      {
+        "id": "NW-NJK",
+        "nom": "Njikwa",
+        "code": "NJK",
+        "departement": "Momo"
+      },
+      {
+        "id": "NW-WID",
+        "nom": "Widikum-Boffe",
+        "code": "WID",
+        "departement": "Momo"
+      },
+      {
+        "id": "NW-BAB",
+        "nom": "Babessi",
+        "code": "BAB",
+        "departement": "Ngo-Ketunjia"
+      },
+      {
+        "id": "NW-BLK",
+        "nom": "Balikumbat",
+        "code": "BLK",
+        "departement": "Ngo-Ketunjia"
+      },
+      {
+        "id": "NW-NDP",
+        "nom": "Ndop",
+        "code": "NDP",
+        "departement": "Ngo-Ketunjia"
+      }
+    ]
+  },
+  {
+    "id": "OU",
+    "nom": "Ouest",
+    "chefLieu": "Bafoussam",
+    "code": "08",
+    "communes": [
+      {
+        "id": "OU-BBD",
+        "nom": "Babadjou",
+        "code": "BBD",
+        "departement": "Bamboutos"
+      },
+      {
+        "id": "OU-BAT",
+        "nom": "Batcham",
+        "code": "BAT",
+        "departement": "Bamboutos"
+      },
+      {
+        "id": "OU-GAL",
+        "nom": "Galim",
+        "code": "GAL",
+        "departement": "Bamboutos"
+      },
+      {
+        "id": "OU-MBO",
+        "nom": "Mbouda",
+        "code": "MBO",
+        "departement": "Bamboutos"
+      },
+      {
+        "id": "OU-BAF",
+        "nom": "Bafang",
+        "code": "BAF",
+        "departement": "Haut-Nkam"
+      },
+      {
+        "id": "OU-BKU",
+        "nom": "Bakou",
+        "code": "BKU",
+        "departement": "Haut-Nkam"
+      },
+      {
+        "id": "OU-BAN",
+        "nom": "Bana",
+        "code": "BAN",
+        "departement": "Haut-Nkam"
+      },
+      {
+        "id": "OU-BDJ",
+        "nom": "Bandja",
+        "code": "BDJ",
+        "departement": "Haut-Nkam"
+      },
+      {
+        "id": "OU-BNK",
+        "nom": "Banka",
+        "code": "BNK",
+        "departement": "Haut-Nkam"
+      },
+      {
+        "id": "OU-BNW",
+        "nom": "Banwa",
+        "code": "BNW",
+        "departement": "Haut-Nkam"
+      },
+      {
+        "id": "OU-KEK",
+        "nom": "Kekem",
+        "code": "KEK",
+        "departement": "Haut-Nkam"
+      },
+      {
+        "id": "OU-BHM",
+        "nom": "Baham",
+        "code": "BHM",
+        "departement": "Hauts-Plateaux"
+      },
+      {
+        "id": "OU-BGO",
+        "nom": "Bangou",
+        "code": "BGO",
+        "departement": "Hauts-Plateaux"
+      },
+      {
+        "id": "OU-BTE",
+        "nom": "Batie",
+        "code": "BTE",
+        "departement": "Hauts-Plateaux"
+      },
+      {
+        "id": "OU-BAY",
+        "nom": "Bayangam",
+        "code": "BAY",
+        "departement": "Hauts-Plateaux"
+      },
+      {
+        "id": "OU-BDN",
+        "nom": "Bandjoun",
+        "code": "BDN",
+        "departement": "Koung-Khi"
+      },
+      {
+        "id": "OU-DEM",
+        "nom": "Demdeng",
+        "code": "DEM",
+        "departement": "Koung-Khi"
+      },
+      {
+        "id": "OU-POUH",
+        "nom": "Pouhouo",
+        "code": "POUH",
+        "departement": "Koung-Khi"
+      },
+      {
+        "id": "OU-DSC",
+        "nom": "Dschang",
+        "code": "DSC",
+        "departement": "Menoua"
+      },
+      {
+        "id": "OU-FOK",
+        "nom": "Fokoué",
+        "code": "FOK",
+        "departement": "Menoua"
+      },
+      {
+        "id": "OU-FGT",
+        "nom": "Fongo-Tongo",
+        "code": "FGT",
+        "departement": "Menoua"
+      },
+      {
+        "id": "OU-NKZ",
+        "nom": "Nkong-Zem",
+        "code": "NKZ",
+        "departement": "Menoua"
+      },
+      {
+        "id": "OU-PEN",
+        "nom": "Penka-Michel",
+        "code": "PEN",
+        "departement": "Menoua"
+      },
+      {
+        "id": "OU-SAN",
+        "nom": "Santchou",
+        "code": "SAN",
+        "departement": "Menoua"
+      },
+      {
+        "id": "OU-BF1",
+        "nom": "Bafoussam Iᵉʳ",
+        "code": "BF1",
+        "departement": "Mifi"
+      },
+      {
+        "id": "OU-BF2",
+        "nom": "Bafoussam IIᵉ",
+        "code": "BF2",
+        "departement": "Mifi"
+      },
+      {
+        "id": "OU-BF3",
+        "nom": "Bafoussam IIIᵉ",
+        "code": "BF3",
+        "departement": "Mifi"
+      },
+      {
+        "id": "OU-BGT",
+        "nom": "Bangangté",
+        "code": "BGT",
+        "departement": "Ndé"
+      },
+      {
+        "id": "OU-BAS",
+        "nom": "Bassamba",
+        "code": "BAS",
+        "departement": "Ndé"
+      },
+      {
+        "id": "OU-BAZ",
+        "nom": "Bazou",
+        "code": "BAZ",
+        "departement": "Ndé"
+      },
+      {
+        "id": "OU-TON",
+        "nom": "Tonga",
+        "code": "TON",
+        "departement": "Ndé"
+      },
+      {
+        "id": "OU-BGR",
+        "nom": "Bangourain",
+        "code": "BGR",
+        "departement": "Noun"
+      },
+      {
+        "id": "OU-FMB",
+        "nom": "Foumban",
+        "code": "FMB",
+        "departement": "Noun"
+      },
+      {
+        "id": "OU-FBT",
+        "nom": "Foumbot",
+        "code": "FBT",
+        "departement": "Noun"
+      },
+      {
+        "id": "OU-KOU",
+        "nom": "Kouoptamo",
+        "code": "KOU",
+        "departement": "Noun"
+      },
+      {
+        "id": "OU-KTB",
+        "nom": "Koutaba",
+        "code": "KTB",
+        "departement": "Noun"
+      },
+      {
+        "id": "OU-MAG",
+        "nom": "Magba",
+        "code": "MAG",
+        "departement": "Noun"
+      },
+      {
+        "id": "OU-MAL",
+        "nom": "Malentouen",
+        "code": "MAL",
+        "departement": "Noun"
+      },
+      {
+        "id": "OU-MAS",
+        "nom": "Massangam",
+        "code": "MAS",
+        "departement": "Noun"
+      },
+      {
+        "id": "OU-NJM",
+        "nom": "Njimom",
+        "code": "NJM",
+        "departement": "Noun"
+      }
+    ]
+  },
+  {
+    "id": "SU",
+    "nom": "Sud",
+    "chefLieu": "Ebolowa",
+    "code": "09",
+    "communes": [
+      {
+        "id": "SU-BEN",
+        "nom": "Bengbis",
+        "code": "BEN",
+        "departement": "Dja-et-Lobo"
+      },
+      {
+        "id": "SU-DJO",
+        "nom": "Djoum",
+        "code": "DJO",
+        "departement": "Dja-et-Lobo"
+      },
+      {
+        "id": "SU-MYS",
+        "nom": "Meyomessala",
+        "code": "MYS",
+        "departement": "Dja-et-Lobo"
+      },
+      {
+        "id": "SU-MYI",
+        "nom": "Meyomessi",
+        "code": "MYI",
+        "departement": "Dja-et-Lobo"
+      },
+      {
+        "id": "SU-MIN",
+        "nom": "Mintom",
+        "code": "MIN",
+        "departement": "Dja-et-Lobo"
+      },
+      {
+        "id": "SU-OVA",
+        "nom": "Ovang",
+        "code": "OVA",
+        "departement": "Dja-et-Lobo"
+      },
+      {
+        "id": "SU-SNG",
+        "nom": "Sangmélima",
+        "code": "SNG",
+        "departement": "Dja-et-Lobo"
+      },
+      {
+        "id": "SU-ZOE",
+        "nom": "Zoétélé",
+        "code": "ZOE",
+        "departement": "Dja-et-Lobo"
+      },
+      {
+        "id": "SU-BWB",
+        "nom": "Biwong-Bane",
+        "code": "BWB",
+        "departement": "Mvila"
+      },
+      {
+        "id": "SU-BWU",
+        "nom": "Biwong-Bulu",
+        "code": "BWU",
+        "departement": "Mvila"
+      },
+      {
+        "id": "SU-EB1",
+        "nom": "Ebolowa Iᵉʳ",
+        "code": "EB1",
+        "departement": "Mvila"
+      },
+      {
+        "id": "SU-EB2",
+        "nom": "Ebolowa IIᵉ",
+        "code": "EB2",
+        "departement": "Mvila"
+      },
+      {
+        "id": "SU-EFO",
+        "nom": "Efoulan",
+        "code": "EFO",
+        "departement": "Mvila"
+      },
+      {
+        "id": "SU-MEN",
+        "nom": "Mengong",
+        "code": "MEN",
+        "departement": "Mvila"
+      },
+      {
+        "id": "SU-MVA",
+        "nom": "Mvangan",
+        "code": "MVA",
+        "departement": "Mvila"
+      },
+      {
+        "id": "SU-NGO",
+        "nom": "Ngoulémakong",
+        "code": "NGO",
+        "departement": "Mvila"
+      },
+      {
+        "id": "SU-AK2",
+        "nom": "Akom II",
+        "code": "AK2",
+        "departement": "Océan"
+      },
+      {
+        "id": "SU-BIP",
+        "nom": "Bipindi",
+        "code": "BIP",
+        "departement": "Océan"
+      },
+      {
+        "id": "SU-CAM",
+        "nom": "Campo",
+        "code": "CAM",
+        "departement": "Océan"
+      },
+      {
+        "id": "SU-KR1",
+        "nom": "Kribi Iᵉʳ",
+        "code": "KR1",
+        "departement": "Océan"
+      },
+      {
+        "id": "SU-KR2",
+        "nom": "Kribi IIᵉ",
+        "code": "KR2",
+        "departement": "Océan"
+      },
+      {
+        "id": "SU-LOK",
+        "nom": "Lokoundjé",
+        "code": "LOK",
+        "departement": "Océan"
+      },
+      {
+        "id": "SU-LOL",
+        "nom": "Lolodorf",
+        "code": "LOL",
+        "departement": "Océan"
+      },
+      {
+        "id": "SU-MVE",
+        "nom": "Mvengue",
+        "code": "MVE",
+        "departement": "Océan"
+      },
+      {
+        "id": "SU-NIE",
+        "nom": "Niete",
+        "code": "NIE",
+        "departement": "Océan"
+      },
+      {
+        "id": "SU-AMB",
+        "nom": "Ambam",
+        "code": "AMB",
+        "departement": "Vallée-du-Ntem"
+      },
+      {
+        "id": "SU-KYO",
+        "nom": "Kyé-Ossi",
+        "code": "KYO",
+        "departement": "Vallée-du-Ntem"
+      },
+      {
+        "id": "SU-MAA",
+        "nom": "Ma'an",
+        "code": "MAA",
+        "departement": "Vallée-du-Ntem"
+      },
+      {
+        "id": "SU-OLA",
+        "nom": "Olamze",
+        "code": "OLA",
+        "departement": "Vallée-du-Ntem"
+      }
+    ]
+  },
+  {
+    "id": "SW",
+    "nom": "Sud-Ouest",
+    "chefLieu": "Buéa",
+    "code": "10",
+    "communes": [
+      {
+        "id": "SW-BUE",
+        "nom": "Buéa",
+        "code": "BUE",
+        "departement": "Fako"
+      },
+      {
+        "id": "SW-IDEN",
+        "nom": "Idenau",
+        "code": "IDEN",
+        "departement": "Fako"
+      },
+      {
+        "id": "SW-LB1",
+        "nom": "Limbé Iᵉʳ",
+        "code": "LB1",
+        "departement": "Fako"
+      },
+      {
+        "id": "SW-LB2",
+        "nom": "Limbé IIᵉ",
+        "code": "LB2",
+        "departement": "Fako"
+      },
+      {
+        "id": "SW-LB3",
+        "nom": "Limbé IIIᵉ",
+        "code": "LB3",
+        "departement": "Fako"
+      },
+      {
+        "id": "SW-MUY",
+        "nom": "Muyuka",
+        "code": "MUY",
+        "departement": "Fako"
+      },
+      {
+        "id": "SW-TIK",
+        "nom": "Tiko",
+        "code": "TIK",
+        "departement": "Fako"
+      },
+      {
+        "id": "SW-BGM",
+        "nom": "Bangem",
+        "code": "BGM",
+        "departement": "Koupé-Manengouba"
+      },
+      {
+        "id": "SW-NGU",
+        "nom": "Nguti",
+        "code": "NGU",
+        "departement": "Koupé-Manengouba"
+      },
+      {
+        "id": "SW-TOM",
+        "nom": "Tombel",
+        "code": "TOM",
+        "departement": "Koupé-Manengouba"
+      },
+      {
+        "id": "SW-ALO",
+        "nom": "Alou",
+        "code": "ALO",
+        "departement": "Lebialem"
+      },
+      {
+        "id": "SW-MEN",
+        "nom": "Menji",
+        "code": "MEN",
+        "departement": "Lebialem"
+      },
+      {
+        "id": "SW-WAB",
+        "nom": "Wabane",
+        "code": "WAB",
+        "departement": "Lebialem"
+      },
+      {
+        "id": "SW-AKW",
+        "nom": "Akwaya",
+        "code": "AKW",
+        "departement": "Manyu"
+      },
+      {
+        "id": "SW-EYU",
+        "nom": "Eyumodjock",
+        "code": "EYU",
+        "departement": "Manyu"
+      },
+      {
+        "id": "SW-MAM",
+        "nom": "Mamfé",
+        "code": "MAM",
+        "departement": "Manyu"
+      },
+      {
+        "id": "SW-UPB",
+        "nom": "Upper Bayang",
+        "code": "UPB",
+        "departement": "Manyu"
+      },
+      {
+        "id": "SW-KON",
+        "nom": "Konye",
+        "code": "KON",
+        "departement": "Meme"
+      },
+      {
+        "id": "SW-KB1",
+        "nom": "Kumba Iᵉʳ",
+        "code": "KB1",
+        "departement": "Meme"
+      },
+      {
+        "id": "SW-KB2",
+        "nom": "Kumba IIᵉ",
+        "code": "KB2",
+        "departement": "Meme"
+      },
+      {
+        "id": "SW-KB3",
+        "nom": "Kumba IIIᵉ",
+        "code": "KB3",
+        "departement": "Meme"
+      },
+      {
+        "id": "SW-MBO",
+        "nom": "Mbonge",
+        "code": "MBO",
+        "departement": "Meme"
+      },
+      {
+        "id": "SW-BAM",
+        "nom": "Bamusso",
+        "code": "BAM",
+        "departement": "Ndian"
+      },
+      {
+        "id": "SW-DIK",
+        "nom": "Dikome-Balue",
+        "code": "DIK",
+        "departement": "Ndian"
+      },
+      {
+        "id": "SW-EKO",
+        "nom": "Ekondo-Titi",
+        "code": "EKO",
+        "departement": "Ndian"
+      },
+      {
+        "id": "SW-IDAB",
+        "nom": "Idabato",
+        "code": "IDAB",
+        "departement": "Ndian"
+      },
+      {
+        "id": "SW-ISA",
+        "nom": "Isanguele",
+        "code": "ISA",
+        "departement": "Ndian"
+      },
+      {
+        "id": "SW-KMA",
+        "nom": "Kombo-Abedimo",
+        "code": "KMA",
+        "departement": "Ndian"
+      },
+      {
+        "id": "SW-KOMB",
+        "nom": "Kombo-Itindi",
+        "code": "KOMB",
+        "departement": "Ndian"
+      },
+      {
+        "id": "SW-MUN",
+        "nom": "Mundemba",
+        "code": "MUN",
+        "departement": "Ndian"
+      },
+      {
+        "id": "SW-TOK",
+        "nom": "Toko",
+        "code": "TOK",
+        "departement": "Ndian"
+      }
+    ]
+  }
+]
