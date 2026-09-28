@@ -1,26 +1,26 @@
-export type TypeActe = 
-  | 'ACTE_NAISSANCE' 
-  | 'ACTE_MARIAGE' 
-  | 'ACTE_DECES' 
-  | 'DECLARATION_TARDIVE_JUGEMENT_SUPPLETIF';
+export type TypeActe =
+  | "ACTE_NAISSANCE"
+  | "ACTE_MARIAGE"
+  | "ACTE_DECES"
+  | "DECLARATION_TARDIVE_JUGEMENT_SUPPLETIF";
 
-export type StatutDossier = 
-  | 'DEPOSE' 
-  | 'EN_INSTRUCTION' 
-  | 'VALIDATION_SIGNEE' 
-  | 'PRET_DELIVRANCE' 
-  | 'REJETE_BLOQUE';
+export type StatutDossier =
+  | "DEPOSE"
+  | "EN_INSTRUCTION"
+  | "VALIDATION_SIGNEE"
+  | "PRET_DELIVRANCE"
+  | "REJETE_BLOQUE";
 
-export type StatutBan = 
-  | 'EN_COURS_AFFICHAGE' 
-  | 'EXPIRANT_SOUS_48H' 
-  | 'CLOTURE_SANS_OPPOSITION' 
-  | 'OPPOSITION_ENREGISTREE';
+export type StatutBan =
+  | "EN_COURS_AFFICHAGE"
+  | "EXPIRANT_SOUS_48H"
+  | "CLOTURE_SANS_OPPOSITION"
+  | "OPPOSITION_ENREGISTREE";
 
-export type RegimeMatrimonial = 
-  | 'MONOGAMIE_BIENS_COMMUNS' 
-  | 'MONOGAMIE_SEPARATION_BIENS' 
-  | 'POLYGAMIE';
+export type RegimeMatrimonial =
+  | "MONOGAMIE_BIENS_COMMUNS"
+  | "MONOGAMIE_SEPARATION_BIENS"
+  | "POLYGAMIE";
 
 export interface Commune {
   id: string;
@@ -39,14 +39,14 @@ export interface Region {
 export interface CentreEtatCivil {
   id: string;
   nom: string;
-  type: 'PRINCIPAL' | 'SECONDAIRE';
+  type: "PRINCIPAL" | "SECONDAIRE";
   code: string;
 }
 
 export interface EtapeCycleVie {
-  numero: 1 | 2 | 3 | 4;
+  numero: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
   nom: string;
-  statut: 'COMPLETED' | 'CURRENT' | 'PENDING' | 'REJECTED';
+  statut: "COMPLETED" | "CURRENT" | "PENDING" | "REJECTED";
   horodatage: string | null;
   description: string;
   acteur?: string;
@@ -56,6 +56,7 @@ export interface EtapeCycleVie {
 
 export interface DossierSuiviDetail {
   id: string;
+  bat?: { dossierId: string; available: boolean; document?: unknown };
   bunecTrackingId: string;
   numeroRecepisse: string;
   typeActe: TypeActe;
@@ -69,13 +70,15 @@ export interface DossierSuiviDetail {
     numeroSequentiel: number;
   };
   demandeur: {
-    nom: string;
+    nom?: string;
+    nomComplet?: string;
     prenom?: string;
-    telephoneMasque: string;
+    telephoneMasque?: string;
+    telephone?: string;
   };
   cycleDeVie: {
-    etapeCourante: 1 | 2 | 3 | 4;
-    codeCouleur: 'green' | 'amber' | 'red';
+    etapeCourante: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+    codeCouleur: "green" | "amber" | "red";
     statutActuel: StatutDossier;
     libelleStatut: string;
     motifBlocage?: {

@@ -1,9 +1,14 @@
-import crypto from 'crypto';
+import crypto from "crypto";
 
 export interface BunecStatusTransitionPayload {
   trackingId: string;
   numeroRecepisse: string;
-  statutNouveau: 'DEPOSE' | 'EN_INSTRUCTION' | 'VALIDATION_SIGNEE' | 'PRET_DELIVRANCE' | 'REJETE_BLOQUE';
+  statutNouveau:
+    | "DEPOSE"
+    | "EN_INSTRUCTION"
+    | "VALIDATION_SIGNEE"
+    | "PRET_DELIVRANCE"
+    | "REJETE_BLOQUE";
   etape: 1 | 2 | 3 | 4;
   agentMatricule: string;
   motifRejetCode?: string;
@@ -15,21 +20,33 @@ export interface BunecStatusTransitionPayload {
 }
 
 export class BunecSyncService {
-  private static BUNEC_HMAC_SECRET = process.env.BUNEC_HMAC_SECRET || 'bunec_sovereign_secret_key_2026';
-  private static BUNEC_API_URL = process.env.BUNEC_CENTRAL_URL || 'https://central.bunec.cm/api/v1';
+  private static BUNEC_HMAC_SECRET =
+    process.env.BUNEC_HMAC_SECRET ||
+    (process.env.NODE_ENV === "production"
+      ? (() => {
+          throw new Error(
+            "BUNEC_HMAC_SECRET must be configured in production.",
+          );
+        })()
+      : "dev-bunec-hmac-secret");
+  private static BUNEC_API_URL =
+    process.env.BUNEC_CENTRAL_URL || "https://central.bunec.cm/api/v1";
 
   /**
    * Vérifie la signature HMAC-SHA256 d'un webhook émis par le système central BUNEC
    */
-  public static verifyWebhookSignature(payload: string, receivedSignature: string): boolean {
+  public static verifyWebhookSignature(
+    payload: string,
+    receivedSignature: string,
+  ): boolean {
     const computedSignature = crypto
-      .createHmac('sha256', this.BUNEC_HMAC_SECRET)
+      .createHmac("sha256", this.BUNEC_HMAC_SECRET)
       .update(payload)
-      .digest('hex');
+      .digest("hex");
 
     return crypto.timingSafeEqual(
-      Buffer.from(computedSignature, 'utf8'),
-      Buffer.from(receivedSignature, 'utf8')
+      Buffer.from(computedSignature, "utf8"),
+      Buffer.from(receivedSignature, "utf8"),
     );
   }
 
@@ -43,9 +60,9 @@ export class BunecSyncService {
     centreCode: string,
     annee: number,
     typeActeCode: string,
-    seq: number
+    seq: number,
   ): string {
-    const paddedSeq = String(seq).padStart(6, '0');
+    const paddedSeq = String(seq).padStart(6, "0");
     return `${regionId}-${communeCode}-${centreCode}-${annee}-${typeActeCode}-${paddedSeq}`;
   }
 
@@ -62,7 +79,9 @@ export class BunecSyncService {
     convocation?: string;
     motifRejet?: string;
   }): Promise<{ sms: boolean; whatsapp: boolean; email: boolean }> {
-    console.log(`[BUNEC-NOTIF] Envoi notification transition état pour dossier ${params.trackingId} vers ${params.telephone}`);
+    console.log(
+      `[BUNEC-NOTIF] Envoi notification transition état pour dossier ${params.trackingId} vers ${params.telephone}`,
+    );
 
     const messageCitoyen = this.buildNotificationMessage(params);
 
@@ -70,7 +89,7 @@ export class BunecSyncService {
     const results = {
       sms: true,
       whatsapp: true,
-      email: !!params.email
+      email: !!params.email,
     };
 
     // Logique réelle d'intégration des passerelles :
@@ -88,14 +107,14 @@ export class BunecSyncService {
     motifRejet?: string;
   }): string {
     switch (params.nouveauStatut) {
-      case 'EN_INSTRUCTION':
+      case "EN_INSTRUCTION":
         return `[BUNEC] Votre dossier ${params.trackingId} est en cours d'instruction et vérification juridique en mairie.`;
-      case 'VALIDATION_SIGNEE':
+      case "VALIDATION_SIGNEE":
         return `[BUNEC] Félicitations ! Votre acte ${params.trackingId} a été validé et signé électroniquement par l'Officier.`;
-      case 'PRET_DELIVRANCE':
-        return `[BUNEC] Votre acte ${params.trackingId} est DISPONIBLE AU GUICHET. Rendez-vous muni de votre récépissé ${params.convocation ? `le ${params.convocation}` : ''}.`;
-      case 'REJETE_BLOQUE':
-        return `[BUNEC-ATTENTION] Dossier ${params.trackingId} bloqué : ${params.motifRejet || 'Pièce non conforme'}. Veuillez vous rapprocher de votre centre.`;
+      case "PRET_DELIVRANCE":
+        return `[BUNEC] Votre acte ${params.trackingId} est DISPONIBLE AU GUICHET. Rendez-vous muni de votre récépissé ${params.convocation ? `le ${params.convocation}` : ""}.`;
+      case "REJETE_BLOQUE":
+        return `[BUNEC-ATTENTION] Dossier ${params.trackingId} bloqué : ${params.motifRejet || "Pièce non conforme"}. Veuillez vous rapprocher de votre centre.`;
       default:
         return `[BUNEC] Votre dossier ${params.trackingId} a été enregistré avec succès.`;
     }

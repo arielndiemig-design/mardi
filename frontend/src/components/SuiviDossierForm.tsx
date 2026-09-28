@@ -1,478 +1,565 @@
-import React, { useState, useMemo } from 'react';
-import { CAMEROUN_REGIONS_DATA } from '../data/camerounAdministrativeData';
-import { TypeActe, DossierSuiviDetail } from '../types';
-import { TimelineDossier } from './TimelineDossier';
+import React, { useMemo, useRef, useState } from "react";
+import { DossierSuiviDetail, TypeActe } from "../types";
 
-export const SuiviDossierForm: React.FC = () => {
-  // Service sélectionné en haut
-  const [activeService, setActiveService] = useState<'SUIVI' | 'BANS' | 'DR'>('SUIVI');
+type Lang = "fr" | "en";
 
-  // Champs de saisie précis
-  const [selectedRegionId, setSelectedRegionId] = useState<string>('CE');
-  const [selectedCommuneId, setSelectedCommuneId] = useState<string>('CE-YA1');
-  const [numeroDeclaration, setNumeroDeclaration] = useState<string>('DEC-2026-001249');
-  const [numeroTelephone, setNumeroTelephone] = useState<string>('699 12 34 56');
+type Props = {
+  language?: Lang;
+  onRechercheDebut?: () => void;
+  onDossierTrouve?: (dossier: DossierSuiviDetail) => void;
+};
 
-  // État de chargement et détection
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [typeActeIdentifie, setTypeActeIdentifie] = useState<{
-    code: TypeActe;
-    titre: string;
-    icone: string;
-    registre: string;
-    description: string;
-  } | null>(null);
+const typeOptions: Array<{
+  code: TypeActe;
+  labelFr: string;
+  labelEn: string;
+  icon: string;
+}> = [
+  {
+    code: "ACTE_NAISSANCE",
+    labelFr: "Naissance",
+    labelEn: "Birth",
+    icon: "👶",
+  },
+  { code: "ACTE_MARIAGE", labelFr: "Mariage", labelEn: "Marriage", icon: "💍" },
+  { code: "ACTE_DECES", labelFr: "Décès", labelEn: "Death", icon: "🕊️" },
+];
 
-  const [dossierResult, setDossierResult] = useState<DossierSuiviDetail | null>(null);
-  const [testColor, setTestColor] = useState<'green' | 'amber' | 'red'>('amber');
+const suggestionCatalog: Record<string, string[]> = {
+  numeroReference: [
+    "REF-2026-001245",
+    "REF-2026-001246",
+    "REF-2026-001247",
+    "REF-2026-001248",
+    "REF-2026-001249",
+  ],
+  numeroDeclaration: [
+    "DEC-2026-001249",
+    "MAR-2026-004011",
+    "DEC-2026-004208",
+    "NAI-2026-002315",
+    "MAR-2026-007025",
+  ],
+  nomEnfant: [
+    "Jean Luc Mballa",
+    "Marie Eve Ndombe",
+    "Aubin Tchoua",
+    "Nadia Fokou",
+    "Esther Moukoko",
+  ],
+  nomConjoint: [
+    "Ebelle Samuel",
+    "Fotso Hervé",
+    "Kouassi Daniel",
+    "Ngono Clarisse",
+    "Moundi Éric",
+  ],
+  nomDecede: [
+    "Fouda Roger",
+    "Mbang Joseph",
+    "Etoe Martin",
+    "Noutchou",
+    "Tchumeni Nathalie",
+  ],
+  telephone: ["699123456", "655987321", "675442800", "677889012", "650774112"],
+};
 
-  // Communes disponibles
-  const availableCommunes = useMemo(() => {
-    const region = CAMEROUN_REGIONS_DATA.find((r) => r.id === selectedRegionId);
-    return region ? region.communes : [];
-  }, [selectedRegionId]);
+const translations = {
+  fr: {
+    title: "Suivi de dossier",
+    subtitle: "Recherche rapide",
+    typeActe: "Type d’acte",
+    centre: "Centre d’état civil",
+    reference: "N° de référence",
+    declaration: "N° de déclaration",
+    telephone: "Numéro de téléphone",
+    email: "Email",
+    childName: "Nom de l’enfant",
+    marriageName: "Noms des époux",
+    deceasedName: "Nom de la personne concernée",
+    search: "Rechercher mon dossier",
+    verifyOtp: "Vérifier le code OTP",
+    otpLabel: "Code OTP",
+    noResult: "Aucune correspondance trouvée pour les informations saisies.",
+    found: "Dossier trouvé",
+    ready: "BAT disponible",
+    inProgress: "Dossier en cours de traitement",
+    otpMessage: "Saisissez le code reçu par email pour consulter le statut.",
+  },
+  en: {
+    title: "File tracking",
+    subtitle: "Quick search",
+    typeActe: "Act type",
+    centre: "Civil registry center",
+    reference: "Ref. no",
+    declaration: "Decl. no",
+    telephone: "Phone number",
+    email: "Email",
+    childName: "Child name",
+    marriageName: "Spouses’ names",
+    deceasedName: "Name of the person concerned",
+    search: "Search my file",
+    verifyOtp: "Verify OTP code",
+    otpLabel: "OTP code",
+    noResult: "No match found for the entered information.",
+    found: "File found",
+    ready: "BAT available",
+    inProgress: "File in progress",
+    otpMessage: "Enter the code received by email to view the file status.",
+  },
+} as const;
 
-  // Déclenchement de la recherche
-  const handleRechercheDossier = (couleur: 'green' | 'amber' | 'red' = testColor) => {
-    setIsLoading(true);
+const centreOptions = [
+  "Centre d’État Civil de Yaoundé",
+  "Centre d’État Civil de Douala",
+  "Centre d’État Civil de Bafoussam",
+  "Centre d’État Civil de Garoua",
+  "Centre d’État Civil de Bertoua",
+];
 
-    // 1. Identification automatique du type d'acte d'après le numéro de déclaration
-    const numUpper = numeroDeclaration.toUpperCase();
-    let typeDetecte: {
-      code: TypeActe;
-      titre: string;
-      icone: string;
-      registre: string;
-      description: string;
-      demandeur: string;
-    } = {
-      code: 'ACTE_NAISSANCE',
-      titre: 'ACTE DE NAISSANCE',
-      icone: '👶',
-      registre: 'Registre A (Naissances)',
-      description: 'Déclaration et enregistrement de naissance de premier degré',
-      demandeur: 'TCHOUA MBALLA Christian Lionel'
-    };
+export const SuiviDossierForm: React.FC<Props> = ({
+  language = "fr",
+  onRechercheDebut,
+  onDossierTrouve,
+}) => {
+  const [typeActe, setTypeActe] = useState<TypeActe>("ACTE_NAISSANCE");
+  const [centreEtatCivil, setCentreEtatCivil] = useState(centreOptions[0]);
+  const [numeroReference, setNumeroReference] = useState("");
+  const [numeroDeclaration, setNumeroDeclaration] = useState("");
+  const [numeroTelephone, setNumeroTelephone] = useState("");
+  const [email, setEmail] = useState("");
+  const [nomEnfant, setNomEnfant] = useState("");
+  const [nomsEpoux, setNomsEpoux] = useState("");
+  const [nomDecede, setNomDecede] = useState("");
+  const [otpCode, setOtpCode] = useState("");
+  const [otpRequired, setOtpRequired] = useState(false);
+  const [notificationInfo, setNotificationInfo] = useState("");
+  const [pendingDossierId, setPendingDossierId] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const searchSequence = useRef(0);
 
-    if (numUpper.includes('MAR') || numUpper.includes('AM') || numUpper.includes('BAN')) {
-      typeDetecte = {
-        code: 'ACTE_MARIAGE',
-        titre: 'ACTE DE MARIAGE',
-        icone: '💍',
-        registre: 'Registre B (Mariages)',
-        description: 'Célébration matrimoniale et enregistrement d’acte de mariage civil',
-        demandeur: 'EBELLE Samuel & NGONO Clarisse'
-      };
-    } else if (numUpper.includes('DEC') && (numUpper.includes('DECES') || numUpper.includes('AD'))) {
-      typeDetecte = {
-        code: 'ACTE_DECES',
-        titre: 'ACTE DE DÉCÈS',
-        icone: '🕊️',
-        registre: 'Registre C (Décès)',
-        description: 'Constatation légale et déclaration d’acte de décès',
-        demandeur: 'Ayants droit de feu FOTSO Émile'
-      };
-    } else if (numUpper.includes('JUG') || numUpper.includes('TARD')) {
-      typeDetecte = {
-        code: 'DECLARATION_TARDIVE_JUGEMENT_SUPPLETIF',
-        titre: 'DÉCLARATION TARDIVE / JUGEMENT SUPPLÉTIF',
-        icone: '⚖️',
-        registre: 'Registre D (Supplétifs)',
-        description: 'Transcription d’ordonnance de jugement supplétif rendu par le Tribunal',
-        demandeur: 'Requérant KAMDEM Joseph'
-      };
-    }
+  const t = translations[language];
 
-    setTypeActeIdentifie(typeDetecte);
+  const activeFieldLabel = useMemo(() => {
+    if (typeActe === "ACTE_NAISSANCE") return t.childName;
+    if (typeActe === "ACTE_MARIAGE") return t.marriageName;
+    return t.deceasedName;
+  }, [typeActe, t]);
 
-    const regionObj = CAMEROUN_REGIONS_DATA.find((r) => r.id === selectedRegionId);
-    const communeObj = availableCommunes.find((c) => c.id === selectedCommuneId);
+  const getDynamicSuggestions = (field: string, value: string) => {
+    const source = suggestionCatalog[field] ?? [];
+    if (!value.trim()) return source.slice(0, 5);
+    const typed = value.toLowerCase();
+    return source
+      .filter((item) => item.toLowerCase().includes(typed))
+      .slice(0, 5);
+  };
 
-    // 2. Construction du cycle de vie
-    let cycleDeVieMock: DossierSuiviDetail['cycleDeVie'];
-    if (couleur === 'green') {
-      cycleDeVieMock = {
-        etapeCourante: 4,
-        codeCouleur: 'green',
-        statutActuel: 'PRET_DELIVRANCE',
-        libelleStatut: 'DISPONIBLE AU GUICHET — PRÊT POUR RETRAIT',
-        motifBlocage: null,
-        etapes: [
-          { numero: 1, nom: 'Dossier déposé et enregistré', statut: 'COMPLETED', horodatage: '2026-08-25T08:30:00Z', description: 'Enregistrement initial. Identifiant BUNEC unique généré.' },
-          { numero: 2, nom: 'Instruction & Vérification juridique', statut: 'COMPLETED', horodatage: '2026-08-27T11:15:00Z', description: 'Concordance vérifiée des pièces d’état civil.' },
-          { numero: 3, nom: 'Validation & Signature de l’Officier', statut: 'COMPLETED', horodatage: '2026-09-02T14:45:00Z', description: 'Signature électronique qualifiée apposée.' },
-          { numero: 4, nom: 'Disponible au guichet / Prêt pour délivrance', statut: 'COMPLETED', horodatage: '2026-09-05T09:00:00Z', description: 'Votre acte original sécurisé est prêt au guichet.', convocation: 'Retrait ouvert au Guichet n°03 (sur présentation du récépissé).' }
-        ]
-      };
-    } else if (couleur === 'red') {
-      cycleDeVieMock = {
-        etapeCourante: 2,
-        codeCouleur: 'red',
-        statutActuel: 'REJETE_BLOQUE',
-        libelleStatut: 'PIÈCE REJETÉE — DOSSIER BLOQUÉ',
-        motifBlocage: {
-          code: 'REJ_01',
-          libelle: 'Discordance d’Identité & Certificat Médical Illisible',
-          description: 'L’orthographe du nom patronymique sur le certificat médical d’accouchement ne concorde pas avec la CNI légale.'
-        },
-        etapes: [
-          { numero: 1, nom: 'Dossier déposé et enregistré', statut: 'COMPLETED', horodatage: '2026-08-25T08:30:00Z', description: 'Enregistrement initial au guichet n°02.' },
-          { numero: 2, nom: 'Instruction & Vérification juridique', statut: 'REJECTED', horodatage: '2026-08-27T11:15:00Z', description: 'Instruction bloquée : anomalie constatée sur les pièces requises.' },
-          { numero: 3, nom: 'Validation & Signature de l’Officier', statut: 'PENDING', horodatage: null, description: 'En attente de régularisation des pièces.' },
-          { numero: 4, nom: 'Disponible au guichet / Prêt pour délivrance', statut: 'PENDING', horodatage: null, description: 'Délivrance suspendue.' }
-        ]
-      };
-    } else {
-      cycleDeVieMock = {
-        etapeCourante: 3,
-        codeCouleur: 'amber',
-        statutActuel: 'VALIDATION_SIGNEE',
-        libelleStatut: 'EN COURS D’INSTRUCTION ADMINISTRATIVE',
-        motifBlocage: null,
-        etapes: [
-          { numero: 1, nom: 'Dossier déposé et enregistré', statut: 'COMPLETED', horodatage: '2026-08-25T08:30:00Z', description: 'Enregistrement initial. Identifiant BUNEC certifié généré.' },
-          { numero: 2, nom: 'Instruction & Vérification juridique', statut: 'COMPLETED', horodatage: '2026-08-27T11:15:00Z', description: 'Vérification de concordance du certificat médical et témoins.' },
-          { numero: 3, nom: 'Validation & Signature de l’Officier', statut: 'CURRENT', horodatage: '2026-09-02T14:45:00Z', description: 'En attente d’apposition de la signature de l’Officier d’État Civil.' },
-          { numero: 4, nom: 'Disponible au guichet / Prêt pour délivrance', statut: 'PENDING', horodatage: null, description: 'Convocation programmée dès signature effective.', convocation: 'Créneau estimé : 10/09/2026 de 09h00 à 11h30 (Guichet 02)' }
-        ]
-      };
-    }
+  const getFieldValue = () => {
+    if (typeActe === "ACTE_NAISSANCE") return nomEnfant;
+    if (typeActe === "ACTE_MARIAGE") return nomsEpoux;
+    return nomDecede;
+  };
 
-    setDossierResult({
-      id: 'dossier-mock-id-2026',
-      bunecTrackingId: `${selectedRegionId}-${selectedCommuneId.replace(/^[A-Z]+-/, '')}-00-2026-AN-001249`,
-      numeroRecepisse: numeroDeclaration,
-      typeActe: typeDetecte.code,
-      localisation: {
-        region: regionObj?.nom || 'Centre',
-        regionId: selectedRegionId,
-        commune: communeObj?.nom || 'Yaoundé Iᵉʳ',
-        communeId: selectedCommuneId,
-        centre: `Centre d’État Civil Principal de ${communeObj?.nom || 'Yaoundé Iᵉʳ'}`,
-        annee: 2026,
-        numeroSequentiel: 1249
-      },
-      demandeur: {
-        nom: typeDetecte.demandeur,
-        telephoneMasque: `+237 ${numeroTelephone}`
-      },
-      cycleDeVie: cycleDeVieMock,
-      derniereMiseAJour: new Date().toISOString()
-    });
+  const setFieldValue = (value: string) => {
+    if (typeActe === "ACTE_NAISSANCE") setNomEnfant(value);
+    if (typeActe === "ACTE_MARIAGE") setNomsEpoux(value);
+    if (typeActe === "ACTE_DECES") setNomDecede(value);
+  };
 
+  const resetCurrentSearchState = () => {
+    setPendingDossierId("");
+    setOtpRequired(false);
+    setNotificationInfo("");
+    setOtpCode("");
+    setError("");
     setIsLoading(false);
   };
 
+  const buildSearchQuery = () => {
+    const params = new URLSearchParams();
+    const activeFieldValue = getFieldValue().trim();
+    if (numeroReference.trim())
+      params.set("numeroRecepisse", numeroReference.trim());
+    if (numeroDeclaration.trim())
+      params.set("numeroDeclaration", numeroDeclaration.trim());
+    if (numeroTelephone.trim()) params.set("telephone", numeroTelephone.trim());
+    if (email.trim()) params.set("email", email.trim());
+    if (activeFieldValue) params.set("search", activeFieldValue);
+    if (typeActe) params.set("typeActe", typeActe);
+    return params;
+  };
+
+  const handleSearchDossier = async () => {
+    const currentSequence = ++searchSequence.current;
+    resetCurrentSearchState();
+    onRechercheDebut?.();
+    const searchParams = buildSearchQuery();
+    const hasEnoughInfo =
+      getFieldValue().trim().length > 2 ||
+      numeroReference.trim() ||
+      numeroDeclaration.trim() ||
+      numeroTelephone.trim() ||
+      email.trim();
+
+    if (!hasEnoughInfo) {
+      setError(
+        language === "fr"
+          ? "Veuillez fournir au moins une information utile pour la recherche."
+          : "Please provide at least one useful search detail.",
+      );
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      const response = await fetch(
+        `/api/v1/dossiers/suivi?${searchParams.toString()}`,
+      );
+      const data = await response.json();
+
+      if (currentSequence !== searchSequence.current) return;
+
+      if (!response.ok || !data.success || data.found === false || data.error) {
+        onRechercheDebut?.();
+        resetCurrentSearchState();
+        setError(
+          data.error ||
+            (language === "fr"
+              ? "Aucun dossier correspondant aux informations saisies n’a été trouvé dans la base de données."
+              : "No dossier matching the entered information was found in the database."),
+        );
+        return;
+      }
+
+      const dossierId = data.dossier?.id || data.dossierId;
+      if (!dossierId) {
+        setError(
+          language === "fr"
+            ? "Le service n’a pas retourné d’identifiant de dossier valide."
+            : "The service did not return a valid file identifier.",
+        );
+        setIsLoading(false);
+        return;
+      }
+      setPendingDossierId(String(dossierId));
+      setOtpRequired(true);
+      const otpHint = data.otpCode
+        ? `Code OTP temporaire : ${data.otpCode}`
+        : "";
+      setNotificationInfo(
+        [
+          data.message ||
+            (language === "fr"
+              ? "Un code OTP a été envoyé pour sécuriser l’accès au statut."
+              : "An OTP code was sent to secure access to the file status."),
+          otpHint,
+        ]
+          .filter(Boolean)
+          .join(" "),
+      );
+      setOtpCode(data.otpCode || "");
+      setIsLoading(false);
+    } catch (err) {
+      if (currentSequence !== searchSequence.current) return;
+      setOtpRequired(false);
+      setNotificationInfo("");
+      setError(
+        language === "fr"
+          ? "Erreur de connexion au service de suivi."
+          : "Tracking service connection error.",
+      );
+      setIsLoading(false);
+    }
+  };
+
+  const handleOtpVerification = async () => {
+    if (!otpCode.trim()) {
+      setError(
+        language === "fr"
+          ? "Veuillez saisir le code OTP."
+          : "Please enter the OTP code.",
+      );
+      return;
+    }
+
+    const verifiedDossierId = pendingDossierId;
+    const verificationSequence = searchSequence.current;
+    try {
+      setIsLoading(true);
+      setError("");
+      const response = await fetch("/api/v1/dossiers/suivi/verification", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          dossierId: verifiedDossierId,
+          otp: otpCode.trim(),
+          email: email.trim(),
+        }),
+      });
+
+      const data = await response.json();
+
+      if (
+        !response.ok ||
+        !data.success ||
+        !data.dossier ||
+        String(data.dossier.id) !== verifiedDossierId ||
+        verifiedDossierId !== pendingDossierId ||
+        verificationSequence !== searchSequence.current
+      ) {
+        setError(
+          data.error ||
+            (language === "fr"
+              ? "Code OTP invalide ou expiré."
+              : "OTP code invalid or expired."),
+        );
+        setIsLoading(false);
+        return;
+      }
+
+      onDossierTrouve?.(data.dossier as DossierSuiviDetail);
+      setOtpRequired(false);
+      setNotificationInfo("");
+      setError("");
+      setIsLoading(false);
+    } catch (err) {
+      setError(
+        language === "fr"
+          ? "Vérification OTP impossible."
+          : "OTP verification failed.",
+      );
+      setIsLoading(false);
+    }
+  };
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (otpRequired) {
+      await handleOtpVerification();
+      return;
+    }
+
+    await handleSearchDossier();
+  };
+
+  const inputFields = [
+    {
+      key: "numeroReference",
+      label: t.reference,
+      value: numeroReference,
+      setValue: setNumeroReference,
+      placeholder: "REF-2026-001249",
+    },
+    {
+      key: "numeroDeclaration",
+      label: t.declaration,
+      value: numeroDeclaration,
+      setValue: setNumeroDeclaration,
+      placeholder: "DEC-2026-001249",
+    },
+    {
+      key: "phone",
+      label: t.telephone,
+      value: numeroTelephone,
+      setValue: setNumeroTelephone,
+      placeholder: "699123456",
+    },
+  ];
+
+  const dynamicValue = getFieldValue();
+  const suggestions = getDynamicSuggestions(
+    typeActe === "ACTE_NAISSANCE"
+      ? "nomEnfant"
+      : typeActe === "ACTE_MARIAGE"
+        ? "nomConjoint"
+        : "nomDecede",
+    dynamicValue,
+  );
+
   return (
-    <div className="max-w-6xl mx-auto space-y-8">
-      
-      {/* ================================================================== */}
-      <!-- 1. EN DESSUS : LES 3 ICÔNES D'ACTION                              -->
-      {/* ================================================================== */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        
-        {/* ICÔNE 1 : SUIVI */}
-        <button
-          type="button"
-          onClick={() => setActiveService('SUIVI')}
-          className={`p-5 rounded-2xl border text-left flex items-center gap-4 transition-all cursor-pointer ${
-            activeService === 'SUIVI'
-              ? 'border-emerald-600 bg-emerald-50/70 shadow-md ring-2 ring-emerald-500/20'
-              : 'border-slate-200 bg-white hover:border-emerald-300'
-          }`}
-        >
-          <div className="w-14 h-14 rounded-2xl bg-emerald-600 text-white flex items-center justify-center font-black text-2xl shadow-lg shadow-emerald-600/30 flex-shrink-0">
-            📋
-          </div>
-          <div>
-            <span className="text-[10px] font-black uppercase tracking-wider text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">
-              Service 1
-            </span>
-            <h3 className="text-lg font-black text-slate-900 mt-1 leading-tight">
-              Suivi de Dossier
-            </h3>
-            <p className="text-xs text-slate-500 mt-0.5">
-              Suivre l'avancement en direct
-            </p>
-          </div>
-        </button>
-
-        {/* ICÔNE 2 : PUBLICATION DE BANS */}
-        <button
-          type="button"
-          onClick={() => setActiveService('BANS')}
-          className={`p-5 rounded-2xl border text-left flex items-center gap-4 transition-all cursor-pointer ${
-            activeService === 'BANS'
-              ? 'border-blue-600 bg-blue-50/70 shadow-md ring-2 ring-blue-500/20'
-              : 'border-slate-200 bg-white hover:border-blue-300'
-          }`}
-        >
-          <div className="w-14 h-14 rounded-2xl bg-blue-600 text-white flex items-center justify-center font-black text-2xl shadow-lg shadow-blue-600/20 flex-shrink-0">
-            💍
-          </div>
-          <div>
-            <span className="text-[10px] font-black uppercase tracking-wider text-blue-700 bg-blue-100 px-2 py-0.5 rounded">
-              Service 2
-            </span>
-            <h3 className="text-lg font-black text-slate-900 mt-1 leading-tight">
-              Publication de Bans
-            </h3>
-            <p className="text-xs text-slate-500 mt-0.5">
-              Registre des projets de mariage
-            </p>
-          </div>
-        </button>
-
-        {/* ICÔNE 3 : DR (VOTRE ACTE D'ÉTAT CIVIL) */}
-        <button
-          type="button"
-          onClick={() => setActiveService('DR')}
-          className={`p-5 rounded-2xl border text-left flex items-center gap-4 transition-all cursor-pointer relative ${
-            activeService === 'DR'
-              ? 'border-purple-600 bg-purple-50/70 shadow-md ring-2 ring-purple-500/20'
-              : 'border-slate-200 bg-white hover:border-purple-300'
-          }`}
-        >
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-700 to-indigo-800 text-white flex items-center justify-center font-black text-xl shadow-lg shadow-purple-600/20 flex-shrink-0 relative">
-            <span>📜</span>
-            <span className="absolute -top-1 -right-1 bg-amber-400 text-slate-900 text-[10px] font-black px-1.5 py-0.2 rounded-full shadow">DR</span>
-          </div>
-          <div>
-            <span className="text-[10px] font-black uppercase tracking-wider text-purple-700 bg-purple-100 px-2 py-0.5 rounded">
-              Délivrance Rapide (DR)
-            </span>
-            <h3 className="text-lg font-black text-slate-900 mt-1 leading-tight">
-              Votre Acte d'État Civil
-            </h3>
-            <p className="text-xs text-slate-500 mt-0.5">
-              Consulter, imprimer ou duplicata
-            </p>
-          </div>
-        </button>
-
+    <div className="mx-auto max-w-6xl rounded-3xl border border-slate-200 bg-white p-4 shadow-xl sm:p-6">
+      <div className="mb-4 border-b border-slate-100 pb-4">
+        <div className="text-xs font-black uppercase tracking-[0.2em] text-emerald-700">
+          {t.title}
+        </div>
+        <h2 className="mt-1 text-xl font-black text-slate-900">{t.subtitle}</h2>
       </div>
 
-      {/* ================================================================== */}
-      <!-- 2. FORMULAIRE : CHOISIR VOTRE CEC | NUMÉRO DÉCLARATION | TÉLÉPHONE -->
-      {/* ================================================================== */}
-      <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-200">
-        
-        <div class="pb-6 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-3">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="grid gap-3 md:grid-cols-2">
           <div>
-            <span className="text-xs font-black uppercase tracking-widest text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full">
-              INTERROGATION IMMÉDIATE DU REGISTRE
-            </span>
-            <h2 className="text-2xl font-black text-slate-900 mt-2">
-              Identifier le Type d'Acte & Suivre mon Dossier
-            </h2>
-            <p className="text-sm text-slate-600 mt-0.5">
-              Sélectionnez votre CEC et indiquez votre numéro de déclaration pour identification automatique.
-            </p>
-          </div>
-
-          <!-- Test rapide de code couleur -->
-          <div className="flex items-center gap-1.5 p-1.5 bg-slate-100 rounded-xl text-xs">
-            <span className="font-bold text-slate-600 px-2">Tester état :</span>
-            <button
-              type="button"
-              onClick={() => { setTestColor('green'); handleRechercheDossier('green'); }}
-              className="px-2.5 py-1 bg-white hover:bg-emerald-50 text-emerald-800 font-bold rounded-lg border border-slate-200"
-            >
-              🟢 Vert
-            </button>
-            <button
-              type="button"
-              onClick={() => { setTestColor('amber'); handleRechercheDossier('amber'); }}
-              className="px-2.5 py-1 bg-white hover:bg-amber-50 text-amber-900 font-bold rounded-lg border border-slate-200"
-            >
-              🟠 Ambre
-            </button>
-            <button
-              type="button"
-              onClick={() => { setTestColor('red'); handleRechercheDossier('red'); }}
-              className="px-2.5 py-1 bg-white hover:bg-rose-50 text-rose-800 font-bold rounded-lg border border-slate-200"
-            >
-              🔴 Rouge
-            </button>
-          </div>
-        </div>
-
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleRechercheDossier();
-          }}
-          className="mt-6 space-y-6"
-        >
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
-            
-            {/* CHAMP 1 : CHOISIR VOTRE CEC */}
-            <div className="lg:col-span-5">
-              <label className="block text-xs font-black text-slate-800 uppercase tracking-wider mb-2">
-                🏛️ Choisir votre CEC (Centre d'État Civil) <span className="text-rose-600">*</span>
-              </label>
-
-              <div className="space-y-2">
-                <select
-                  value={selectedCommuneId}
-                  onChange={(e) => setSelectedCommuneId(e.target.value)}
-                  className="w-full bg-slate-50 border-2 border-slate-300 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:ring-2 focus:ring-emerald-500 focus:bg-white transition shadow-sm"
+            <label className="mb-2 block text-xs font-black uppercase tracking-[0.18em] text-slate-700">
+              {t.typeActe}
+            </label>
+            <div className="grid grid-cols-3 gap-2">
+              {typeOptions.map((option) => (
+                <button
+                  key={option.code}
+                  type="button"
+                  onClick={() => setTypeActe(option.code)}
+                  className={`rounded-2xl border p-3 text-center transition ${
+                    typeActe === option.code
+                      ? "border-emerald-600 bg-emerald-50 text-emerald-800 shadow-sm"
+                      : "border-slate-200 bg-slate-50 text-slate-600"
+                  }`}
                 >
-                  {availableCommunes.map((c) => (
-                    <option key={c.id} value={c.id}>
-                      Mairie de {c.nom} — Centre d'État Civil Principal
-                    </option>
-                  ))}
-                </select>
-
-                <div className="flex items-center justify-between text-xs text-slate-500 px-1">
-                  <span>Région :</span>
-                  <select
-                    value={selectedRegionId}
-                    onChange={(e) => {
-                      setSelectedRegionId(e.target.value);
-                      const r = CAMEROUN_REGIONS_DATA.find((reg) => reg.id === e.target.value);
-                      if (r && r.communes.length > 0) setSelectedCommuneId(r.communes[0].id);
-                    }}
-                    className="bg-white border border-slate-300 rounded-lg px-2 py-1 text-xs font-bold text-slate-700"
-                  >
-                    {CAMEROUN_REGIONS_DATA.map((r) => (
-                      <option key={r.id} value={r.id}>
-                        {r.nom} (10)
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            {/* CHAMP 2 : NUMÉRO DE DÉCLARATION (OBLIGATOIRE) */}
-            <div className="lg:col-span-4">
-              <label className="block text-xs font-black text-slate-800 uppercase tracking-wider mb-2">
-                🔢 Numéro de déclaration (obligatoire) <span className="text-rose-600">*</span>
-              </label>
-              
-              <div>
-                <input
-                  type="text"
-                  required
-                  value={numeroDeclaration}
-                  onChange={(e) => setNumeroDeclaration(e.target.value)}
-                  placeholder="Ex: DEC-2026-001249 ou 001249"
-                  className="w-full bg-slate-50 border-2 border-emerald-600/70 rounded-xl px-4 py-3 text-sm font-mono font-black text-slate-900 focus:ring-2 focus:ring-emerald-500 focus:bg-white transition shadow-sm"
-                />
-              </div>
-
-              <span className="text-[11px] text-slate-500 block mt-1.5">
-                Identifie automatiquement si c'est Naissance, Mariage, etc.
-              </span>
-            </div>
-
-            {/* CHAMP 3 : NUMÉRO DE TÉLÉPHONE POUR LE SUIVI AVEC DÉTECTION WHATSAPP & TELEGRAM */}
-            <div className="lg:col-span-3">
-              <div className="flex items-center justify-between mb-2">
-                <label className="block text-xs font-black text-slate-800 uppercase tracking-wider">
-                  📱 N° de téléphone <span className="text-rose-600">*</span>
-                </label>
-                <span className="text-[10px] font-extrabold text-orange-800 bg-orange-100 px-2 py-0.5 rounded-full border border-orange-200">
-                  {numeroTelephone.startsWith('67') || numeroTelephone.startsWith('68') ? 'MTN CMR' : 'Orange CMR'}
-                </span>
-              </div>
-
-              <div className="flex rounded-xl shadow-sm">
-                <span className="inline-flex items-center px-3 py-3 rounded-l-xl border-2 border-r-0 border-slate-300 bg-slate-100 text-slate-700 font-bold text-xs">
-                  🇨🇲 +237
-                </span>
-                <input
-                  type="tel"
-                  required
-                  value={numeroTelephone}
-                  onChange={(e) => setNumeroTelephone(e.target.value)}
-                  placeholder="699 12 34 56"
-                  className="w-full bg-slate-50 border-2 border-slate-300 rounded-r-xl px-3.5 py-3 text-sm font-mono font-bold text-slate-900 focus:ring-2 focus:ring-emerald-500 focus:bg-white transition"
-                />
-              </div>
-
-              {/* PANNEAU DE DÉTECTION MESSAGERIE */}
-              <div className="mt-2 p-2 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5 text-xs">
-                <div className="flex items-center justify-between text-[10px] font-bold text-slate-500 uppercase">
-                  <span>Messageries Détectées</span>
-                  <span className="text-emerald-700 font-black">✓ Actif</span>
-                </div>
-                <div className="grid grid-cols-2 gap-1.5">
-                  <div className="flex items-center justify-between p-1.5 rounded-lg bg-emerald-50 border border-emerald-300 text-emerald-950 text-[11px] font-bold">
-                    <span>💬 WhatsApp</span>
-                    <span className="text-[9px] bg-emerald-600 text-white px-1.5 py-0.2 rounded">✓</span>
+                  <div className="text-2xl">{option.icon}</div>
+                  <div className="mt-1 text-xs font-black uppercase">
+                    {language === "fr" ? option.labelFr : option.labelEn}
                   </div>
-                  <div className="flex items-center justify-between p-1.5 rounded-lg bg-sky-50 border border-sky-300 text-sky-950 text-[11px] font-bold">
-                    <span>✈️ Telegram</span>
-                    <span className="text-[9px] bg-sky-600 text-white px-1.5 py-0.2 rounded">✓</span>
-                  </div>
-                </div>
-              </div>
+                </button>
+              ))}
             </div>
-
           </div>
 
-          {/* BOUTON D'ACTION : RECHERCHER MON DOSSIER */}
-          <div className="mt-6 pt-5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="text-xs text-slate-500 flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span>Cliquez pour <strong>identifier automatiquement le type d'acte</strong> et ouvrir le suivi</span>
-            </div>
-
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full sm:w-auto px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-wider text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:ring-emerald-200 transition-all flex items-center justify-center gap-3 shadow-xl shadow-emerald-700/25"
+          <div>
+            <label className="mb-2 block text-xs font-black uppercase tracking-[0.18em] text-slate-700">
+              {t.centre}
+            </label>
+            <select
+              value={centreEtatCivil}
+              onChange={(event) => setCentreEtatCivil(event.target.value)}
+              className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-800 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
             >
-              <span className="text-lg">🔍</span>
-              <span>Rechercher mon dossier</span>
-            </button>
-          </div>
-        </form>
-      </div>
-
-      {/* BANDEAU D'IDENTIFICATION IMMÉDIATE DU TYPE D'ACTE */}
-      {typeActeIdentifie && (
-        <div className="p-6 rounded-3xl bg-gradient-to-r from-emerald-900 via-emerald-800 to-slate-900 text-white shadow-xl border-2 border-emerald-500/50 flex flex-col md:flex-row md:items-center justify-between gap-5">
-          <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 text-3xl flex items-center justify-center flex-shrink-0">
-              {typeActeIdentifie.icone}
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] font-black uppercase tracking-wider bg-emerald-500 text-slate-950 px-2 py-0.5 rounded font-mono">
-                  TYPE D'ACTE IDENTIFIÉ
-                </span>
-                <span className="text-xs text-emerald-300 font-bold">• {typeActeIdentifie.registre}</span>
-              </div>
-              <h3 className="text-xl sm:text-2xl font-black tracking-tight text-white mt-1">
-                {typeActeIdentifie.titre}
-              </h3>
-              <p className="text-xs text-slate-300 mt-0.5">
-                {typeActeIdentifie.description}
-              </p>
-            </div>
-          </div>
-
-          <div className="flex flex-col sm:flex-row sm:items-center gap-3 bg-white/5 p-3 rounded-2xl border border-white/10 text-xs">
-            <div>
-              <span className="text-slate-400 block text-[10px] uppercase font-bold">N° Déclaration :</span>
-              <span className="font-bold text-emerald-200">{numeroDeclaration}</span>
-            </div>
-            <div className="hidden sm:block w-px h-8 bg-white/20"></div>
-            <div>
-              <span className="text-slate-400 block text-[10px] uppercase font-bold">Alerte SMS/WhatsApp :</span>
-              <span className="font-bold text-amber-300">📱 +237 {numeroTelephone}</span>
-            </div>
+              {centreOptions.map((centre) => (
+                <option key={centre} value={centre}>
+                  {centre}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
-      )}
 
-      {/* RENDU DE LA TIMELINE DU DOSSIER */}
-      {dossierResult && <TimelineDossier dossier={dossierResult} />}
+        <div className="grid gap-3 grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
+          {inputFields.map((field) => (
+            <div key={field.key} className="relative">
+              <label className="mb-1.5 block text-[10px] font-black uppercase tracking-[0.18em] text-slate-700">
+                {field.label}
+              </label>
+              <input
+                value={field.value}
+                onChange={(event) => field.setValue(event.target.value)}
+                placeholder={field.placeholder}
+                className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2.5 text-sm font-medium text-slate-800 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+              />
+              {field.key !== "phone" && (
+                <div className="mt-2 flex max-h-24 flex-col gap-1 overflow-hidden">
+                  {getDynamicSuggestions(
+                    field.key === "numeroReference"
+                      ? "numeroReference"
+                      : field.key === "numeroDeclaration"
+                        ? "numeroDeclaration"
+                        : "telephone",
+                    field.value,
+                  ).map((suggestion) => (
+                    <button
+                      key={suggestion}
+                      type="button"
+                      onClick={() => field.setValue(suggestion)}
+                      className="rounded-xl border border-slate-200 bg-slate-50 px-2 py-1 text-left text-xs text-slate-600 hover:bg-emerald-50 hover:text-emerald-800"
+                    >
+                      {suggestion}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
 
+          <div className="relative">
+            <label className="mb-1.5 block text-[10px] font-black uppercase tracking-[0.18em] text-slate-700">
+              {t.email}
+            </label>
+            <input
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              placeholder="citoyen@bunec.cm"
+              className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2.5 text-sm font-medium text-slate-800 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+            />
+          </div>
+
+          <div className="relative">
+            <label className="mb-1.5 block text-[10px] font-black uppercase tracking-[0.18em] text-slate-700">
+              {activeFieldLabel}
+            </label>
+            <input
+              value={dynamicValue}
+              onChange={(event) => setFieldValue(event.target.value)}
+              placeholder={
+                typeActe === "ACTE_MARIAGE"
+                  ? "Ebelle Samuel & Ngono Clarisse"
+                  : typeActe === "ACTE_DECES"
+                    ? "Fouda Roger"
+                    : "Jean Luc Mballa"
+              }
+              className="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2.5 text-sm font-medium text-slate-800 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+            />
+            {dynamicValue && (
+              <div className="mt-2 flex max-h-24 flex-col gap-1 overflow-hidden">
+                {suggestions.map((suggestion) => (
+                  <button
+                    key={suggestion}
+                    type="button"
+                    onClick={() => setFieldValue(suggestion)}
+                    className="rounded-xl border border-slate-200 bg-slate-50 px-2 py-1 text-left text-xs text-slate-600 hover:bg-emerald-50 hover:text-emerald-800"
+                  >
+                    {suggestion}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {error && (
+          <div className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-medium text-rose-700">
+            {error}
+          </div>
+        )}
+
+        {otpRequired && (
+          <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4">
+            <div className="mb-2 text-sm font-bold text-amber-800">
+              {notificationInfo || t.otpMessage}
+            </div>
+            <label className="mb-1.5 block text-[10px] font-black uppercase tracking-[0.18em] text-slate-700">
+              {t.otpLabel}
+            </label>
+            <input
+              value={otpCode}
+              onChange={(event) => setOtpCode(event.target.value)}
+              inputMode="numeric"
+              maxLength={6}
+              placeholder="123456"
+              className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm font-medium text-slate-800 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+            />
+          </div>
+        )}
+
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="w-full rounded-xl bg-emerald-700 px-5 py-3 text-sm font-black uppercase tracking-[0.16em] text-white shadow-lg shadow-emerald-700/20 transition hover:bg-emerald-800 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
+          >
+            {isLoading
+              ? language === "fr"
+                ? otpRequired
+                  ? "Vérification..."
+                  : "Recherche..."
+                : otpRequired
+                  ? "Verifying..."
+                  : "Searching..."
+              : otpRequired
+                ? t.verifyOtp
+                : t.search}
+          </button>
+        </div>
+      </form>
     </div>
   );
 };
+
+export default SuiviDossierForm;

@@ -1,154 +1,274 @@
-import React, { useState } from 'react';
-import SuiviDossierForm from './components/SuiviDossierForm';
-import TimelineDossier from './components/TimelineDossier';
-import PublicationsBansGrid from './components/PublicationsBansGrid';
+import { useState } from "react";
+import SuiviDossierForm from "./components/SuiviDossierForm";
+import TimelineDossier from "./components/TimelineDossier";
+import { PublicationsBansGrid } from "./components/PublicationsBansGrid";
+import { DossierSuiviDetail } from "./types";
+
+type Lang = "fr" | "en";
+type Tab = "accueil" | "suivi" | "bans" | "acte";
+
+const textContent = {
+  fr: {
+    home: "Accueil",
+    suivi: "Suivi de dossier",
+    bans: "Publication des bans",
+    acte: "Votre acte",
+    official: "Portail",
+    quickSearch: "Recherche rapide",
+    dossierReady: "Votre acte est disponible",
+    openAct: "Visualiser le BAT",
+    subtitle: "Portail de suivi de dossier des faits d'état civil",
+  },
+  en: {
+    home: "Home",
+    suivi: "Case tracking",
+    bans: "Marriage bans",
+    acte: "Your act",
+    official: "Portal",
+    quickSearch: "Quick search",
+    dossierReady: "Your certificate is ready",
+    openAct: "View BAT",
+    subtitle: "Civil status case tracking portal",
+  },
+} as const;
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<'suivi' | 'bans' | 'dr'>('suivi');
-  const [dossierActif, setDossierActif] = useState<any | null>(null);
+  const [activeTab, setActiveTab] = useState<Tab>("accueil");
+  const [lang, setLang] = useState<Lang>("fr");
+  const [dossierActif, setDossierActif] = useState<DossierSuiviDetail | null>(
+    null,
+  );
+
+  const resetResultatsRecherche = () => {
+    setDossierActif(null);
+    setActiveTab("suivi");
+  };
+
+  const isBatAvailable =
+    dossierActif?.bat?.available === true &&
+    dossierActif.bat.dossierId === dossierActif.id;
+  const t = textContent[lang];
+
+  const overviewCards = [
+    {
+      id: "accueil",
+      label: t.home,
+      icon: "🏠",
+      desc: "Vue d’ensemble du portail",
+    },
+    { id: "suivi", label: t.suivi, icon: "📋", desc: "Suivi des dossiers" },
+    { id: "bans", label: t.bans, icon: "💍", desc: "Registre des bans" },
+    ...(isBatAvailable
+      ? [{ id: "acte", label: t.acte, icon: "📜", desc: "BAT disponible" }]
+      : []),
+  ] as const;
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans">
-      {/* BANDEAU TRICOLORE CAMEROUN */}
+    <div className="min-h-screen w-full overflow-x-hidden bg-slate-50 text-slate-800 flex flex-col font-sans">
       <div className="h-1.5 w-full flex">
-        <div className="w-1/3 bg-emerald-600"></div>
-        <div className="w-1/3 bg-rose-600"></div>
-        <div className="w-1/3 bg-amber-400"></div>
+        <div className="w-1/3 bg-emerald-600" />
+        <div className="w-1/3 bg-rose-600" />
+        <div className="w-1/3 bg-amber-400" />
       </div>
 
-      {/* EN-TÊTE CENTRÉ SOUVERAIN */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm py-3.5 px-4 text-center">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-800 to-emerald-950 text-white flex items-center justify-center font-black text-xl shadow-md border-2 border-amber-400">
-            CMR
+      <header className="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-3 px-3 py-3 sm:px-4 md:flex-row md:items-center md:justify-between lg:px-8">
+          <div className="flex items-center justify-center gap-3 md:justify-start">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-800 to-emerald-950 text-lg font-black text-white shadow-md border-2 border-amber-400 sm:h-12 sm:w-12">
+              CMR
+            </div>
+            <div className="text-center md:text-left">
+              <div className="text-[9px] font-extrabold uppercase tracking-[0.18em] text-slate-500 sm:text-[10px]">
+                République du Cameroun
+              </div>
+              <h1 className="text-base font-black text-slate-900 sm:text-lg">
+                {t.subtitle}
+              </h1>
+            </div>
           </div>
-          <div className="flex flex-col items-center">
-            <span className="text-[11px] font-extrabold tracking-wider text-slate-500 uppercase">
-              RÉPUBLIQUE DU CAMEROUN • <span className="text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-full font-black">BUNEC CENTRAL</span>
-            </span>
-            <h1 className="text-xl font-black text-slate-900 tracking-tight">
-              Bureau National de l'État Civil
-            </h1>
-            <p className="text-xs text-slate-500">
-              Système d'Interconnexion Souverain des Centres d'État Civil (CEC)
-            </p>
+
+          <div className="flex items-center justify-center gap-2 md:justify-end">
+            <div className="inline-flex rounded-xl border border-slate-200 bg-slate-100 p-1">
+              {(["fr", "en"] as const).map((option) => (
+                <button
+                  key={option}
+                  type="button"
+                  onClick={() => setLang(option)}
+                  className={`rounded-lg px-3 py-1.5 text-xs font-bold transition ${
+                    lang === option
+                      ? "bg-white text-emerald-800 shadow-sm"
+                      : "text-slate-500"
+                  }`}
+                >
+                  {option === "fr" ? "FR" : "EN"}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </header>
 
-      {/* CONTENU PRINCIPAL */}
-      <main className="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        
-        {/* MOT DE BIENVENUE AVEC CLOCHE DE NOTIFICATION / RAPPEL */}
-        <div className="bg-gradient-to-r from-emerald-900 via-emerald-800 to-slate-900 rounded-3xl p-5 sm:p-6 mb-7 text-white shadow-xl border-2 border-emerald-500/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
-          <div className="flex items-center gap-4">
-            <div className="relative p-3.5 rounded-2xl bg-white/10 border border-white/20 text-3xl">
-              🔔
-              <span className="absolute -top-1 -right-1 flex h-5 w-5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-5 w-5 bg-amber-400 text-slate-950 text-[10px] font-black items-center justify-center">2</span>
-              </span>
-            </div>
-            <div>
-              <span className="text-[10px] font-black uppercase tracking-wider bg-amber-400 text-slate-950 px-2 py-0.5 rounded font-mono">
-                PORTAIL OFFICIEL CITOYEN
-              </span>
-              <h2 className="text-xl sm:text-2xl font-black text-white mt-1">
-                Bienvenue sur le Service Public d'État Civil
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-300 mt-0.5 max-w-xl">
-                Suivi d'avancement d'actes en temps réel, publications légales de bans et convocations SMS/WhatsApp.
-              </p>
-            </div>
-          </div>
+      <main className="mx-auto flex w-full max-w-7xl flex-grow flex-col px-3 py-4 sm:px-6 sm:py-6 lg:px-8">
+        <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          {overviewCards.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => setActiveTab(item.id as Tab)}
+              className={`w-full rounded-2xl border p-4 text-left transition ${
+                activeTab === item.id
+                  ? "border-emerald-600 bg-emerald-50 shadow-md"
+                  : "border-slate-200 bg-white hover:border-emerald-200 hover:bg-slate-50"
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-600 text-xl text-white shadow-sm">
+                  {item.icon}
+                </div>
+                <div className="min-w-0">
+                  <div className="text-[10px] font-black uppercase tracking-[0.16em] text-slate-500">
+                    {t.official}
+                  </div>
+                  <h2 className="text-base font-black text-slate-900">
+                    {item.label}
+                  </h2>
+                </div>
+              </div>
+              <p className="mt-3 text-xs text-slate-600">{item.desc}</p>
+            </button>
+          ))}
         </div>
 
-        {/* 3 ICÔNES D'ACTION SUPÉRIEURES */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 mb-8">
-          <button
-            onClick={() => setActiveTab('suivi')}
-            className={`p-4 sm:p-5 rounded-2xl border text-left flex items-center gap-3.5 transition-all ${
-              activeTab === 'suivi' ? 'border-2 border-emerald-600 bg-emerald-50 shadow-md' : 'bg-white border-slate-200'
-            }`}
-          >
-            <div className="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-2xl shadow-md">
-              📋
-            </div>
-            <div>
-              <span className="text-[10px] font-black uppercase text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded">Suivi</span>
-              <h3 className="font-black text-slate-900 text-base">Suivi de Dossier</h3>
-              <p className="text-xs text-slate-500">Avancement en temps réel</p>
-            </div>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('bans')}
-            className={`p-4 sm:p-5 rounded-2xl border text-left flex items-center gap-3.5 transition-all ${
-              activeTab === 'bans' ? 'border-2 border-blue-600 bg-blue-50 shadow-md' : 'bg-white border-slate-200'
-            }`}
-          >
-            <div className="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-2xl shadow-md">
-              💍
-            </div>
-            <div>
-              <span className="text-[10px] font-black uppercase text-blue-800 bg-blue-100 px-2 py-0.5 rounded">Bans</span>
-              <h3 className="font-black text-slate-900 text-base">Publication de Bans</h3>
-              <p className="text-xs text-slate-500">Projets de mariage légaux</p>
-            </div>
-          </button>
-
-          <button
-            onClick={() => setActiveTab('dr')}
-            className={`p-4 sm:p-5 rounded-2xl border text-left flex items-center gap-3.5 transition-all ${
-              activeTab === 'dr' ? 'border-2 border-purple-600 bg-purple-50 shadow-md' : 'bg-white border-slate-200'
-            }`}
-          >
-            <div className="w-12 h-12 rounded-2xl bg-purple-600 text-white flex items-center justify-center text-2xl shadow-md">
-              📜
-            </div>
-            <div>
-              <span className="text-[10px] font-black uppercase text-purple-800 bg-purple-100 px-2 py-0.5 rounded">Délivrance Rapide</span>
-              <h3 className="font-black text-slate-900 text-base">Votre Acte d'État Civil</h3>
-              <p className="text-xs text-slate-500">Consulter & imprimer acte</p>
-            </div>
-          </button>
-        </div>
-
-        {/* CONTENU SELON ONGLET */}
-        {activeTab === 'suivi' && (
+        {activeTab === "accueil" && (
           <div className="space-y-6">
-            <SuiviDossierForm onDossierTrouve={(d) => setDossierActif(d)} />
-            {dossierActif && <TimelineDossier dossier={dossierActif} onReset={() => setDossierActif(null)} />}
+            <section className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
+              <div className="text-xs font-black uppercase tracking-[0.2em] text-emerald-700">
+                {t.official}
+              </div>
+              <h2 className="mt-2 text-xl font-black text-slate-900 sm:text-2xl">
+                {t.subtitle}
+              </h2>
+              <p className="mt-3 max-w-2xl text-sm text-slate-600">
+                Suivi citoyen, publication des bans et visualisation des actes
+                de l’état civil du Cameroun dans une interface unique et
+                lisible.
+              </p>
+            </section>
+
+            <section className="grid gap-4 grid-cols-1 sm:grid-cols-3">
+              <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
+                <div className="text-xs font-black uppercase tracking-[0.16em] text-emerald-700">
+                  Suivi
+                </div>
+                <div className="mt-2 text-xl font-black text-slate-900">
+                  Dossiers
+                </div>
+                <p className="mt-2 text-sm text-slate-600">
+                  Traçabilité complète des actes et étapes.
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5">
+                <div className="text-xs font-black uppercase tracking-[0.16em] text-amber-700">
+                  Bans
+                </div>
+                <div className="mt-2 text-xl font-black text-slate-900">
+                  Publication
+                </div>
+                <p className="mt-2 text-sm text-slate-600">
+                  Inventaire des bans avec statut et opposition.
+                </p>
+              </div>
+
+              <div className="rounded-2xl border border-violet-200 bg-violet-50 p-5">
+                <div className="text-xs font-black uppercase tracking-[0.16em] text-violet-700">
+                  Acte
+                </div>
+                <div className="mt-2 text-xl font-black text-slate-900">
+                  BAT
+                </div>
+                <p className="mt-2 text-sm text-slate-600">
+                  Accès direct au document prêt à être délivré.
+                </p>
+              </div>
+            </section>
           </div>
         )}
 
-        {activeTab === 'bans' && (
-          <div>
-            <div className="mb-4">
-              <button onClick={() => setActiveTab('suivi')} className="px-3.5 py-1.5 bg-slate-200 rounded-xl text-xs font-bold">
-                ⬅️ Retour au Suivi
+        {activeTab === "suivi" && (
+          <div className="space-y-6">
+            <SuiviDossierForm
+              language={lang}
+              onRechercheDebut={resetResultatsRecherche}
+              onDossierTrouve={(d) => {
+                setDossierActif(d);
+                setActiveTab("suivi");
+              }}
+            />
+            {dossierActif && (
+              <TimelineDossier
+                dossier={dossierActif}
+                language={lang}
+                onReset={() => setDossierActif(null)}
+                onVisualiserBat={() => setActiveTab("acte")}
+              />
+            )}
+          </div>
+        )}
+
+        {activeTab === "bans" && <PublicationsBansGrid language={lang} />}
+
+        {activeTab === "acte" && (
+          <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="flex items-center justify-between gap-3 flex-wrap">
+              <div>
+                <div className="text-xs font-black uppercase tracking-[0.2em] text-violet-700">
+                  BAT
+                </div>
+                <h3 className="mt-2 text-2xl font-black text-slate-900">
+                  {t.dossierReady}
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setActiveTab("suivi")}
+                className="rounded-xl bg-slate-200 px-4 py-2 text-xs font-black text-slate-700"
+              >
+                {lang === "fr" ? "Retour au suivi" : "Back to tracking"}
               </button>
             </div>
-            <PublicationsBansGrid />
+
+            <div className="mt-6 rounded-2xl border border-violet-200 bg-violet-50 p-5 text-sm text-violet-900">
+              {isBatAvailable && dossierActif ? (
+                <>
+                  <div className="font-bold">
+                    {lang === "fr"
+                      ? "Votre document est prêt à être visualisé."
+                      : "Your document is ready to be reviewed."}
+                  </div>
+                  <div className="mt-2">
+                    {lang === "fr" ? "Type d’acte" : "Document type"} :{" "}
+                    {dossierActif.typeActe}
+                  </div>
+                  <div className="mt-2">
+                    {lang === "fr" ? "Numéro de référence" : "Reference number"}{" "}
+                    : {dossierActif.numeroRecepisse}
+                  </div>
+                </>
+              ) : (
+                <div>
+                  {lang === "fr"
+                    ? "Aucun dossier éligible pour l’affichage du BAT."
+                    : "No eligible file is available for BAT viewing."}
+                </div>
+              )}
+            </div>
           </div>
         )}
-
-        {activeTab === 'dr' && (
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200">
-            <button onClick={() => setActiveTab('suivi')} className="px-3.5 py-1.5 bg-slate-200 rounded-xl text-xs font-bold mb-4">
-              ⬅️ Retour au Suivi
-            </button>
-            <h3 className="text-xl font-black text-slate-900">Extrait d'Acte Numérique Certifié</h3>
-            <p className="text-xs text-slate-500 mt-1">
-              Consultez et imprimez votre extrait avec scellé HMAC-SHA256 souverain BUNEC.
-            </p>
-          </div>
-        )}
-
       </main>
 
-      <footer className="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
-        BUNEC — Bureau National de l'État Civil • République du Cameroun • Loi N° 2011/011
+      <footer className="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
+        BUNEC — Bureau National de l’État Civil • République du Cameroun
       </footer>
     </div>
   );

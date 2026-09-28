@@ -7,6 +7,7 @@
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+CREATE EXTENSION IF NOT EXISTS "pg_trgm";
 
 -- ----------------------------------------------------------------------------
 -- 1. TYPES ÉNUMÉRÉS STRICTS (CONFORMITÉ LOI 2011/011 ET NORMES BUNEC)
@@ -305,17 +306,26 @@ CREATE INDEX IF NOT EXISTS idx_dossiers_numero_recepisse ON dossiers_suivi USING
 CREATE INDEX IF NOT EXISTS idx_dossiers_recherche_cascade ON dossiers_suivi USING btree (region_id, commune_id, centre_id, annee_enregistrement, type_acte, numero_sequentiel);
 CREATE INDEX IF NOT EXISTS idx_dossiers_statut_actuel ON dossiers_suivi USING btree (statut_actuel);
 CREATE INDEX IF NOT EXISTS idx_dossiers_demandeur_tel ON dossiers_suivi USING btree (demandeur_telephone);
+CREATE INDEX IF NOT EXISTS idx_dossiers_demandeur_nom_trgm ON dossiers_suivi USING gin (LOWER(demandeur_nom) gin_trgm_ops);
+CREATE INDEX IF NOT EXISTS idx_dossiers_recherche_nom_parent_trgm ON dossiers_suivi USING gin (LOWER(COALESCE(demandeur_nom, '')) gin_trgm_ops);
+CREATE INDEX IF NOT EXISTS idx_dossiers_date_depot ON dossiers_suivi USING btree (date_depot);
 
 -- Registre public des publications de bans
 CREATE INDEX IF NOT EXISTS idx_bans_statut_dates ON publications_bans USING btree (statut_ban, date_debut_affichage, date_fin_affichage);
 CREATE INDEX IF NOT EXISTS idx_bans_cascade_geo ON publications_bans USING btree (region_id, commune_id, centre_id);
 CREATE INDEX IF NOT EXISTS idx_bans_regime_matrimonial ON publications_bans USING btree (regime_matrimonial);
 CREATE INDEX IF NOT EXISTS idx_bans_epoux_noms ON publications_bans USING btree (epoux_nom, epouse_nom);
+CREATE INDEX IF NOT EXISTS idx_bans_epoux_nom_trgm ON publications_bans USING gin (LOWER(epoux_nom || ' ' || epouse_nom) gin_trgm_ops);
+CREATE INDEX IF NOT EXISTS idx_bans_dates_celebration ON publications_bans USING btree (date_prevue_celebration, date_fin_affichage);
 
 -- Oppositions et liaisons
 CREATE INDEX IF NOT EXISTS idx_oppositions_ban_id ON oppositions_bans USING btree (publication_ban_id);
 CREATE INDEX IF NOT EXISTS idx_pieces_entite ON pieces_justificatives USING btree (entite_type, entite_id);
 CREATE INDEX IF NOT EXISTS idx_historique_dossier_id ON historique_statuts USING btree (dossier_id, created_at DESC);
+
+-- Requêtes de recherche avancée sur les dates et les noms de parents
+CREATE INDEX IF NOT EXISTS idx_dossiers_traitement_dates ON dossiers_suivi USING btree (date_depot, date_pret_delivrance, date_limite_conservation);
+CREATE INDEX IF NOT EXISTS idx_bans_search_date_trgm ON publications_bans USING gin (to_tsvector('french', COALESCE(epoux_nom, '') || ' ' || COALESCE(epouse_nom, '') || ' ' || COALESCE(coutume_matrimoniale, ''))) ;
 
 -- ----------------------------------------------------------------------------
 -- 9. TRIGGERS D'AUDIT ET MISE À JOUR HORODATÉE
