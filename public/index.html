@@ -561,9 +561,45 @@
               class="w-full h-full object-cover rounded-full"
             />
           </div>
+          <button
+            id="btn-boite-notifications"
+            type="button"
+            onclick="basculerBoiteNotifications()"
+            aria-label="Ouvrir la boîte de notifications"
+            aria-controls="panneau-boite-notifications"
+            aria-expanded="false"
+            class="relative flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-emerald-500 hover:bg-emerald-50 focus:outline-none focus:ring-2 focus:ring-emerald-600"
+            title="Notifications"
+          >
+            <span aria-hidden="true" class="text-xl">🔔</span>
+            <span
+              id="badge-notifications-non-lues"
+              class="hidden absolute -right-1 -top-1 min-w-5 rounded-full border-2 border-white bg-rose-600 px-1 text-center text-[10px] font-black leading-4 text-white"
+            >0</span>
+          </button>
         </div>
       </div>
     </header>
+
+    <aside
+      id="panneau-boite-notifications"
+      class="hidden fixed right-3 top-20 z-[60] max-h-[78vh] w-[min(92vw,28rem)] overflow-y-auto rounded-2xl border border-slate-200 bg-white shadow-2xl sm:right-8 sm:top-24"
+      role="dialog"
+      aria-labelledby="titre-panneau-notifications"
+    >
+      <div class="sticky top-0 z-10 flex items-center justify-between gap-3 border-b border-slate-200 bg-white px-4 py-3">
+        <h2 id="titre-panneau-notifications" class="text-sm font-black text-slate-900">Boîte de notifications</h2>
+        <button
+          type="button"
+          onclick="fermerBoiteNotifications()"
+          aria-label="Fermer les notifications"
+          class="flex h-8 w-8 items-center justify-center rounded-full text-lg text-slate-500 hover:bg-slate-100 hover:text-slate-900"
+        >×</button>
+      </div>
+      <div id="contenu-boite-notifications" class="p-4">
+        <p class="text-sm text-slate-600">Effectuez une recherche de dossier pour consulter ses notifications.</p>
+      </div>
+    </aside>
 
     <!-- CONTENU PRINCIPAL -->
     <main
@@ -624,7 +660,7 @@
                   >
                     Bans
                   </div>
-                  <div class="mt-1 text-lg font-black text-white">3 actifs</div>
+                  <div id="badge-bans-count-hero" class="mt-1 text-lg font-black text-white">0 publication</div>
                 </div>
               </div>
             </div>
@@ -659,7 +695,7 @@
                 SUIVI EN LIGNE
               </span>
               <span
-                class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"
+                class="w-2 h-2 rounded-full bg-emerald-500"
               ></span>
             </div>
             <h2
@@ -698,7 +734,7 @@
               <span
                 id="badge-bans-count-top"
                 class="text-[10px] font-black text-blue-800 bg-blue-50 px-1.5 py-0.5 rounded"
-                >3 actifs</span
+                >0 publications</span
               >
             </div>
             <h2
@@ -778,7 +814,7 @@
               event.preventDefault();
               rechercherMonDossierPrecis();
             "
-            class="mt-5 grid grid-cols-1 gap-3 lg:grid-cols-3 max-w-none mx-auto"
+            class="mt-5 grid grid-cols-1 gap-3 lg:grid-cols-3 w-full max-w-5xl mx-auto"
           >
             <!-- 1. CHAMP : CENTRE D'ÉTAT CIVIL -->
             <div
@@ -1419,6 +1455,14 @@
               <div
                 class="flex items-center gap-2 flex-shrink-0 w-full md:w-auto justify-end"
               >
+                <button
+                  type="button"
+                  onclick="ouvrirModalSignalementBAT()"
+                  class="w-full sm:w-auto px-4 py-2.5 bg-rose-50 hover:bg-rose-100 active:scale-95 text-rose-800 rounded-xl font-black text-xs shadow-md transition flex items-center justify-center gap-1.5 cursor-pointer border border-rose-200"
+                >
+                  <span>⚠️</span>
+                  <span>Signaler une erreur</span>
+                </button>
                 <button
                   type="button"
                   onclick="validerBATCitoyen()"
@@ -2777,6 +2821,98 @@
       </div>
     </div>
 
+    <!-- MODAL 3 : SIGNALEMENT D'ERREUR SUR LE BAT -->
+    <div
+      id="modal-signalement-bat"
+      class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4"
+    >
+      <div
+        class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl max-h-[90vh] overflow-y-auto"
+      >
+        <div
+          class="flex items-center justify-between pb-4 border-b border-slate-100"
+        >
+          <div>
+            <h3 class="text-xl font-black text-rose-900">
+              Signaler une erreur sur le BAT
+            </h3>
+            <p class="text-xs text-slate-500">
+              Déclarez une anomalie détectée sur le bon à tirer.
+            </p>
+          </div>
+          <button
+            type="button"
+            onclick="fermerModal('modal-signalement-bat')"
+            class="text-slate-400 hover:text-slate-700 text-xl font-bold"
+          >
+            ✕
+          </button>
+        </div>
+
+        <form
+          onsubmit="event.preventDefault(); soumettreSignalementBAT(event);"
+          class="mt-6 space-y-4"
+        >
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1"
+              >Type d’anomalie</label
+            >
+            <select
+              id="signalement-bat-type"
+              class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold"
+            >
+              <option value="informations_incorrectes">
+                Informations incorrectes
+              </option>
+              <option value="erreur_nom_prenom">Erreur sur le nom / prénom</option>
+              <option value="erreur_date_lieu">Erreur sur la date ou le lieu</option>
+              <option value="erreur_document">
+                Pièce justificative ou document manquant
+              </option>
+              <option value="autre">Autre anomalie</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1"
+              >Détail de l’erreur</label
+            >
+            <textarea
+              id="signalement-bat-detail"
+              rows="4"
+              required
+              placeholder="Décrivez précisément l’anomalie constatée et les données concernées..."
+              class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs font-medium"
+            ></textarea>
+          </div>
+
+          <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-[11px] text-amber-900">
+            <strong class="font-black text-amber-950 uppercase tracking-wide"
+              >Traitement :</strong
+            >
+            Le signalement est transmis au service de vérification BUNEC et un
+            statut de traitement est affiché pour le dossier concerné.
+          </div>
+
+          <div class="pt-2 flex justify-end gap-3">
+            <button
+              type="button"
+              onclick="fermerModal('modal-signalement-bat')"
+              class="px-5 py-2.5 bg-slate-200 text-slate-700 rounded-xl text-xs font-bold"
+            >
+              Annuler
+            </button>
+            <button
+              type="submit"
+              class="px-6 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-black shadow-lg shadow-rose-600/20"
+            >
+              Envoyer le signalement
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <!-- PIED DE PAGE SOUVERAIN -->
     <footer
       class="bg-white border-t border-slate-200 mt-12 py-8 text-center text-xs text-slate-500"
@@ -2808,6 +2944,9 @@
 
       let filtreTypeActeActif = "TOUS";
       let dossierActuellementCorrespondant = null;
+      let signalementsBat = JSON.parse(
+        localStorage.getItem("bunec_signalements_bat") || "[]",
+      );
 
       // BASE NATIONALE DES DOSSIERS DE RÉFÉRENCE (BUNEC)
       const baseDossiersNationale = [
@@ -3978,7 +4117,7 @@
       }
 
       function gererSaisieIdentifiantOuTel(val, critereSupplementaire = "") {
-        const v = (val || "").trim();
+        const v = normaliserSaisieSuivi(val || "").trim();
         const badge = document.getElementById("badge-type-identifiant-saisi");
         const inputTelSuivi = document.getElementById("input-telephone-suivi");
         const digits = v.replace(/\D/g, "");
@@ -4185,6 +4324,7 @@
         }
         if (blocBAT) blocBAT.classList.add("hidden");
         if (etatVerrou) etatVerrou.classList.add("hidden");
+        rafraichirPanneauNotifications();
       }
 
       // RÉINITIALISATION / RETOUR AU FORMULAIRE
@@ -4226,6 +4366,161 @@
         }
       }
 
+      function obtenirNotificationsLues(dossierId) {
+        try {
+          const notifications = JSON.parse(
+            localStorage.getItem(`bunec_notifications_lues_${dossierId}`) || "[]",
+          );
+          return new Set(Array.isArray(notifications) ? notifications : []);
+        } catch {
+          return new Set();
+        }
+      }
+
+      function construireBoiteNotifications(dossier, cycleDeVie) {
+        const messages = cycleDeVie.etapes
+          .filter((etape) => ["COMPLETED", "CURRENT", "REJECTED"].includes(etape.statut))
+          .map((etape) => ({
+            id: `etape-${etape.numero}`,
+            titre: etape.nom,
+            detail: etape.desc,
+            date: etape.date || "Statut actuel",
+          }));
+        const lues = obtenirNotificationsLues(dossier.id);
+        const nonLues = messages.filter((message) => !lues.has(message.id)).length;
+        const echapper = (value) =>
+          String(value || "").replace(/[&<>"']/g, (character) => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;",
+          })[character]);
+
+        return `
+          <section class="mt-6 rounded-2xl border border-sky-200 bg-sky-50/70 p-4 sm:p-5" aria-labelledby="titre-boite-notifications">
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h4 id="titre-boite-notifications" class="text-base font-black text-slate-900">Notifications de votre dossier</h4>
+                <p class="mt-1 text-xs text-slate-600">Messages associés à la référence ${echapper(dossier.numeroDeclaration || dossier.id)}.</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="rounded-full border border-sky-200 bg-white px-3 py-1 text-xs font-black text-sky-900" aria-live="polite">${nonLues} non lue${nonLues === 1 ? "" : "s"}</span>
+                <button type="button" onclick="marquerToutesNotificationsLues('${echapper(dossier.id)}')" class="rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-100">Tout marquer comme lu</button>
+              </div>
+            </div>
+            <ul class="mt-4 divide-y divide-sky-100">
+              ${messages.map((message) => {
+                const estLue = lues.has(message.id);
+                return `<li class="flex flex-col gap-2 py-3 first:pt-0 last:pb-0 sm:flex-row sm:items-start sm:justify-between" data-notification-id="${echapper(message.id)}">
+                  <div class="flex items-start gap-3">
+                    <span class="mt-1.5 h-2.5 w-2.5 flex-shrink-0 rounded-full ${estLue ? "bg-slate-300" : "bg-sky-600"}" aria-hidden="true"></span>
+                    <div>
+                      <p class="text-sm font-bold text-slate-900">${echapper(message.titre)}</p>
+                      <p class="mt-1 text-xs leading-relaxed text-slate-600">${echapper(message.detail)}</p>
+                      <time class="mt-1 block text-[11px] text-slate-500">${echapper(message.date)}</time>
+                    </div>
+                  </div>
+                  ${estLue ? '<span class="text-[11px] font-bold text-slate-500">Lue</span>' : `<button type="button" onclick="marquerNotificationLue('${echapper(dossier.id)}','${echapper(message.id)}')" class="self-start text-xs font-bold text-sky-800 underline underline-offset-2">Marquer comme lue</button>`}
+                </li>`;
+              }).join("")}
+            </ul>
+            <p class="mt-4 border-t border-sky-100 pt-3 text-[11px] text-slate-500">L’état de lecture est conservé sur cet appareil. Les notifications ne sont pas envoyées par SMS ni enregistrées sur un compte central.</p>
+          </section>
+        `;
+      }
+
+      function rafraichirPanneauNotifications() {
+        const panneau = document.getElementById("panneau-boite-notifications");
+        const contenu = document.getElementById("contenu-boite-notifications");
+        const badge = document.getElementById("badge-notifications-non-lues");
+        const dossier = dossierActuellementCorrespondant;
+        const boiteExistante = document.querySelector(
+          '#container-timeline-dossier [aria-labelledby="titre-boite-notifications"]',
+        );
+
+        if (!dossier || !boiteExistante) {
+          if (contenu) {
+            contenu.innerHTML =
+              '<p class="text-sm text-slate-600">Effectuez une recherche de dossier pour consulter ses notifications.</p>';
+          }
+          if (badge) badge.classList.add("hidden");
+          return;
+        }
+
+        const copieBoite = boiteExistante.cloneNode(true);
+        copieBoite.querySelector("#titre-boite-notifications")?.removeAttribute("id");
+        if (contenu) contenu.innerHTML = copieBoite.innerHTML;
+
+        const compteur = copieBoite.querySelector('[aria-live="polite"]');
+        const nombreNonLues = Number.parseInt(compteur?.textContent || "0", 10) || 0;
+        if (badge) {
+          badge.textContent = nombreNonLues > 99 ? "99+" : String(nombreNonLues);
+          badge.classList.toggle("hidden", nombreNonLues === 0);
+        }
+      }
+
+      function basculerBoiteNotifications() {
+        const panneau = document.getElementById("panneau-boite-notifications");
+        const bouton = document.getElementById("btn-boite-notifications");
+        if (!panneau || !bouton) return;
+
+        const ouvrir = panneau.classList.contains("hidden");
+        panneau.classList.toggle("hidden", !ouvrir);
+        bouton.setAttribute("aria-expanded", String(ouvrir));
+        if (ouvrir) rafraichirPanneauNotifications();
+      }
+
+      function fermerBoiteNotifications() {
+        document.getElementById("panneau-boite-notifications")?.classList.add("hidden");
+        document.getElementById("btn-boite-notifications")?.setAttribute("aria-expanded", "false");
+      }
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") fermerBoiteNotifications();
+      });
+
+      document.addEventListener("click", (event) => {
+        const panneau = document.getElementById("panneau-boite-notifications");
+        const bouton = document.getElementById("btn-boite-notifications");
+        if (
+          panneau &&
+          bouton &&
+          !panneau.classList.contains("hidden") &&
+          !panneau.contains(event.target) &&
+          !bouton.contains(event.target)
+        ) {
+          fermerBoiteNotifications();
+        }
+      });
+
+      function marquerNotificationLue(dossierId, notificationId) {
+        const lues = obtenirNotificationsLues(dossierId);
+        lues.add(notificationId);
+        localStorage.setItem(
+          `bunec_notifications_lues_${dossierId}`,
+          JSON.stringify([...lues]),
+        );
+        rechercherMonDossierPrecis();
+        rafraichirPanneauNotifications();
+      }
+
+      function marquerToutesNotificationsLues(dossierId) {
+        const dossier = baseDossiersNationale.find((item) => item.id === dossierId);
+        if (!dossier) return;
+        const etapes = dossier.statut === "REJETEE"
+          ? [1, 2]
+          : dossier.statut === "PRETE_RETRAIT"
+            ? [1, 2, 3, 4]
+            : [1, 2, 3];
+        localStorage.setItem(
+          `bunec_notifications_lues_${dossierId}`,
+          JSON.stringify(etapes.map((numero) => `etape-${numero}`)),
+        );
+        rechercherMonDossierPrecis();
+        rafraichirPanneauNotifications();
+      }
+
       // ========================================================================
       // RECHERCHER MON DOSSIER : DÉCLENCHÉ UNIQUEMENT APRÈS CLIC SUR LE BOUTON
       // ========================================================================
@@ -4236,8 +4531,12 @@
         const inputDeclaration = document.getElementById("input-num-declaration");
         const inputTelephone = document.getElementById("input-telephone-suivi");
 
-        const numDeclaration = (inputDeclaration ? inputDeclaration.value : "").trim();
-        const telephoneSuivi = (inputTelephone ? inputTelephone.value : "").trim();
+        const numDeclaration = normaliserSaisieSuivi(
+          inputDeclaration ? inputDeclaration.value : "",
+        ).trim();
+        const telephoneSuivi = normaliserSaisieSuivi(
+          inputTelephone ? inputTelephone.value : "",
+        ).trim();
         const critereSupplementaire = (
           document.getElementById("input-critere-supplementaire")?.value || ""
         ).trim();
@@ -4354,6 +4653,7 @@
 
           const blocBAT = document.getElementById("bloc-visualisation-acte-bat");
           if (blocBAT) blocBAT.classList.add("hidden");
+          rafraichirPanneauNotifications();
 
           return;
         }
@@ -4767,6 +5067,8 @@
                 .join("")}
             </div>
 
+              ${construireBoiteNotifications(matched, cycleDeVie)}
+
             <!-- BOUTON RETOUR BAS & NOTIFICATIONS -->
             <div class="mt-8 pt-6 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div class="hidden flex-wrap items-center gap-2 text-xs text-slate-500">
@@ -4830,6 +5132,7 @@
 
         // Défilement fluide vers le bandeau d'identification
         bandeauContainer.scrollIntoView({ behavior: "smooth" });
+        rafraichirPanneauNotifications();
       }
 
       // Chargement & Filtrage des Bans
@@ -4837,6 +5140,10 @@
         try {
           const res = await fetch("/api/v1/bans");
           bansList = await res.json();
+          const heroCount = document.getElementById("badge-bans-count-hero");
+          if (heroCount) {
+            heroCount.textContent = `${bansList.length} publication${bansList.length === 1 ? "" : "s"}`;
+          }
         } catch (err) {
           console.warn("Fallback bans");
         }
@@ -4892,7 +5199,7 @@
         document.getElementById("bans-count-display").textContent =
           filtered.length;
         document.getElementById("badge-bans-count-top").textContent =
-          `${filtered.length} actifs`;
+          `${filtered.length} publication${filtered.length === 1 ? "" : "s"}`;
 
         const grid = document.getElementById("grid-bans");
         if (filtered.length === 0) {
@@ -5942,6 +6249,73 @@
             }
           }
         }
+      }
+
+      function normaliserSaisieSuivi(value) {
+        const raw = String(value || "").trim();
+        if (!raw) return "";
+
+        const normalized = raw
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/[\u0000-\u001F\u007F]/g, " ")
+          .replace(/\s+/g, " ")
+          .replace(/[<>"'`]/g, "")
+          .trim();
+
+        if (!normalized) return "";
+        return normalized.toUpperCase();
+      }
+
+      function ouvrirModalSignalementBAT() {
+        const modal = document.getElementById("modal-signalement-bat");
+        if (modal) {
+          modal.classList.remove("hidden");
+          setTimeout(() => {
+            const field = document.getElementById("signalement-bat-detail");
+            if (field) field.focus();
+          }, 100);
+        }
+      }
+
+      function soumettreSignalementBAT(event) {
+        event.preventDefault();
+
+        const type =
+          document.getElementById("signalement-bat-type")?.value || "autre";
+        const detail =
+          document.getElementById("signalement-bat-detail")?.value || "";
+        const dossierRef =
+          dossierActuellementCorrespondant?.numeroDeclaration ||
+          "Dossier non identifié";
+
+        if (!detail.trim()) {
+          alert("Veuillez préciser l’erreur à signaler.");
+          return;
+        }
+
+        const signalement = {
+          id: `bat-signal-${Date.now()}`,
+          dossierRef,
+          type,
+          detail: detail.trim(),
+          statut: "EN_COURS_DE_TRAITEMENT",
+          date: new Date().toISOString(),
+        };
+
+        signalementsBat = [signalement, ...signalementsBat].slice(0, 40);
+        localStorage.setItem(
+          "bunec_signalements_bat",
+          JSON.stringify(signalementsBat),
+        );
+
+        const field = document.getElementById("signalement-bat-detail");
+        if (field) field.value = "";
+
+        fermerModal("modal-signalement-bat");
+        afficherNotificationToast(
+          "✓ Signalement enregistré : le service BUNEC a bien reçu votre anomalie BAT.",
+        );
       }
 
       // Consultation directe de l'acte au format civil depuis le suivi
