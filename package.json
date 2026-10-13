@@ -1,24 +1,17 @@
 {
-  "name": "bunec-suivie-statut",
+  "name": "suivie-de-dossier",
   "version": "1.0.0",
-  "description": "Plateforme Souveraine d'État Civil & Publication des Bans de Mariage — BUNEC Cameroun",
-  "main": "server.js",
+  "private": true,
   "scripts": {
-    "start": "node server.js",
     "dev": "node server.js",
-    "build:backend": "cd backend && npm install && npm run build",
-    "build:frontend": "cd frontend && npm install && npm run build",
-    "docker:build": "docker build -t bunec-plateforme:latest .",
-    "docker:up": "docker compose up -d",
-    "docker:down": "docker compose down"
+    "start": "node server.js",
+    "build": "vite build --config vite.config.js"
   },
-  "keywords": [
-    "cameroun",
-    "bunec",
-    "etat-civil",
-    "bans-mariage",
-    "e-gov"
-  ],
-  "author": "Bureau National de l'État Civil (BUNEC)",
-  "license": "Proprietary"
+  "dependencies": {
+    "compression": "^1.7.4",
+    "dotenv": "^18.0.7",
+    "express": "^4.21.2",
+    "pg": "^8.23.1",
+    "vite": "^6.4.1"
+  }
 }

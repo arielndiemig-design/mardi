@@ -1,0 +1,745 @@
+<!-- SECTION 3 : DR — VOTRE ACTE D'ÉTAT CIVIL (FORMAT OFFICIEL CIVIL)      -->
+      <!-- ==================================================================== -->
+      <div id="section-dr" class="hidden space-y-8">
+        <div
+          class="bg-white rounded-3xl p-5 sm:p-8 shadow-xl border border-slate-200"
+        >
+          <!-- EN-TÊTE AVEC BOUTON RETOUR AU SUIVI & BOUTON D'IMPRESSION -->
+          <div
+            class="pb-6 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-4"
+          >
+            <div>
+              <div class="flex items-center gap-3 mb-2">
+                <button
+                  type="button"
+                  onclick="switchTab('suivi')"
+                  class="px-3.5 py-1.5 bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1.5"
+                >
+                  <span>⬅️</span>
+                  <span>Retour au Suivi</span>
+                </button>
+                <span
+                  class="text-xs font-black uppercase tracking-widest text-purple-700 bg-purple-50 px-3 py-1 rounded-full border border-purple-200"
+                >
+                  ACTE D'ÉTAT CIVIL OFFICIEL (LOI 2011/011)
+                </span>
+              </div>
+
+              <h2 class="text-xl sm:text-2xl font-black text-slate-900 mt-1">
+                Format Civil de l'Acte d'État Civil Demandé
+              </h2>
+              <p class="text-xs sm:text-sm text-slate-600 mt-0.5">
+                Extrait d'acte authentique et conforme aux registres légaux de
+                la République du Cameroun.
+              </p>
+            </div>
+
+            <div class="flex items-center gap-2.5">
+              <button
+                type="button"
+                onclick="window.print()"
+                class="px-5 py-3 bg-purple-700 hover:bg-purple-800 active:scale-95 text-white rounded-xl text-xs font-black shadow-lg shadow-purple-700/20 flex items-center gap-2 transition cursor-pointer"
+              >
+                <span>🖨️</span>
+                <span>Télécharger / Imprimer PDF (A4)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- GUIDE PÉDAGOGIQUE CITOYEN : COMPRENDRE VOTRE ACTE CIVIL -->
+          <div
+            class="mt-6 p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-purple-50 via-indigo-50/50 to-slate-50 border border-purple-200 text-xs"
+          >
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-base">💡</span>
+              <h3
+                class="font-black text-purple-950 uppercase tracking-wider text-[11px]"
+              >
+                Comprendre votre Acte d'État Civil en 3 Points Clés :
+              </h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+              <div
+                class="p-3 bg-white rounded-xl border border-purple-100 shadow-xs"
+              >
+                <span
+                  class="font-extrabold text-purple-900 block mb-1 text-[11px]"
+                  >1. Valeur Juridique Légale</span
+                >
+                <p class="text-[11px] text-slate-600 leading-relaxed">
+                  Délivré en application de l'<strong
+                    >Article 18 de la Loi 2011/011</strong
+                  >. Cet extrait fait foi en justice, auprès des banques, des
+                  écoles et des consulats.
+                </p>
+              </div>
+              <div
+                class="p-3 bg-white rounded-xl border border-purple-100 shadow-xs"
+              >
+                <span
+                  class="font-extrabold text-purple-900 block mb-1 text-[11px]"
+                  >2. Scellé & QR Code BUNEC</span
+                >
+                <p class="text-[11px] text-slate-600 leading-relaxed">
+                  Le <strong>QR Code d'authenticité</strong> permet à toute
+                  autorité de vérifier instantanément sur le registre central
+                  que l'acte n'a pas été altéré.
+                </p>
+              </div>
+              <div
+                class="p-3 bg-white rounded-xl border border-purple-100 shadow-xs"
+              >
+                <span
+                  class="font-extrabold text-purple-900 block mb-1 text-[11px]"
+                  >3. Retrait du Papier Original</span
+                >
+                <p class="text-[11px] text-slate-600 leading-relaxed">
+                  L'acte original revêtu du timbre fiscal et du sceau encreur
+                  est disponible pour retrait au guichet du Centre d'État Civil
+                  muni de votre récépissé.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================================================================ -->
+          <!-- 1. ÉTAT VERROUILLÉ DU BAT (SI PROCESSUS NON TERMINÉ OU SANS NOTIF) -->
+          <!-- ================================================================ -->
+          <div
+            id="etat-verrouille-acte-civil"
+            class="mt-8 max-w-3xl mx-auto p-6 sm:p-10 bg-gradient-to-b from-slate-50 via-amber-50/30 to-slate-50 border-2 border-dashed border-amber-300 rounded-3xl text-center space-y-6 shadow-md"
+          >
+            <!-- Cadenas institutionnel avec halo -->
+            <div class="relative w-20 h-20 mx-auto">
+              <div
+                class="absolute inset-0 bg-amber-400/30 rounded-3xl blur-xl"
+              ></div>
+              <div
+                class="relative w-20 h-20 bg-gradient-to-br from-amber-500 to-amber-700 text-white rounded-3xl flex items-center justify-center text-4xl shadow-lg border-2 border-amber-300"
+              >
+                🔒
+              </div>
+            </div>
+
+            <div>
+              <span
+                class="text-xs font-black uppercase tracking-widest text-amber-900 bg-amber-200/80 px-3.5 py-1 rounded-full border border-amber-300 font-mono"
+              >
+                ACCÈS RÉGLEMENTÉ • LOI N° 2011/011
+              </span>
+              <h3 class="text-xl sm:text-2xl font-black text-slate-900 mt-2">
+                Bon à Tirer (BAT) Non Débloqué
+              </h3>
+              <p
+                class="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto mt-2 leading-relaxed"
+              >
+                En application stricte des procédures réglementaires du BUNEC,
+                <strong
+                  >le Bon à Tirer (BAT) et le spécimen officiel de l'acte ne
+                  s'affichent que lorsque le processus d'instruction est
+                  entièrement achevé</strong
+                >
+                (Étape 4/4) et que la
+                <strong>notification officielle de retrait a été reçue</strong>.
+              </p>
+            </div>
+
+            <!-- État du dossier & Checklist des 4 étapes -->
+            <div
+              class="p-5 bg-white rounded-2xl border border-slate-200 text-left space-y-3.5 max-w-xl mx-auto shadow-xs"
+            >
+              <div
+                class="flex items-center justify-between border-b border-slate-100 pb-2.5"
+              >
+                <span
+                  class="text-xs font-black text-slate-800 uppercase tracking-wider"
+                  >Conditions de Déblocage du BAT :</span
+                >
+                <span
+                  id="badge-statut-verrou-acte"
+                  class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300"
+                >
+                  Instruction en cours
+                </span>
+              </div>
+
+              <div class="space-y-2.5 text-xs text-slate-600">
+                <div class="flex items-center gap-2.5">
+                  <span
+                    class="w-5 h-5 rounded-full bg-emerald-600 text-white font-bold text-[10px] flex items-center justify-center flex-shrink-0"
+                    >✓</span
+                  >
+                  <span class="font-medium text-slate-800"
+                    >Étape 1 : Dépôt & enregistrement initial au guichet
+                    communal</span
+                  >
+                </div>
+                <div class="flex items-center gap-2.5">
+                  <span
+                    id="check-etape2-bat"
+                    class="w-5 h-5 rounded-full bg-emerald-600 text-white font-bold text-[10px] flex items-center justify-center flex-shrink-0"
+                    >✓</span
+                  >
+                  <span class="font-medium text-slate-800"
+                    >Étape 2 : Contrôle probant des pièces justificatives &
+                    CNI</span
+                  >
+                </div>
+                <div class="flex items-center gap-2.5">
+                  <span
+                    id="check-etape3-bat"
+                    class="w-5 h-5 rounded-full bg-amber-500 text-white font-bold text-[10px] flex items-center justify-center flex-shrink-0 animate-pulse"
+                    >⏳</span
+                  >
+                  <span class="font-medium text-slate-800"
+                    >Étape 3 : Validation & signature électronique par
+                    l'Officier Titulaire</span
+                  >
+                </div>
+                <div class="flex items-center gap-2.5">
+                  <span
+                    id="check-etape4-bat"
+                    class="w-5 h-5 rounded-full bg-slate-200 text-slate-500 font-bold text-[10px] flex items-center justify-center flex-shrink-0"
+                    >4</span
+                  >
+                  <span class="font-bold text-amber-900"
+                    >Étape 4 : Émission de la Notification de Retrait
+                    (Déclencheur d'affichage du BAT)</span
+                  >
+                </div>
+              </div>
+
+              <div
+                id="message-detail-verrou"
+                class="mt-3 p-3.5 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-950 space-y-1"
+              >
+                <p class="font-bold flex items-center gap-1.5">
+                  <span>ℹ️</span>
+                  <span
+                    >Statut actuel : En cours de validation administrative</span
+                  >
+                </p>
+                <p class="text-[11px] text-slate-600">
+                  Votre dossier est en cours de traitement. Dès signature
+                  définitive par M. le Maire et envoi de la convocation de
+                  retrait par SMS/WhatsApp, votre Bon à Tirer (BAT) sera
+                  automatiquement consultable.
+                </p>
+              </div>
+            </div>
+
+            <!-- Boutons de retour et tests -->
+            <div
+              class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3"
+            >
+              <button
+                type="button"
+                onclick="switchTab('suivi')"
+                class="w-full sm:w-auto px-6 py-3 bg-slate-900 hover:bg-slate-800 active:scale-95 text-white font-black text-xs rounded-xl shadow transition flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <span>📋</span>
+                <span>Aller au Suivi de Mon Dossier</span>
+              </button>
+            </div>
+
+            <!-- Module de démonstration interactif pour l'utilisateur -->
+            <div class="pt-4 border-t border-slate-200/80 max-w-lg mx-auto">
+              <span
+                class="text-[11px] font-bold text-slate-500 block mb-2 uppercase tracking-wider"
+              >
+                🧪 Démonstration & Test des États Réglementaires du BAT :
+              </span>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <button
+                  type="button"
+                  onclick="simulerEtatDossierPourTest('green')"
+                  class="px-3 py-2 bg-emerald-100 hover:bg-emerald-200 text-emerald-950 font-black text-[11px] rounded-lg border border-emerald-300 transition active:scale-95 cursor-pointer"
+                >
+                  <span>✅ Terminé & Notifié<br />(Débloquer BAT)</span>
+                </button>
+                <button
+                  type="button"
+                  onclick="simulerEtatDossierPourTest('amber')"
+                  class="px-3 py-2 bg-amber-100 hover:bg-amber-200 text-amber-950 font-black text-[11px] rounded-lg border border-amber-300 transition active:scale-95 cursor-pointer"
+                >
+                  <span>⏳ En Instruction<br />(Verrouiller BAT)</span>
+                </button>
+                <button
+                  type="button"
+                  onclick="simulerEtatDossierPourTest('red')"
+                  class="px-3 py-2 bg-rose-100 hover:bg-rose-200 text-rose-950 font-black text-[11px] rounded-lg border border-rose-300 transition active:scale-95 cursor-pointer"
+                >
+                  <span>❌ Dossier Rejeté<br />(Bloquer BAT)</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================================================================ -->
+          <!-- 2. BLOC DÉBLOQUÉ DU BON À TIRER (BAT) CITOYEN                     -->
+          <!-- ================================================================ -->
+          <div id="bloc-visualisation-acte-bat" class="hidden space-y-6">
+            <!-- BANDEAU OFFICIEL DE CONTRÔLE BON À TIRER (BAT) -->
+            <div
+              class="mt-6 p-4 sm:p-5 bg-gradient-to-r from-amber-100 via-amber-50 to-emerald-100 border-2 border-amber-500/80 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs shadow-md"
+            >
+              <div class="flex items-start sm:items-center gap-3.5">
+                <div
+                  class="w-12 h-12 rounded-2xl bg-amber-500 text-slate-950 font-black text-2xl flex items-center justify-center flex-shrink-0 shadow-sm border border-amber-600/30"
+                >
+                  📋
+                </div>
+                <div>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span
+                      class="font-black uppercase tracking-wider text-[10px] bg-amber-400 text-slate-950 px-2.5 py-0.5 rounded-full font-mono border border-amber-600/40"
+                    >
+                      SPÉCIMEN BON À TIRER (BAT)
+                    </span>
+                    <span
+                      class="text-emerald-800 font-bold text-xs flex items-center gap-1.5 bg-emerald-100/90 px-2.5 py-0.5 rounded-full border border-emerald-300"
+                    >
+                      <span
+                        class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"
+                      ></span>
+                      Notification de Retrait Reçue ✓
+                    </span>
+                  </div>
+                  <p
+                    class="text-slate-800 text-xs mt-1 font-medium leading-relaxed"
+                  >
+                    Ce document constitue votre
+                    <strong>Bon à Tirer (BAT)</strong> officiel. Il vous permet
+                    de vérifier la conformité exacte de toutes les mentions
+                    civiles ci-dessous avant l'impression de l'original timbré
+                    au <strong>Guichet n° 03</strong>.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="flex items-center gap-2 flex-shrink-0 w-full md:w-auto justify-end"
+              >
+                <button
+                  type="button"
+                  onclick="ouvrirModalSignalementBAT()"
+                  class="w-full sm:w-auto px-4 py-2.5 bg-rose-50 hover:bg-rose-100 active:scale-95 text-rose-800 rounded-xl font-black text-xs shadow-md transition flex items-center justify-center gap-1.5 cursor-pointer border border-rose-200"
+                >
+                  <span>⚠️</span>
+                  <span>Signaler une erreur</span>
+                </button>
+                <button
+                  type="button"
+                  onclick="validerBATCitoyen()"
+                  class="w-full sm:w-auto px-4 py-2.5 bg-emerald-700 hover:bg-emerald-800 active:scale-95 text-white rounded-xl font-black text-xs shadow-md transition flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  <span>✓</span>
+                  <span>Confirmer BAT Conforme</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- SÉLECTEUR DU FORMAT CIVIL DEMANDÉ -->
+            <div class="mt-4">
+              <label
+                class="block text-xs font-black text-slate-900 uppercase tracking-wider mb-2"
+              >
+                FORMAT CIVIL OFFICIEL DU BON À TIRER (BAT) :
+              </label>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                <button
+                  type="button"
+                  id="btn-format-naissance"
+                  onclick="choisirFormatActeCivil('ACTE_NAISSANCE')"
+                  class="px-3.5 py-3 rounded-xl border-2 font-black text-xs transition flex items-center justify-center gap-2 bg-emerald-50 border-emerald-600 text-emerald-950 shadow-xs cursor-pointer"
+                >
+                  <span>Acte de Naissance</span>
+                </button>
+                <button
+                  type="button"
+                  id="btn-format-mariage"
+                  onclick="choisirFormatActeCivil('ACTE_MARIAGE')"
+                  class="px-3.5 py-3 rounded-xl border-2 font-bold text-xs transition flex items-center justify-center gap-2 bg-white border-slate-200 text-slate-700 hover:border-slate-300 cursor-pointer"
+                >
+                  <span>Acte de Mariage</span>
+                </button>
+                <button
+                  type="button"
+                  id="btn-format-deces"
+                  onclick="choisirFormatActeCivil('ACTE_DECES')"
+                  class="px-3.5 py-3 rounded-xl border-2 font-bold text-xs transition flex items-center justify-center gap-2 bg-white border-slate-200 text-slate-700 hover:border-slate-300 cursor-pointer"
+                >
+                  <span>Acte de Décès</span>
+                </button>
+                <button
+                  type="button"
+                  id="btn-format-jugement"
+                  onclick="
+                    choisirFormatActeCivil(
+                      'DECLARATION_TARDIVE_JUGEMENT_SUPPLETIF',
+                    )
+                  "
+                  class="px-3.5 py-3 rounded-xl border-2 font-bold text-xs transition flex items-center justify-center gap-2 bg-white border-slate-200 text-slate-700 hover:border-slate-300 cursor-pointer"
+                >
+                  <span>Jugement Supplétif</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- ================================================================ -->
+            <!-- DOCUMENT OFFICIEL : FORMAT CIVIL AUTHENTIQUE DU CAMEROUN (BAT)   -->
+            <!-- ================================================================ -->
+            <div
+              id="document-acte-civil-officiel"
+              class="mt-6 max-w-3xl mx-auto p-6 sm:p-10 bg-[#fffdf9] border-4 border-double border-slate-400 rounded-2xl shadow-xl text-slate-900 space-y-6 relative overflow-hidden"
+            >
+              <!-- FILIGRANE OFFICIEL BON À TIRER (BAT) -->
+              <div
+                class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.04] select-none text-5xl sm:text-6xl font-black rotate-[-25deg] text-slate-950 text-center leading-tight"
+              >
+                RÉPUBLIQUE DU CAMEROUN<br />BON À TIRER (BAT) • CONTRÔLE
+                CITOYEN<br />BUNEC CENTRAL
+              </div>
+
+              <!-- MENTION SOLENNELLE BON À TIRER HAUT DE PAGE -->
+              <div
+                class="pb-2 border-b border-dashed border-amber-300 flex items-center justify-between text-[11px] font-mono font-bold text-amber-900"
+              >
+                <span class="flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                  <span
+                    >ÉPREUVE OFFICIELLE : BON À TIRER (BAT) POUR RETRAIT
+                    GUICHET</span
+                  >
+                </span>
+                <span>CONVOCATION GUICHET 03 ACTIF</span>
+              </div>
+
+              <!-- 1. EN-TÊTE OFFICIEL BILINGUE AVEC ARMOIRIES (GAUCHE) ET LOGO BUNEC (DROITE) -->
+              <div
+                class="flex flex-col sm:flex-row items-center justify-between gap-4 border-b-2 border-slate-800 pb-5"
+              >
+                <!-- CÔTÉ GAUCHE : ARMOIRIES DE LA RÉPUBLIQUE DU CAMEROUN (ROND) -->
+                <div class="flex flex-col items-center flex-shrink-0">
+                  <div
+                    class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-amber-500 bg-slate-950 p-1 shadow-md flex items-center justify-center overflow-hidden"
+                  >
+                    <img
+                      src="/images/armoiries_cameroun.png"
+                      alt="Armoiries de la République du Cameroun"
+                      class="w-full h-full object-contain rounded-full"
+                    />
+                  </div>
+                  <span
+                    class="text-[8px] font-black text-slate-700 uppercase tracking-wider mt-1"
+                    >Armoiries CMR</span
+                  >
+                </div>
+
+                <!-- CENTRE : TEXTES OFFICIELS BILINGUES -->
+                <div
+                  class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-6 flex-grow text-center"
+                >
+                  <!-- Français -->
+                  <div
+                    class="space-y-0.5 text-[10px] sm:text-[11px] font-bold text-slate-800 leading-tight"
+                  >
+                    <p class="font-black text-xs text-slate-900 uppercase">
+                      RÉPUBLIQUE DU CAMEROUN
+                    </p>
+                    <p class="italic text-[9px] text-slate-600">
+                      Paix - Travail - Patrie
+                    </p>
+                    <div class="w-12 h-0.5 bg-slate-400 mx-auto my-1"></div>
+                    <p
+                      id="entete-region-fr"
+                      class="uppercase font-bold text-slate-700"
+                    >
+                      RÉGION DU CENTRE
+                    </p>
+                    <p id="entete-dept-fr" class="uppercase text-slate-600">
+                      DÉPARTEMENT DU MFOUNDI
+                    </p>
+                    <p
+                      id="entete-commune-fr"
+                      class="uppercase text-slate-700 font-extrabold"
+                    >
+                      COMMUNE DE YAOUNDÉ Iᵉʳ
+                    </p>
+                    <p
+                      id="entete-centre-fr"
+                      class="text-emerald-900 font-black"
+                    >
+                      CENTRE PRINCIPAL D'ÉTAT CIVIL
+                    </p>
+                  </div>
+
+                  <!-- Anglais -->
+                  <div
+                    class="space-y-0.5 text-[10px] sm:text-[11px] font-bold text-slate-800 leading-tight"
+                  >
+                    <p class="font-black text-xs text-slate-900 uppercase">
+                      REPUBLIC OF CAMEROON
+                    </p>
+                    <p class="italic text-[9px] text-slate-600">
+                      Peace - Work - Fatherland
+                    </p>
+                    <div class="w-12 h-0.5 bg-slate-400 mx-auto my-1"></div>
+                    <p
+                      id="entete-region-en"
+                      class="uppercase font-bold text-slate-700"
+                    >
+                      CENTRE REGION
+                    </p>
+                    <p id="entete-dept-en" class="uppercase text-slate-600">
+                      MFOUNDI DIVISION
+                    </p>
+                    <p
+                      id="entete-commune-en"
+                      class="uppercase text-slate-700 font-extrabold"
+                    >
+                      YAOUNDE I COUNCIL
+                    </p>
+                    <p
+                      id="entete-centre-en"
+                      class="text-emerald-900 font-black"
+                    >
+                      MAIN CIVIL STATUS REGISTRY
+                    </p>
+                  </div>
+                </div>
+
+                <!-- CÔTÉ DROIT : LOGO OFFICIEL DU BUNEC (ROND) -->
+                <div class="flex flex-col items-center flex-shrink-0">
+                  <div
+                    class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-emerald-600 bg-white p-0.5 shadow-md flex items-center justify-center overflow-hidden"
+                  >
+                    <img
+                      src="/images/logo_bunec.png"
+                      alt="Logo Officiel BUNEC"
+                      class="w-full h-full object-cover rounded-full"
+                    />
+                  </div>
+                  <span
+                    class="text-[8px] font-black text-emerald-900 uppercase tracking-wider mt-1"
+                    >BUNEC CENTRAL</span
+                  >
+                </div>
+              </div>
+
+              <!-- 2. CADRE DES RÉFÉRENCES DU REGISTRE -->
+              <div
+                class="p-3.5 bg-slate-100/90 rounded-xl border border-slate-300 grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-center text-xs"
+              >
+                <div>
+                  <span
+                    class="text-[10px] font-bold text-slate-500 uppercase block"
+                    >N° d'Acte :</span
+                  >
+                  <span
+                    id="acte-ref-numero"
+                    class="font-mono font-black text-slate-900 text-sm"
+                    >001249 / 2026</span
+                  >
+                </div>
+                <div>
+                  <span
+                    class="text-[10px] font-bold text-slate-500 uppercase block"
+                    >Volet :</span
+                  >
+                  <span
+                    id="acte-ref-volet"
+                    class="font-mono font-bold text-slate-800"
+                    >Volet N° 1 (Titulaire)</span
+                  >
+                </div>
+                <div>
+                  <span
+                    class="text-[10px] font-bold text-slate-500 uppercase block"
+                    >Volume / Folio :</span
+                  >
+                  <span
+                    id="acte-ref-volume"
+                    class="font-mono font-bold text-slate-800"
+                    >Vol. 01 / Fol. 042</span
+                  >
+                </div>
+                <div>
+                  <span
+                    class="text-[10px] font-bold text-slate-500 uppercase block"
+                    >Identifiant BUNEC :</span
+                  >
+                  <span
+                    id="acte-ref-idnum"
+                    class="font-mono font-bold text-emerald-900 text-[11px]"
+                    >CMR-2026-CE-YA1-001249</span
+                  >
+                </div>
+              </div>
+
+              <!-- 3. GRAND TITRE BILINGUE SOLENNEL -->
+              <div class="text-center space-y-1 pt-1">
+                <h3
+                  id="acte-titre-principal"
+                  class="text-lg sm:text-xl font-black uppercase tracking-wider text-slate-950 underline decoration-emerald-600 decoration-2 underline-offset-4"
+                >
+                  EXTRAIT D'ACTE DE NAISSANCE / BIRTH CERTIFICATE EXTRACT
+                </h3>
+                <p
+                  id="acte-sous-titre-loi"
+                  class="text-[10px] sm:text-[11px] text-slate-600 font-semibold italic"
+                >
+                  Délivré en application de l'Article 18 de la Loi N° 2011/011
+                  du 6 mai 2011 régissant l'état civil au Cameroun.
+                </p>
+              </div>
+
+              <!-- 4. CONTENU CIVIL SPÉCIFIQUE DYNAMIQUE -->
+              <div
+                id="contenu-acte-civil-dynamique"
+                class="space-y-4 text-xs sm:text-sm text-slate-800"
+              >
+                <!-- Rendu dynamique via JS selon l'acte sélectionné -->
+              </div>
+
+              <!-- 5. MENTIONS MARGINALES LÉGALES -->
+              <div
+                class="p-3 bg-amber-50/60 rounded-xl border border-slate-300 text-xs"
+              >
+                <span
+                  class="font-black text-slate-800 text-[10px] uppercase tracking-wider block mb-1"
+                >
+                  MENTIONS MARGINALES (MARRIAGE / DIVORCE / ADOPTION /
+                  RECTIFICATION) :
+                </span>
+                <p
+                  id="acte-mentions-marginales"
+                  class="text-[11px] text-slate-600 italic"
+                >
+                  Néant à la date de délivrance du présent extrait d'acte d'état
+                  civil.
+                </p>
+              </div>
+
+              <!-- 6. CERTIFICATION PAR L'OFFICIER & SIGNATURES -->
+              <div
+                class="pt-4 border-t-2 border-slate-300 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6"
+              >
+                <div class="space-y-1 text-xs">
+                  <p class="font-bold text-slate-800">
+                    Certifié conforme aux énonciations du registre officiel.
+                  </p>
+                  <p class="text-[11px] text-slate-600">
+                    Fait à <strong id="acte-fait-a">Yaoundé</strong>, le
+                    <strong id="acte-fait-le">25 août 2026</strong>.
+                  </p>
+                  <div class="pt-1">
+                    <p class="text-[11px] font-semibold text-slate-700">
+                      L'Officier d'État Civil soussigné :
+                    </p>
+                    <span
+                      id="acte-nom-officier"
+                      class="font-black text-slate-900 block"
+                      >M. le Maire / Officier Titulaire</span
+                    >
+                  </div>
+                  <div id="acte-secretaire-block" class="pt-1 hidden">
+                    <p class="text-[11px] font-semibold text-slate-700">
+                      Le Secrétaire d'État Civil soussigné :
+                    </p>
+                    <span
+                      id="acte-nom-secretaire"
+                      class="font-black text-slate-900 block"
+                      >Mme Imbomo Justine</span
+                    >
+                  </div>
+                </div>
+
+                <!-- Sceau circulaire officiel & signature -->
+                <div class="flex items-center gap-4 self-center sm:self-auto">
+                  <!-- Tampon circulaire républicain officiel -->
+                  <div
+                    class="w-24 h-24 rounded-full border-2 border-dashed border-blue-700 text-blue-800 flex flex-col items-center justify-center text-center p-1 font-bold text-[8px] uppercase select-none transform rotate-[-6deg] shadow-xs"
+                  >
+                    <span class="text-[7px]">RÉPUBLIQUE DU CAMEROUN</span>
+                    <span class="text-[9px] font-black my-0.5"
+                      >SCEAU OFFICIEL</span
+                    >
+                    <span id="acte-tampon-commune" class="text-[7px]"
+                      >MAIRIE DE YAOUNDÉ I</span
+                    >
+                    <span
+                      id="acte-tampon-centre"
+                      class="text-[6px] text-blue-600"
+                      >CENTRE PRINCIPAL</span
+                    >
+                  </div>
+
+                  <!-- Signature manuscrite de l'officier -->
+                  <div
+                    class="text-center font-serif italic text-sm text-slate-800 border-b border-slate-400 pb-1 px-4"
+                  >
+                    <span
+                      class="text-xs font-mono font-normal not-italic text-slate-400 block mb-1"
+                      >Signature :</span
+                    >
+                    <span
+                      id="acte-signature-officier"
+                      class="text-lg font-bold text-blue-900 tracking-wider"
+                      >E. Mballa</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <!-- 7. SCELLÉ NUMÉRIQUE BUNEC & QR CODE 2D-DOC -->
+              <div
+                class="pt-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-50 p-3 rounded-xl"
+              >
+                <div
+                  class="text-[10px] font-mono text-slate-600 space-y-0.5 text-center sm:text-left"
+                >
+                  <div
+                    class="flex items-center gap-1.5 font-sans font-bold text-slate-800 text-[11px]"
+                  >
+                    <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+                    <span
+                      >Scellé Numérique d'Authenticité BUNEC (Conforme
+                      CEMAC)</span
+                    >
+                  </div>
+                  <p>
+                    Empreinte HMAC-SHA256 :
+                    <span class="font-bold text-slate-800"
+                      >9b1deb4d3b7d4bad9bdd2b0d7b3dcb6d482910fa...</span
+                    >
+                  </p>
+                  <p class="text-[9px] text-slate-500">
+                    Horodatage certifié : 2026-08-25T14:45:00.000Z • Registre
+                    Central National
+                  </p>
+                </div>
+
+                <div
+                  class="flex items-center gap-2 bg-white p-2 rounded-lg border border-slate-300 shadow-xs flex-shrink-0"
+                >
+                  <div
+                    class="w-12 h-12 bg-slate-900 text-white flex items-center justify-center font-mono text-[8px] text-center font-black rounded p-0.5 leading-tight"
+                  >
+                    QR CODE<br />BUNEC<br />VÉRIFIÉ
+                  </div>
+                  <div
+                    class="text-[9px] text-slate-500 font-semibold leading-tight"
+                  >
+                    Scanner pour<br />vérifier l'acte<br /><strong
+                      class="text-emerald-700"
+                      >en ligne</strong
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================================================================== -->

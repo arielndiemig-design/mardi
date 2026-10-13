@@ -1,0 +1,179 @@
+<!-- ==================================================================== -->
+      <!-- MOT DE BIENVENUE ET EN-TÊTE OFFICIEL DU PORTAIL                     -->
+      <!-- ==================================================================== -->
+      <div class="page-shell mb-8">
+        <div
+          class="overflow-hidden rounded-[28px] border border-emerald-200 bg-gradient-to-r from-emerald-900 via-emerald-800 to-slate-900 shadow-[0_20px_50px_-18px_rgba(6,95,70,0.65)]"
+        >
+          <div class="relative px-4 py-5 sm:px-6 sm:py-6 lg:px-8">
+            <div
+              class="pointer-events-none absolute -right-12 -bottom-12 h-40 w-40 rounded-full bg-emerald-400/20 blur-3xl"
+            ></div>
+            <div
+              class="relative flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between"
+            >
+              <div class="flex items-start gap-3.5 sm:gap-4">
+                <div>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span
+                      class="rounded-full bg-amber-400 px-2.5 py-0.5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-950"
+                    >
+                      Portail officiel citoyen
+                    </span>
+                    <span
+                      class="hidden text-xs font-bold text-emerald-200 sm:inline"
+                    >
+                      • République du Cameroun
+                    </span>
+                  </div>
+                  <h2
+                    class="mt-2 text-xl font-black tracking-tight text-white sm:text-2xl"
+                  >
+                    Bienvenue sur le Service Public d'État Civil
+                  </h2>
+                </div>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+                <div
+                  class="rounded-2xl border border-emerald-400/30 bg-white/5 px-3 py-2 text-left backdrop-blur-sm"
+                >
+                  <div
+                    class="text-[10px] font-black uppercase tracking-[0.18em] text-emerald-200"
+                  >
+                    Suivi
+                  </div>
+                  <div class="mt-1 text-lg font-black text-white">24/7</div>
+                </div>
+                <div
+                  class="rounded-2xl border border-blue-400/30 bg-white/5 px-3 py-2 text-left backdrop-blur-sm"
+                >
+                  <div
+                    class="text-[10px] font-black uppercase tracking-[0.18em] text-blue-200"
+                  >
+                    Bans
+                  </div>
+                  <div id="badge-bans-count-hero" class="mt-1 text-lg font-black text-white">0 publication</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================================================================== -->
+      <!-- 1. EN DESSUS : LES 3 ICÔNES D'ACTION (SUIVI | BANS | ACTE CIVIL DR)  -->
+      <!-- ==================================================================== -->
+      <div class="page-shell top-quick-actions mb-8">
+        <!-- ICÔNE 1 : SUIVI -->
+        <button
+          type="button"
+          id="top-card-suivi"
+          onclick="switchTab('suivi')"
+          class="card-active p-4 sm:p-5 rounded-2xl border transition-all text-left flex items-center gap-3.5 hover:shadow-md cursor-pointer group active:scale-[0.98]"
+        >
+          <div
+            class="icon-badge-top w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-emerald-800 text-white flex flex-col items-center justify-center font-mono font-black shadow-lg shadow-emerald-800/30 flex-shrink-0 text-center"
+          >
+            <span class="text-[7px] uppercase tracking-wider text-emerald-200"
+              >BUNEC</span
+            >
+            <span class="text-xs font-black text-white">SUIVI</span>
+          </div>
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5">
+              <span
+                class="text-[10px] font-black uppercase tracking-wider text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded"
+              >
+                SUIVI EN LIGNE
+              </span>
+              <span
+                class="w-2 h-2 rounded-full bg-emerald-500"
+              ></span>
+            </div>
+            <h2
+              class="text-base sm:text-lg font-black text-slate-900 mt-0.5 leading-tight truncate"
+            >
+              Suivi de Mon Dossier
+            </h2>
+            <p class="text-xs text-slate-600 truncate font-medium">
+              Avancement certifié en direct
+            </p>
+          </div>
+        </button>
+
+        <!-- ICÔNE 2 : PUBLICATION DE BANS -->
+        <button
+          type="button"
+          id="top-card-bans"
+          onclick="switchTab('bans')"
+          class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 transition-all text-left flex items-center gap-3.5 hover:border-blue-300 hover:shadow-md cursor-pointer group active:scale-[0.98]"
+        >
+          <div
+            class="icon-badge-top w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-blue-800 text-white flex flex-col items-center justify-center font-mono font-black shadow-lg shadow-blue-800/20 flex-shrink-0 text-center"
+          >
+            <span class="text-[7px] uppercase tracking-wider text-blue-200"
+              >BUNEC</span
+            >
+            <span class="text-xs font-black text-white">BANS</span>
+          </div>
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5">
+              <span
+                class="text-[10px] font-black uppercase tracking-wider text-blue-800 bg-blue-100 px-2 py-0.5 rounded"
+              >
+                AFFICHAGE LÉGAL
+              </span>
+              <span
+                id="badge-bans-count-top"
+                class="text-[10px] font-black text-blue-800 bg-blue-50 px-1.5 py-0.5 rounded"
+                >0 publications</span
+              >
+            </div>
+            <h2
+              class="text-base sm:text-lg font-black text-slate-900 mt-0.5 leading-tight truncate"
+            >
+              Publication des Bans
+            </h2>
+            <p class="text-xs text-slate-600 truncate font-medium">
+              Projets de mariage légaux
+            </p>
+          </div>
+        </button>
+
+        <!-- ICÔNE 3 : DR (VOTRE ACTE D'ÉTAT CIVIL) -->
+        <button
+          type="button"
+          id="top-card-dr"
+          onclick="switchTab('dr')"
+          class="bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 transition-all text-left flex items-center gap-3.5 hover:border-purple-300 hover:shadow-md cursor-pointer group active:scale-[0.98]"
+        >
+          <div
+            class="icon-badge-top w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-slate-950 text-amber-400 flex flex-col items-center justify-center font-mono font-black shadow-lg shadow-slate-950/20 flex-shrink-0 text-center border border-slate-700"
+          >
+            <span class="text-[7px] uppercase tracking-wider text-slate-400"
+              >ACTE</span
+            >
+            <span class="text-xs font-black text-amber-300">BAT</span>
+          </div>
+          <div class="min-w-0">
+            <div class="flex items-center gap-1.5">
+              <span
+                class="text-[10px] font-black uppercase tracking-wider text-purple-800 bg-purple-100 px-2 py-0.5 rounded"
+              >
+                BON À TIRER (BAT)
+              </span>
+            </div>
+            <h2
+              class="text-base sm:text-lg font-black text-slate-900 mt-0.5 leading-tight truncate"
+            >
+              Votre Acte d'État Civil
+            </h2>
+            <p class="text-xs text-slate-600 truncate font-medium">
+              Format civil & contrôle citoyen
+            </p>
+          </div>
+        </button>
+      </div>
+
+      <!-- ==================================================================== -->

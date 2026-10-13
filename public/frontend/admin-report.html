@@ -1,0 +1,152 @@
+RAPPORT D'AUDIT ADMIN EN FORMAT IMPRIMABLE / PDF (A4)                -->
+      <!-- ==================================================================== -->
+      <div
+        id="rapport-audit-admin-pdf"
+        class="hidden text-slate-950 p-4 font-sans"
+      >
+        <!-- En-tête officiel de l'État : Armoiries à gauche, bilingue au centre, BUNEC à droite -->
+        <div
+          class="flex items-center justify-between border-b-2 border-slate-950 pb-4 text-center"
+        >
+          <!-- CÔTÉ GAUCHE : ARMOIRIES DU CAMEROUN (ROND) -->
+          <div class="flex items-center gap-3 text-left">
+            <div
+              class="w-14 h-14 rounded-full border-2 border-amber-500 bg-slate-950 p-1 flex items-center justify-center overflow-hidden flex-shrink-0 shadow-sm"
+            >
+              <img
+                src="/images/armoiries_cameroun.png"
+                alt="Armoiries du Cameroun"
+                class="w-full h-full object-contain rounded-full"
+              />
+            </div>
+            <div class="text-[9px] font-bold leading-tight uppercase">
+              <p class="font-black text-[11px] text-slate-900">
+                RÉPUBLIQUE DU CAMEROUN
+              </p>
+              <p class="italic text-[8px] text-slate-600">
+                Paix - Travail - Patrie
+              </p>
+              <div class="w-8 h-0.5 bg-slate-400 my-0.5"></div>
+              <p class="text-slate-700">SERVICES DU PREMIER MINISTRE</p>
+              <p class="text-emerald-900 font-extrabold">
+                BUNEC DIRECTION GÉNÉRALE
+              </p>
+            </div>
+          </div>
+
+          <!-- CENTRE : TITRE OFFICIEL -->
+          <div class="flex flex-col items-center justify-center px-2">
+            <span
+              class="text-[9px] font-black tracking-widest uppercase bg-slate-900 text-white px-3 py-1 rounded-full shadow-sm"
+            >
+              AUDIT & CONTRÔLE NATIONAL
+            </span>
+            <span class="text-[8px] font-mono font-bold text-slate-500 mt-1"
+              >SIÈGE CENTRAL YAOUNDÉ</span
+            >
+          </div>
+
+          <!-- CÔTÉ DROIT : LOGO BUNEC (ROND) -->
+          <div class="flex items-center gap-3 text-right justify-end">
+            <div class="text-[9px] font-bold leading-tight uppercase">
+              <p class="font-black text-[11px] text-slate-900">
+                REPUBLIC OF CAMEROON
+              </p>
+              <p class="italic text-[8px] text-slate-600">
+                Peace - Work - Fatherland
+              </p>
+              <div class="w-8 h-0.5 bg-slate-400 my-0.5 ml-auto"></div>
+              <p class="text-slate-700">PRIME MINISTER'S OFFICE</p>
+              <p class="text-emerald-900 font-extrabold">
+                NATIONAL CIVIL STATUS BUREAU
+              </p>
+            </div>
+            <div
+              class="w-14 h-14 rounded-full border-2 border-emerald-600 bg-white p-0.5 flex items-center justify-center overflow-hidden flex-shrink-0 shadow-sm"
+            >
+              <img
+                src="/images/logo_bunec.png"
+                alt="Logo Officiel BUNEC"
+                class="w-full h-full object-cover rounded-full"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center my-4 space-y-1">
+          <h2
+            class="text-base font-black uppercase tracking-wider underline underline-offset-4"
+          >
+            RAPPORT NATIONAL D'AUDIT DE L'ÉTAT CIVIL ET HISTORIQUE DES
+            PROVENANCES
+          </h2>
+          <p class="text-[10px] text-slate-600 font-mono">
+            Direction Générale du BUNEC • Extraction Certifiée • Horodatage
+            Cryptographique
+          </p>
+        </div>
+
+        <!-- Métadonnées d'exportation -->
+        <div
+          class="p-3 bg-slate-100 rounded-lg border border-slate-300 grid grid-cols-4 gap-2 text-[10px] font-bold mb-4"
+        >
+          <div>
+            <span class="text-slate-500 block">Date d'extraction :</span>
+            <span id="pdf-date-extraction">-</span>
+          </div>
+          <div>
+            <span class="text-slate-500 block">Opérateur Connecté :</span>
+            <span>bunec (Super-Admin)</span>
+          </div>
+          <div>
+            <span class="text-slate-500 block">Total Actes Répertoriés :</span>
+            <span id="pdf-total-actes">-</span>
+          </div>
+          <div>
+            <span class="text-slate-500 block">Empreinte de Contrôle :</span>
+            <span class="font-mono text-[9px]">SHA256: 9b1deb4d...</span>
+          </div>
+        </div>
+
+        <!-- Tableau PDF -->
+        <table
+          class="w-full text-left text-[9px] border-collapse border border-slate-400"
+        >
+          <thead class="bg-slate-200 text-slate-900 font-black uppercase">
+            <tr>
+              <th class="border border-slate-400 p-1.5">Réf. Acte / BUNEC</th>
+              <th class="border border-slate-400 p-1.5">Type</th>
+              <th class="border border-slate-400 p-1.5">
+                Demandeur / Titulaire
+              </th>
+              <th class="border border-slate-400 p-1.5">Région & Commune</th>
+              <th class="border border-slate-400 p-1.5">Canal & IP</th>
+              <th class="border border-slate-400 p-1.5">Statut / BAT</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-pdf-historique" class="divide-y divide-slate-300">
+            <!-- Injecté dynamiquement par JS -->
+          </tbody>
+        </table>
+
+        <!-- Visa et certification -->
+        <div
+          class="mt-6 pt-4 border-t border-slate-400 flex items-center justify-between text-[10px]"
+        >
+          <div>
+            <p class="font-bold">
+              Certifié sincère et conforme aux registres centraux nationaux.
+            </p>
+            <p class="text-slate-500 text-[9px]">
+              Fait à Yaoundé, au Siège Central du BUNEC.
+            </p>
+          </div>
+          <div class="text-center font-bold">
+            <p>L'Officier Supérieur Central d'État Civil :</p>
+            <div
+              class="w-20 h-10 mx-auto border-b border-dashed border-slate-400 my-1"
+            ></div>
+            <p class="font-black">Direction Générale BUNEC</p>
+          </div>
+        </div>
+      </div>

@@ -1,18 +1,14 @@
 {
-	"folders": [
-		{
-			"path": "../SUIVIE DE DOSSIER"
-		}
-	],
-	"settings": {
-		"files.associations": {
-			"*.sql": "postgres",
-			"*.json": "jsonc"
-		},
-		"typescript.tsdk": "node_modules/typescript/lib",
-		"emmet.includeLanguages": {
-			"javascript": "javascriptreact",
-			"typescript": "typescriptreact"
-		}
-	}
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "explorer.excludeGitIgnore": true,
+        "files.exclude": {
+            "**/node_modules": true,
+            "**/dist": true
+        }
+    }
 }

@@ -1,165 +1,150 @@
-# BUNEC — Plateforme Souveraine de Suivi d'État Civil & Publication des Bans
+# Suivi de dossier BUNEC
 
-> **République du Cameroun** • *Paix - Travail - Patrie*  
-> **Bureau National de l'État Civil (BUNEC)**  
-> Conformité stricte avec la Loi N° 2011/011 du 6 mai 2011 régissant l'état civil au Cameroun.
+Portail web de consultation des publications et de suivi des dossiers d’état
+civil. Le frontend Vite et l’API Express sont servis par le même processus et
+le même port HTTP.
 
----
-
-## 🏛️ Présentation du Projet
-
-Cette plateforme web souveraine et résiliente assure deux missions stratégiques nationales :
-1. **Moteur de Suivi de Dossier Citoyen** : Consultation en temps réel du cycle de vie des actes d'état civil (Naissance, Mariage, Décès, Déclaration Tardive / Jugement Supplétif) avec timeline à 4 étapes, identification instantanée du type d'acte, gestion des motifs de blocage et alertes automatiques SMS / WhatsApp (`+237`).
-2. **Registre Dématérialisé des Publications de Bans de Mariage** : Publication légale préalable obligatoire de 30 jours (Article 53), compte à rebours interactif à la seconde, et procédure solennelle de saisine d'opposition en ligne avec horodatage certifié HMAC-SHA256 et auto-compression client WebP.
-
----
-
-## 📂 Architecture des Dossiers
-
-Le projet est conçu selon une architecture logicielle modulaire, propre et standardisée :
+## Arborescence
 
 ```text
-SUIVIE STATUT/
-├── server.js               # Serveur Web & API REST natif Node.js autonome (Zéro-dépendance au démarrage)
-├── package.json            # Scripts universels de démarrage, compilation et conteneurisation
-├── Dockerfile              # Image Docker de production Alpine Linux ultra-légère (< 80 Mo)
-├── docker-compose.yml      # Orchestration multi-services (Application + PostgreSQL 16 + Redis 7)
-├── nginx.conf              # Configuration Reverse Proxy Nginx, SSL, Gzip et optimisation mobile
-├── .env.example            # Gabarit des variables d'environnement (Base de données, HMAC, SMS)
-├── demarrer.sh             # Script de lancement universel en 1 clic
-├── lancer_mobile.sh        # Simulateur tactile format smartphone (412 x 915)
-│
-├── public/                 # Interface Web Citoyenne Interactive
-│   └── index.html          # Application complète, responsive, accessible (Tailwind + Vanilla JS)
-│
-├── frontend/               # Code Source Frontend Moderne (React 18 + TypeScript + Vite + Tailwind)
-│   ├── package.json        # Dépendances React & Vite
-│   ├── vite.config.ts      # Configuration Vite avec proxy API
-│   ├── tsconfig.json       # Configuration TypeScript stricte
-│   └── src/
-│       ├── main.tsx        # Point d'entrée React
-│       ├── App.tsx         # Composant racine
-│       ├── components/     # Composants réutilisables (Formulaire, Timeline, Grille des Bans)
-│       ├── data/           # Référentiel territorial des 10 régions du Cameroun
-│       ├── types/          # Types TypeScript métier
-│       └── utils/          # Compresseur d'images client (Canvas / WebP < 400 Ko)
-│
-├── backend/                # Code Source Backend d'Ingestion & Pipeline de Compression
-│   ├── package.json        # Dépendances Express, Sharp, Ghostscript, PG, Redis
-│   ├── tsconfig.json       # Configuration TypeScript
-│   └── src/
-│       ├── server.ts       # Serveur Express & API REST
-│       ├── controllers/    # Contrôleurs métier (Bans, Suivi)
-│       ├── middleware/     # Pipeline d'ingestion et compression multithreadée
-│       ├── services/       # Optimiseurs d'images WebP, PDF et synchronisation BUNEC
-│       └── config/         # Configuration des connexions (PostgreSQL, Redis)
-│
-├── database/               # Base de Données Relationnelle Souveraine
-│   ├── schema.sql          # Schéma DDL PostgreSQL (ENUMs stricts, tables, clés étrangères, index B-Tree)
-│   └── seeds/
-│       ├── bunec_referentiel_territorial.json # Référentiel officiel des 10 Régions & Communes du Cameroun
-│       └── seed_regions_communes.sql          # Script SQL d'injection du référentiel territorial
-│
-├── docs/                   # Documentation Institutionnelle Complète
-│   └── CAHIER_DES_CHARGES_TECHNIQUE_ET_FONCTIONNEL.md # Spécifications complètes (11 sections)
-│
-└── .vscode/                # Configuration pré-intégrée pour Visual Studio Code / Cursor
-    ├── launch.json         # Débogage F5 immédiat
-    ├── tasks.json          # Tâches automatisées de démarrage
-    ├── settings.json       # Règles de formatage et linting
-    └── extensions.json     # Extensions recommandées
+server.js                  Point d’entrée npm
+backend/
+  app.js                   Middleware Express et montage frontend
+  server.js                Serveur HTTP unique et chargement de .env
+  database/pool.js         Pool PostgreSQL
+  routes/api.js            Routes API
+  services/                Accès aux données métier
+  middleware/security.js   Sessions, CSRF, limitation et en-têtes
+public/
+  index.html               Shell Vite
+   frontend/                Sections HTML assemblées par Vite
+  src/main.js              Comportements du navigateur
+  src/styles.css           Styles personnalisés
+  src/tailwind.config.js   Configuration Tailwind
+  images/                  Images du portail
+database/
+  schema.sql               Schéma PostgreSQL
+  seeds/                   Référentiels territoriaux
+dist/                      Build de production généré
 ```
 
----
+`node_modules/` et `dist/` sont exclus de Git et masqués dans l’explorateur
+VS Code pour garder l’arborescence lisible.
 
-## 💻 Ouverture dans n'importe quel Éditeur de Code
+## Prérequis
 
-Ce projet respecte les standards universels de développement et s'ouvre immédiatement dans tous les éditeurs :
+- Node.js 18 ou plus récent et npm.
+- PostgreSQL 15 ou plus récent pour le suivi en base.
+- Un rôle PostgreSQL disposant des droits nécessaires sur le schéma BUNEC.
 
-* **Visual Studio Code / Cursor** :
-  ```bash
-  code "/home/bunec/Bureau/SUIVIE STATUT"
-  ```
-  *(Appuyez sur `F5` pour lancer le débogage direct du serveur).*
-* **WebStorm / IntelliJ IDEA** :
-  Ouvrez le dossier en tant que projet Node.js / TypeScript.
-* **Sublime Text** :
-  ```bash
-  subl "/home/bunec/Bureau/SUIVIE STATUT"
-  ```
-* **Terminal / Neovim / Vim** :
-  ```bash
-  cd "/home/bunec/Bureau/SUIVIE STATUT" && nvim .
-  ```
+## Installation locale
 
----
+Depuis la racine du dépôt :
 
-## 🚀 Démarrage & Exécution Locale
-
-### Option A : Démarrage Universel en 1 Clic (Recommandé)
-Double-cliquez sur `demarrer.sh` ou exécutez dans votre terminal :
-```bash
-bash "/home/bunec/Bureau/SUIVIE STATUT/demarrer.sh"
-```
-Le serveur démarre immédiatement et votre navigateur s'ouvre sur **`http://localhost:3000`**.
-
-### Option B : Démarrage avec Node.js
-```bash
-cd "/home/bunec/Bureau/SUIVIE STATUT"
-npm start
-# ou directement : node server.js
+```sh
+npm install
+cp backend/.env.example .env
 ```
 
-### Option C : Simulation Smartphone (412 x 915)
-Pour tester l'affichage tactile sur votre ordinateur :
-```bash
-bash "/home/bunec/Bureau/SUIVIE STATUT/lancer_mobile.sh"
+Sur une machine Linux où PostgreSQL vient d’être installé, un administrateur
+du serveur doit d’abord créer le rôle et la base. Ces commandes demandent les
+droits système PostgreSQL et ne sont pas exécutées par l’application :
+
+```sh
+sudo -u postgres createuser --pwprompt bunec
+sudo -u postgres createdb --owner=bunec bunec
 ```
 
-### Option D : Test sur Smartphone Réel (Même Wi-Fi)
-1. Vérifiez l'adresse IP de votre PC (ex: `192.168.1.50`).
-2. Ouvrez le navigateur de votre téléphone et saisissez :
-   `http://192.168.1.50:3000`
+Utiliser le mot de passe saisi dans `DATABASE_URL` du fichier `.env`, puis
+initialiser le schéma et le référentiel :
 
----
-
-## 🌐 Déploiement & Hébergement en Production
-
-### 1. Hébergement Conteneurisé avec Docker & Docker Compose
-Le moyen le plus simple et robuste pour déployer sur un VPS ou serveur souverain (Ubuntu, Debian, RHEL) :
-```bash
-cd "/home/bunec/Bureau/SUIVIE STATUT"
-docker compose up -d --build
+```sh
+psql "$DATABASE_URL" -f database/schema.sql
+psql "$DATABASE_URL" -f database/seeds/seed_regions_communes.sql
 ```
-Cela démarre :
-- L'application web BUNEC sur le port **3000**
-- PostgreSQL 16 avec initialisation automatique du schéma et des 10 régions sur le port **5432**
-- Redis 7 pour la mise en cache sur le port **6379**
 
-### 2. Déploiement sur Serveur Linux Nu (VPS / Cloud Souverain)
-1. Installez Node.js 20+ et PM2 :
-   ```bash
-   npm install -g pm2
-   ```
-2. Démarrez l'application avec PM2 (redémarrage automatique en cas de panne) :
-   ```bash
-   pm2 start server.js --name "bunec-plateforme"
-   pm2 save
-   pm2 startup
-   ```
-3. Configurez Nginx comme Reverse Proxy avec le fichier fourni `nginx.conf`.
-4. Installez le certificat SSL avec Certbot :
-   ```bash
-   certbot --nginx -d etatcivil.bunec.cm -d bans.bunec.cm
+Le schéma ne crée pas les centres d’état civil ni les dossiers de production.
+Ils doivent être chargés dans `centres_etat_civil` et `dossiers_suivi` avant
+qu’une recherche réelle puisse aboutir.
+
+Démarrage en développement :
+
+```sh
+npm run dev
+```
+
+Ouvrir `http://localhost:3000`. `PORT` peut remplacer `3000`; Express et Vite
+restent attachés au même serveur HTTP.
+
+## Recherche de dossier
+
+Le formulaire envoie une seule valeur d’identification avec la région, la
+commune et le type d’acte sélectionnés. Le backend compare exactement le
+numéro de récépissé, l’identifiant BUNEC, le téléphone, l’email ou le nom du
+demandeur, au moyen de paramètres SQL. Les correspondances partielles et les
+dossiers de démonstration ne sont pas utilisés comme solution de repli.
+
+Sans base configurée ou joignable, l’API de suivi répond `503`. Si aucun dossier
+ne correspond aux critères exacts, elle répond `404`.
+
+`GET /api/v1/health` vérifie la connexion PostgreSQL avec `SELECT 1` et répond
+`200` si la base est joignable, sinon `503`.
+
+## Mise en production
+
+1. Installer Node.js et PostgreSQL sur le serveur. Créer la base et un rôle
+   PostgreSQL dédié à l’application; éviter d’utiliser le rôle superuser.
+2. Déployer le dépôt dans le répertoire applicatif, puis installer les
+   dépendances verrouillées :
+
+   ```sh
+   npm ci
    ```
 
-### 3. Déploiement sur PaaS (Render, Railway, Fly.io)
-- Le dépôt contient un `Dockerfile` prêt à l'emploi.
-- Configurez simplement la variable `PORT=3000`.
+3. Créer `.env` à la racine du projet. Ce fichier ne doit jamais être ajouté à
+   Git. Définir au minimum :
 
----
+   ```dotenv
+   NODE_ENV=production
+   PORT=3000
+   DATABASE_URL=postgresql://utilisateur:mot_de_passe@127.0.0.1:5432/bunec
+   BUNEC_SESSION_SECRET=<secret-aleatoire-long>
+   BUNEC_ADMIN_USERNAME=<identifiant-admin>
+   BUNEC_ADMIN_PASSWORD_SALT=<sel-aleatoire>
+   BUNEC_ADMIN_PASSWORD_HASH=<hash-pbkdf2-sha256>
+   ```
 
-## 🔒 Sécurité & Intégrité des Données
-- **Scellé Numérique HMAC-SHA256** : Chaque acte et chaque opposition génère une signature cryptographique inviolable.
-- **Auto-compression client** : Les documents téléversés sont compressés en WebP (< 400 Ko) avant émission pour respecter les contraintes de bande passante réseau mobile.
-- **Règles Anti-DDoS & Injection** : Protection contre les injections SQL, en-têtes Helmet, rate-limiting et validation Zod.
+   Générer des valeurs aléatoires pour le secret de session et le sel, par
+   exemple avec `openssl rand -hex 32`. Le hash du mot de passe admin doit être
+   calculé avec PBKDF2, SHA-256, 220 000 itérations, 32 octets et le sel
+   `BUNEC_ADMIN_PASSWORD_SALT`. Le secret et le mot de passe ne doivent pas
+   être écrits dans le dépôt ou les journaux.
+
+4. Initialiser le schéma et les données de référence avec `psql`, comme dans
+   la section d’installation. Charger également les centres et dossiers réels.
+5. Compiler puis démarrer le mode production :
+
+   ```sh
+   npm run build
+   npm start
+   ```
+
+   En production, Express sert le contenu de `dist/`; Vite n’ouvre pas de
+   second port. Le service écoute sur `0.0.0.0:$PORT`.
+6. Placer le service derrière un reverse proxy HTTPS (par exemple Nginx),
+   transmettre `X-Forwarded-Proto: https`, limiter l’accès réseau à PostgreSQL
+   et configurer le gestionnaire de processus du serveur pour relancer
+   `npm start` après un redémarrage.
+7. Vérifier `https://<nom-de-domaine>/`, puis se connecter au portail admin.
+   Les routes d’administration exigent la session signée et le jeton CSRF.
+
+Le hash attendu est produit par `crypto.pbkdf2Sync(motDePasse, sel, 220000,
+32, "sha256").toString("hex")`. En mode production, le serveur refuse de
+démarrer si le secret de session, le hash admin ou son sel manque.
+
+## État des données
+
+Le suivi citoyen utilise PostgreSQL. Les listes de bans et l’historique admin
+présents dans cette version restent des jeux de démonstration en mémoire; leurs
+routes ne sont pas encore persistées dans PostgreSQL. Ne pas les considérer
+comme des données de production.

@@ -1,0 +1,333 @@
+<!-- SECTION 4 : ESPACE ADMINISTRATION CENTRALE & HISTORIQUE NATIONAL     -->
+      <!-- ==================================================================== -->
+      <div
+        id="section-admin"
+        class="hidden space-y-8 animate-[fadeIn_0.3s_ease-in-out]"
+      >
+        <!-- CARTE DE CONTRÔLE SUPÉRIEURE DE L'ADMINISTRATION -->
+        <div
+          class="bg-gradient-to-r from-slate-950 via-slate-900 to-emerald-950 rounded-3xl p-6 sm:p-8 text-white shadow-2xl border-2 border-emerald-500/40 relative overflow-hidden"
+        >
+          <div
+            class="absolute -right-12 -bottom-12 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"
+          ></div>
+
+          <div
+            class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10"
+          >
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-2">
+                <span
+                  class="text-[10px] font-black uppercase tracking-widest bg-amber-400 text-slate-950 px-3 py-0.5 rounded-full font-mono shadow-sm"
+                >
+                  PORTAIL D'INSPECTION CENTRALE
+                </span>
+                <span class="text-xs text-emerald-300 font-bold"
+                  >• République du Cameroun • BUNEC</span
+                >
+              </div>
+              <h2
+                class="text-2xl sm:text-3xl font-black tracking-tight text-white"
+              >
+                Espace Administration & Traçabilité Nationale
+              </h2>
+              <p
+                class="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl leading-relaxed"
+              >
+                Supervision de l'historique exhaustif des actes d'état civil,
+                des provenances administratives territoriales et contrôle des
+                Bons à Tirer (BAT).
+              </p>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2.5">
+              <!-- Bouton Export PDF du Grand Rapport -->
+              <button
+                type="button"
+                onclick="imprimerRapportAdminPDF()"
+                class="px-4 sm:px-5 py-2.5 bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 active:scale-95 text-slate-950 font-black text-xs rounded-xl shadow-lg transition flex items-center gap-2 cursor-pointer border border-amber-300"
+              >
+                <span>📄</span>
+                <span>Exporter Rapport en PDF (A4)</span>
+              </button>
+
+              <!-- Bouton Actualiser -->
+              <button
+                type="button"
+                onclick="chargerHistoriqueAdmin()"
+                class="px-3.5 py-2.5 bg-white/15 hover:bg-white/25 active:scale-95 text-white font-bold text-xs rounded-xl transition flex items-center gap-1.5 border border-white/20 cursor-pointer"
+              >
+                <span>🔄</span>
+                <span>Actualiser</span>
+              </button>
+
+              <!-- Bouton Déconnexion -->
+              <button
+                type="button"
+                onclick="deconnexionAdmin()"
+                class="px-3.5 py-2.5 bg-rose-600/80 hover:bg-rose-600 active:scale-95 text-white font-bold text-xs rounded-xl transition flex items-center gap-1.5 cursor-pointer shadow-sm"
+              >
+                <span>🚪</span>
+                <span>Déconnexion</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- STATUTS DE SESSION & KPIS GLOBAUX -->
+          <div
+            class="mt-6 pt-5 border-t border-white/10 grid grid-cols-2 sm:grid-cols-5 gap-3 text-center"
+          >
+            <div class="p-3 bg-white/5 rounded-2xl border border-white/10">
+              <span class="text-[10px] uppercase font-bold text-slate-400 block"
+                >Total Déclarations :</span
+              >
+              <span
+                id="kpi-total-dossiers"
+                class="text-xl sm:text-2xl font-black text-white"
+                >10</span
+              >
+            </div>
+            <div class="p-3 bg-white/5 rounded-2xl border border-white/10">
+              <span
+                class="text-[10px] uppercase font-bold text-emerald-300 block"
+                >Prêts / BAT Émis :</span
+              >
+              <span
+                id="kpi-prets-dossiers"
+                class="text-xl sm:text-2xl font-black text-emerald-400"
+                >7</span
+              >
+            </div>
+            <div class="p-3 bg-white/5 rounded-2xl border border-white/10">
+              <span class="text-[10px] uppercase font-bold text-amber-300 block"
+                >En Instruction :</span
+              >
+              <span
+                id="kpi-instruction-dossiers"
+                class="text-xl sm:text-2xl font-black text-amber-400"
+                >2</span
+              >
+            </div>
+            <div class="p-3 bg-white/5 rounded-2xl border border-white/10">
+              <span class="text-[10px] uppercase font-bold text-rose-300 block"
+                >Rejetés / Anomalies :</span
+              >
+              <span
+                id="kpi-rejetes-dossiers"
+                class="text-xl sm:text-2xl font-black text-rose-400"
+                >1</span
+              >
+            </div>
+            <div
+              class="col-span-2 sm:col-span-1 p-3 bg-white/5 rounded-2xl border border-white/10 flex flex-col justify-center"
+            >
+              <span class="text-[10px] uppercase font-bold text-slate-400 block"
+                >Session Active :</span
+              >
+              <span class="text-xs font-mono font-bold text-amber-300 truncate"
+                >bunec (Super-Admin)</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- CARTE DE FILTRAGE PAR PROVENANCE & NATURE D'ACTE -->
+        <div
+          class="bg-white rounded-3xl p-5 sm:p-6 shadow-xl border border-slate-200 space-y-4"
+        >
+          <div
+            class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3"
+          >
+            <div class="flex items-center gap-2">
+              <span class="text-base">🧭</span>
+              <h3
+                class="text-sm font-black uppercase tracking-wider text-slate-900"
+              >
+                Filtres d'Inspection & Traçabilité par Provenance
+              </h3>
+            </div>
+            <span
+              id="compteur-resultats-admin"
+              class="text-xs font-bold text-slate-500 font-mono"
+            >
+              10 dossier(s) répertorié(s)
+            </span>
+          </div>
+
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-xs"
+          >
+            <!-- Recherche libre -->
+            <div class="lg:col-span-2">
+              <label
+                class="block font-bold text-slate-600 uppercase text-[10px] mb-1"
+                >Recherche (N°, Nom, CNI, Tel)</label
+              >
+              <div class="relative">
+                <span
+                  class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400"
+                  >🔍</span
+                >
+                <input
+                  type="text"
+                  id="admin-search-text"
+                  oninput="filtrerHistoriqueAdmin()"
+                  placeholder="Rechercher dossier, demandeur, CEC..."
+                  class="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-300 rounded-xl font-medium focus:ring-2 focus:ring-emerald-500 focus:bg-white"
+                />
+              </div>
+            </div>
+
+            <!-- Filtre Région de Provenance -->
+            <div>
+              <label
+                class="block font-bold text-slate-600 uppercase text-[10px] mb-1"
+                >Région de Provenance</label
+              >
+              <select
+                id="admin-filter-region"
+                onchange="filtrerHistoriqueAdmin()"
+                class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 font-bold text-slate-800 focus:ring-2 focus:ring-emerald-500"
+              >
+                <option value="ALL">Toutes les Régions (10)</option>
+                <option value="CE">Centre (Yaoundé)</option>
+                <option value="LT">Littoral (Douala)</option>
+                <option value="OU">Ouest (Bafoussam)</option>
+                <option value="NO">Nord (Garoua)</option>
+                <option value="EN">Extrême-Nord (Maroua)</option>
+                <option value="AD">Adamaoua (Ngaoundéré)</option>
+                <option value="SU">Sud (Kribi / Ebolowa)</option>
+                <option value="ES">Est (Bertoua)</option>
+                <option value="NW">Nord-Ouest (Bamenda)</option>
+                <option value="SW">Sud-Ouest (Limbe)</option>
+              </select>
+            </div>
+
+            <!-- Filtre Type d'Acte -->
+            <div>
+              <label
+                class="block font-bold text-slate-600 uppercase text-[10px] mb-1"
+                >Type d'Acte Civil</label
+              >
+              <select
+                id="admin-filter-type"
+                onchange="filtrerHistoriqueAdmin()"
+                class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 font-bold text-slate-800 focus:ring-2 focus:ring-emerald-500"
+              >
+                <option value="ALL">Tous les actes</option>
+                <option value="ACTE_NAISSANCE">Acte de Naissance</option>
+                <option value="ACTE_MARIAGE">Acte de Mariage</option>
+                <option value="ACTE_DECES">Acte de Décès</option>
+                <option value="DECLARATION_TARDIVE_JUGEMENT_SUPPLETIF">
+                  Jugement Supplétif
+                </option>
+              </select>
+            </div>
+
+            <!-- Filtre Statut / BAT -->
+            <div>
+              <label
+                class="block font-bold text-slate-600 uppercase text-[10px] mb-1"
+                >Statut du Dossier / BAT</label
+              >
+              <select
+                id="admin-filter-statut"
+                onchange="filtrerHistoriqueAdmin()"
+                class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 font-bold text-slate-800 focus:ring-2 focus:ring-emerald-500"
+              >
+                <option value="ALL">Tous les statuts</option>
+                <option value="PRETE_RETRAIT">
+                  Prêt pour retrait (BAT Émis)
+                </option>
+                <option value="INSTRUCTION">En cours d'instruction</option>
+                <option value="REJETEE">Rejeté / Bloqué</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- TABLEAU EXHAUSTIF DE L'HISTORIQUE DES DOSSIERS AVEC PROVENANCES -->
+        <div
+          class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden"
+        >
+          <div
+            class="p-5 sm:p-6 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-50/70"
+          >
+            <div>
+              <h3 class="text-base sm:text-lg font-black text-slate-900">
+                Registre Central des Déclarations & Traçabilité des Provenances
+              </h3>
+              <p class="text-xs text-slate-500">
+                Données synchronisées en temps réel avec les serveurs des 10
+                régions administratives.
+              </p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button
+                type="button"
+                onclick="imprimerRapportAdminPDF()"
+                class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer active:scale-95"
+              >
+                <span>🖨️</span>
+                <span>Imprimer Vue Actuelle</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table
+              class="w-full text-left text-xs text-slate-700 border-collapse"
+            >
+              <thead
+                class="bg-slate-100/80 text-slate-800 uppercase text-[10px] font-black border-b border-slate-200"
+              >
+                <tr>
+                  <th class="py-3 px-4">Réf. Déclaration / BUNEC</th>
+                  <th class="py-3 px-4">Type d'Acte</th>
+                  <th class="py-3 px-4">Demandeur / Titulaire</th>
+                  <th class="py-3 px-4">Provenance Complète</th>
+                  <th class="py-3 px-4">Canal & Réseau</th>
+                  <th class="py-3 px-4">Statut & BAT</th>
+                  <th class="py-3 px-4 text-center">Actions Admin</th>
+                </tr>
+              </thead>
+              <tbody
+                id="tbody-historique-admin"
+                class="divide-y divide-slate-100"
+              >
+                <!-- Rendu dynamique par JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TRACEURS D'AUDIT CRYPTOGRAPHIQUE & SÉCURITÉ -->
+        <div
+          class="bg-slate-900 rounded-3xl p-5 sm:p-6 text-white border border-slate-800 shadow-xl space-y-3 text-xs"
+        >
+          <div
+            class="flex items-center justify-between border-b border-slate-800 pb-3"
+          >
+            <div
+              class="flex items-center gap-2 font-black uppercase text-amber-400"
+            >
+              <span>🛡️</span>
+              <span
+                >Journal d'Audit Sécurisé & Scellés Cryptographiques
+                (HMAC-SHA256)</span
+              >
+            </div>
+            <span class="text-[10px] text-slate-400 font-mono"
+              >Conforme Réglementation CEMAC</span
+            >
+          </div>
+          <p class="text-slate-300 text-xs leading-relaxed">
+            Toutes les opérations d'inscription, modifications de statut,
+            consultations citoyennes et délivrances de Bons à Tirer (BAT) sont
+            enregistrées de façon immuable dans le Grand Livre Central du BUNEC.
+          </p>
+        </div>
+      </div>
+
+      <!-- ==================================================================== -->
+      <!--

@@ -1,0 +1,548 @@
+<!-- MODALE DE CONNEXION SÉCURISÉ POUR L'ESPACE ADMIN (BUNEC / 333669)     -->
+    <!-- ==================================================================== -->
+    <div
+      id="modal-admin-login"
+      class="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto animate-[fadeIn_0.2s_ease-out]"
+    >
+      <div
+        class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative"
+      >
+        <!-- Bouton fermer -->
+        <button
+          type="button"
+          onclick="fermerModalAdminLogin()"
+          class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 text-lg font-bold w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center transition cursor-pointer"
+        >
+          ✕
+        </button>
+
+        <!-- En-tête de la modale -->
+        <div class="text-center space-y-2 mb-6">
+          <div
+            class="w-16 h-16 mx-auto rounded-full border-2 border-emerald-600 bg-white p-0.5 shadow-lg flex items-center justify-center overflow-hidden"
+          >
+            <img
+              src="/images/logo_bunec.png"
+              alt="Logo Officiel BUNEC"
+              class="w-full h-full object-cover rounded-full"
+            />
+          </div>
+          <span
+            class="text-[10px] font-black uppercase tracking-widest text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full font-mono"
+          >
+            ACCÈS OFFICIEL BUNEC
+          </span>
+          <h3 class="text-xl sm:text-2xl font-black text-slate-900">
+            Espace Administration
+          </h3>
+          <p class="text-xs text-slate-500">
+            Portail national réservé aux inspecteurs et officiers d'état civil.
+          </p>
+        </div>
+
+        <!-- Formulaire de connexion -->
+        <form
+          onsubmit="
+            event.preventDefault();
+            connexionAdmin();
+          "
+          class="space-y-4"
+        >
+          <div>
+            <label
+              class="block text-xs font-black uppercase tracking-wider text-slate-700 mb-1.5"
+            >
+              Identifiant Administrateur
+            </label>
+            <div class="relative">
+              <span
+                class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400 text-sm"
+                >👤</span
+              >
+              <input
+                type="text"
+                id="input-admin-username"
+                required
+                autocomplete="username"
+                placeholder="Nom d'utilisateur"
+                value="bunec"
+                class="w-full pl-10 pr-3 py-3 bg-slate-50 border border-slate-300 rounded-xl text-xs font-bold text-slate-900 focus:ring-2 focus:ring-emerald-600 focus:bg-white transition"
+              />
+            </div>
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between mb-1.5">
+              <label
+                class="block text-xs font-black uppercase tracking-wider text-slate-700"
+              >
+                Mot de Passe Sécurisé
+              </label>
+              <button
+                type="button"
+                onclick="toggleAdminPasswordVisibility()"
+                class="text-[11px] text-slate-500 hover:text-slate-800 font-semibold cursor-pointer"
+              >
+                <span id="label-toggle-pwd">👁️ Afficher</span>
+              </button>
+            </div>
+            <div class="relative">
+              <span
+                class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400 text-sm"
+                >🔑</span
+              >
+              <input
+                type="password"
+                id="input-admin-password"
+                required
+                autocomplete="current-password"
+                placeholder="Mot de passe confidentiel"
+                class="w-full pl-10 pr-10 py-3 bg-slate-50 border border-slate-300 rounded-xl text-xs font-mono font-bold text-slate-900 focus:ring-2 focus:ring-emerald-600 focus:bg-white transition"
+              />
+            </div>
+            <p class="text-[11px] text-slate-400 mt-1 italic">
+              Mot de passe confidentiel masqué (invisible).
+            </p>
+          </div>
+
+          <!-- Message d'erreur éventuel -->
+          <div
+            id="erreur-admin-login"
+            class="hidden p-3 bg-rose-50 border border-rose-300 rounded-xl text-xs font-bold text-rose-800 text-center animate-shake"
+          ></div>
+
+          <button
+            type="submit"
+            id="btn-submit-admin-login"
+            class="w-full py-3.5 bg-gradient-to-r from-emerald-800 to-slate-900 hover:from-emerald-700 hover:to-slate-800 active:scale-95 text-white font-black text-xs uppercase tracking-wider rounded-xl shadow-lg transition flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <span>🚀</span>
+            <span>Se Connecter à l'Espace Admin</span>
+          </button>
+        </form>
+
+        <div class="mt-4 pt-3 border-t border-slate-100 text-center">
+          <p class="text-[10px] text-slate-400">
+            Session chiffrée SSL/TLS 256-bit • Audit d'accès BUNEC actif
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================================================================== -->
+    <!-- MODALE DE NOTIFICATIONS & RAPPELS LÉGAUX                             -->
+    <!-- ==================================================================== -->
+    <div
+      id="modal-rappels"
+      class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4"
+    >
+      <div
+        class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto"
+      >
+        <div
+          class="flex items-center justify-between pb-4 border-b border-slate-100"
+        >
+          <div class="flex items-center gap-3">
+            <div
+              class="w-10 h-10 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center text-xl shadow-sm"
+            >
+              🔔
+            </div>
+            <div>
+              <h3 class="text-lg font-black text-slate-900">
+                Notifications & Rappels Citoyens
+              </h3>
+              <p class="text-xs text-slate-500">
+                Conformité légale selon la Loi N° 2011/011
+              </p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onclick="fermerModal('modal-rappels')"
+            class="text-slate-400 hover:text-slate-700 text-xl font-bold p-1"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div class="space-y-3.5 text-xs">
+          <!-- Rappel 1 : Déclaration de Naissance -->
+          <div
+            class="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl space-y-1.5"
+          >
+            <div class="flex items-center justify-between">
+              <span
+                class="font-black text-emerald-900 text-xs uppercase tracking-wide"
+              >
+                RAPPEL DU DÉLAI LÉGAL DE DÉCLARATION DE NAISSANCE
+              </span>
+              <span
+                class="text-[10px] font-bold bg-emerald-200/80 text-emerald-900 px-2 py-0.5 rounded-full"
+                >Article 30</span
+              >
+            </div>
+            <p class="text-emerald-950 font-semibold leading-relaxed">
+              La déclaration de naissance doit être effectuée dans un délai
+              légal de <strong>90 jours</strong> suivant l'accouchement auprès
+              du Centre d'État Civil compétent.
+            </p>
+            <p class="text-[11px] text-emerald-800">
+              Passé ce délai, l'obtention d'un acte de naissance exige
+              obligatoirement un jugement supplétif délivré par le Tribunal de
+              Première Instance.
+            </p>
+          </div>
+
+          <!-- Rappel 2 : Publication des Bans de Mariage -->
+          <div
+            class="p-4 bg-blue-50 border border-blue-200 rounded-2xl space-y-1.5"
+          >
+            <div class="flex items-center justify-between">
+              <span
+                class="font-black text-blue-900 text-xs uppercase tracking-wide"
+              >
+                PUBLICATION & OPPOSITION AU MARIAGE
+              </span>
+              <span
+                class="text-[10px] font-bold bg-blue-200/80 text-blue-900 px-2 py-0.5 rounded-full"
+                >Article 53</span
+              >
+            </div>
+            <p class="text-blue-950 font-semibold leading-relaxed">
+              Les projets de mariage doivent faire l'objet d'un affichage public
+              obligatoire pendant une durée de <strong>30 jours</strong> avant
+              toute célébration.
+            </p>
+            <p class="text-[11px] text-blue-800">
+              Toute personne légalement habilitée peut formuler une opposition
+              écrite et motivée avant la fin du décompte officiel.
+            </p>
+          </div>
+
+          <!-- Rappel 3 : Suivi SMS & WhatsApp -->
+          <div
+            class="p-4 bg-slate-50 border border-slate-200 rounded-2xl space-y-1.5"
+          >
+            <div class="flex items-center justify-between">
+              <span
+                class="font-black text-slate-900 flex items-center gap-1.5 text-xs"
+              >
+                <span>📱</span> NOTIFICATIONS SMS & WHATSAPP
+              </span>
+              <span
+                class="text-[10px] font-bold bg-slate-200 text-slate-800 px-2 py-0.5 rounded-full"
+                >Gratuit</span
+              >
+            </div>
+            <p class="text-slate-700 font-semibold leading-relaxed">
+              Renseignez votre numéro de téléphone dans le formulaire pour
+              recevoir gratuitement des alertes dès signature et mise à
+              disposition de votre acte au guichet.
+            </p>
+          </div>
+        </div>
+
+        <div class="pt-2 flex justify-end">
+          <button
+            type="button"
+            onclick="fermerModal('modal-rappels')"
+            class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-black transition shadow"
+          >
+            ⬅️ Compris / Fermer les Rappels
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL 1 : FICHE DÉTAILLÉE DU BAN -->
+    <div
+      id="modal-ban-detail"
+      class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4"
+    >
+      <div
+        class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl max-h-[90vh] overflow-y-auto"
+      >
+        <div
+          class="flex items-center justify-between pb-4 border-b border-slate-100"
+        >
+          <h3 class="text-xl font-black text-slate-900">
+            Avis Officiel de Publication de Ban
+          </h3>
+          <button
+            type="button"
+            onclick="fermerModal('modal-ban-detail')"
+            class="text-slate-400 hover:text-slate-700 text-xl font-bold"
+          >
+            ✕
+          </button>
+        </div>
+        <div id="modal-ban-detail-content" class="mt-6 space-y-6 text-sm"></div>
+        <div class="mt-6 flex justify-end">
+          <button
+            type="button"
+            onclick="fermerModal('modal-ban-detail')"
+            class="px-6 py-2.5 bg-slate-800 text-white rounded-xl text-xs font-bold"
+          >
+            ⬅️ Retour / Fermer l'Avis
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL 2 : SAISINE FORMELLE D'OPPOSITION -->
+    <div
+      id="modal-opposition"
+      class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4"
+    >
+      <div
+        class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl max-h-[90vh] overflow-y-auto"
+      >
+        <div
+          class="flex items-center justify-between pb-4 border-b border-slate-100"
+        >
+          <div>
+            <h3 class="text-xl font-black text-rose-900">
+              Saisine d'Opposition au Mariage
+            </h3>
+            <p id="opposition-ban-ref" class="text-xs text-slate-500"></p>
+          </div>
+          <button
+            type="button"
+            onclick="fermerModal('modal-opposition')"
+            class="text-slate-400 hover:text-slate-700 text-xl font-bold"
+          >
+            ✕
+          </button>
+        </div>
+
+        <form
+          onsubmit="
+            event.preventDefault();
+            validerOpposition();
+          "
+          class="mt-6 space-y-4"
+        >
+          <div
+            class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900"
+          >
+            <strong class="font-black text-amber-950 uppercase tracking-wide"
+              >Avertissement Juridique Solennel :</strong
+            >
+            L'opposition au mariage est un acte juridique régi par la Loi N°
+            2011/011.
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1"
+                >Nom du Déclarant</label
+              >
+              <input
+                type="text"
+                id="opp-nom"
+                required
+                class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1"
+                >Prénom(s)</label
+              >
+              <input
+                type="text"
+                id="opp-prenom"
+                class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1"
+                >Qualité Légale</label
+              >
+              <select
+                id="opp-qualite"
+                class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold"
+              >
+                <option value="CONJOINT_NON_DIVORCE">
+                  Conjoint antérieur non divorcé
+                </option>
+                <option value="ASCENDANT">Père ou Mère</option>
+                <option value="TUTEUR">Tuteur Légal</option>
+                <option value="MINISTERE_PUBLIC">
+                  Ministère Public / Procureur
+                </option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1"
+                >N° CNI ou Passeport</label
+              >
+              <input
+                type="text"
+                id="opp-cni"
+                required
+                class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1"
+              >Téléphone de Contact</label
+            >
+            <input
+              type="tel"
+              id="opp-tel"
+              required
+              placeholder="+237 6..."
+              class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold"
+            />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1"
+              >Motif Juridique Circonstancié</label
+            >
+            <textarea
+              id="opp-motif"
+              rows="3"
+              required
+              placeholder="Exposez les faits motivant l'opposition..."
+              class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs font-medium"
+            ></textarea>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1"
+              >Pièce Probante (Auto-compression client)</label
+            >
+            <input
+              type="file"
+              id="opp-file"
+              accept="image/*,application/pdf"
+              onchange="simulerCompressionClient(this)"
+              class="w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+            />
+            <div
+              id="opp-compression-feedback"
+              class="text-[11px] text-emerald-600 mt-1 hidden font-semibold"
+            >
+              ⚡ Auto-compression client WebP : Réduit &lt; 400 Ko avec succès
+            </div>
+          </div>
+
+          <div class="pt-4 flex justify-end gap-3">
+            <button
+              type="button"
+              onclick="fermerModal('modal-opposition')"
+              class="px-5 py-2.5 bg-slate-200 text-slate-700 rounded-xl text-xs font-bold"
+            >
+              ⬅️ Annuler
+            </button>
+            <button
+              type="submit"
+              class="px-6 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-black shadow-lg shadow-rose-600/20"
+            >
+              Enregistrer l'Opposition
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- MODAL 3 : SIGNALEMENT D'ERREUR SUR LE BAT -->
+    <div
+      id="modal-signalement-bat"
+      class="hidden fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-4"
+    >
+      <div
+        class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl max-h-[90vh] overflow-y-auto"
+      >
+        <div
+          class="flex items-center justify-between pb-4 border-b border-slate-100"
+        >
+          <div>
+            <h3 class="text-xl font-black text-rose-900">
+              Signaler une erreur sur le BAT
+            </h3>
+            <p class="text-xs text-slate-500">
+              Déclarez une anomalie détectée sur le bon à tirer.
+            </p>
+          </div>
+          <button
+            type="button"
+            onclick="fermerModal('modal-signalement-bat')"
+            class="text-slate-400 hover:text-slate-700 text-xl font-bold"
+          >
+            ✕
+          </button>
+        </div>
+
+        <form
+          onsubmit="event.preventDefault(); soumettreSignalementBAT(event);"
+          class="mt-6 space-y-4"
+        >
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1"
+              >Type d’anomalie</label
+            >
+            <select
+              id="signalement-bat-type"
+              class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 text-xs font-semibold"
+            >
+              <option value="informations_incorrectes">
+                Informations incorrectes
+              </option>
+              <option value="erreur_nom_prenom">Erreur sur le nom / prénom</option>
+              <option value="erreur_date_lieu">Erreur sur la date ou le lieu</option>
+              <option value="erreur_document">
+                Pièce justificative ou document manquant
+              </option>
+              <option value="autre">Autre anomalie</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1"
+              >Détail de l’erreur</label
+            >
+            <textarea
+              id="signalement-bat-detail"
+              rows="4"
+              required
+              placeholder="Décrivez précisément l’anomalie constatée et les données concernées..."
+              class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-xs font-medium"
+            ></textarea>
+          </div>
+
+          <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-[11px] text-amber-900">
+            <strong class="font-black text-amber-950 uppercase tracking-wide"
+              >Traitement :</strong
+            >
+            Le signalement est transmis au service de vérification BUNEC et un
+            statut de traitement est affiché pour le dossier concerné.
+          </div>
+
+          <div class="pt-2 flex justify-end gap-3">
+            <button
+              type="button"
+              onclick="fermerModal('modal-signalement-bat')"
+              class="px-5 py-2.5 bg-slate-200 text-slate-700 rounded-xl text-xs font-bold"
+            >
+              Annuler
+            </button>
+            <button
+              type="submit"
+              class="px-6 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-black shadow-lg shadow-rose-600/20"
+            >
+              Envoyer le signalement
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- PIED DE PAGE SOUVERAIN -->
