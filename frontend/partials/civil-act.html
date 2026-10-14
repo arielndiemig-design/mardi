@@ -228,7 +228,7 @@
               </div>
             </div>
 
-            <!-- Boutons de retour et tests -->
+            <!-- Bouton de retour au suivi -->
             <div
               class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3"
             >
@@ -242,37 +242,6 @@
               </button>
             </div>
 
-            <!-- Module de démonstration interactif pour l'utilisateur -->
-            <div class="pt-4 border-t border-slate-200/80 max-w-lg mx-auto">
-              <span
-                class="text-[11px] font-bold text-slate-500 block mb-2 uppercase tracking-wider"
-              >
-                🧪 Démonstration & Test des États Réglementaires du BAT :
-              </span>
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                <button
-                  type="button"
-                  onclick="simulerEtatDossierPourTest('green')"
-                  class="px-3 py-2 bg-emerald-100 hover:bg-emerald-200 text-emerald-950 font-black text-[11px] rounded-lg border border-emerald-300 transition active:scale-95 cursor-pointer"
-                >
-                  <span>✅ Terminé & Notifié<br />(Débloquer BAT)</span>
-                </button>
-                <button
-                  type="button"
-                  onclick="simulerEtatDossierPourTest('amber')"
-                  class="px-3 py-2 bg-amber-100 hover:bg-amber-200 text-amber-950 font-black text-[11px] rounded-lg border border-amber-300 transition active:scale-95 cursor-pointer"
-                >
-                  <span>⏳ En Instruction<br />(Verrouiller BAT)</span>
-                </button>
-                <button
-                  type="button"
-                  onclick="simulerEtatDossierPourTest('red')"
-                  class="px-3 py-2 bg-rose-100 hover:bg-rose-200 text-rose-950 font-black text-[11px] rounded-lg border border-rose-300 transition active:scale-95 cursor-pointer"
-                >
-                  <span>❌ Dossier Rejeté<br />(Bloquer BAT)</span>
-                </button>
-              </div>
-            </div>
           </div>
 
           <!-- ================================================================ -->

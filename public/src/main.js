@@ -1412,102 +1412,25 @@
       }
 
       function construireBoiteNotifications(dossier, cycleDeVie) {
-        const messages = cycleDeVie.etapes
-          .filter((etape) => ["COMPLETED", "CURRENT", "REJECTED"].includes(etape.statut))
-          .map((etape) => ({
-            id: `etape-${etape.numero}`,
-            titre: etape.nom,
-            detail: etape.desc,
-            date: etape.date || "Statut actuel",
-          }));
-        const lues = obtenirNotificationsLues(dossier.id);
-        const nonLues = messages.filter((message) => !lues.has(message.id)).length;
-        const echapper = (value) =>
-          String(value || "").replace(/[&<>"']/g, (character) => ({
-            "&": "&amp;",
-            "<": "&lt;",
-            ">": "&gt;",
-            '"': "&quot;",
-            "'": "&#39;",
-          })[character]);
-
-        return `
-          <section class="mt-6 rounded-2xl border border-sky-200 bg-sky-50/70 p-4 sm:p-5" aria-labelledby="titre-boite-notifications">
-            <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <h4 id="titre-boite-notifications" class="text-base font-black text-slate-900">Notifications de votre dossier</h4>
-                <p class="mt-1 text-xs text-slate-600">Messages associés à la référence ${echapper(dossier.numeroDeclaration || dossier.id)}.</p>
-              </div>
-              <div class="flex items-center gap-2">
-                <span class="rounded-full border border-sky-200 bg-white px-3 py-1 text-xs font-black text-sky-900" aria-live="polite">${nonLues} non lue${nonLues === 1 ? "" : "s"}</span>
-                <button type="button" onclick="marquerToutesNotificationsLues('${echapper(dossier.id)}')" class="rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-100">Tout marquer comme lu</button>
-              </div>
-            </div>
-            <ul class="mt-4 divide-y divide-sky-100">
-              ${messages.map((message) => {
-                const estLue = lues.has(message.id);
-                return `<li class="flex flex-col gap-2 py-3 first:pt-0 last:pb-0 sm:flex-row sm:items-start sm:justify-between" data-notification-id="${echapper(message.id)}">
-                  <div class="flex items-start gap-3">
-                    <span class="mt-1.5 h-2.5 w-2.5 flex-shrink-0 rounded-full ${estLue ? "bg-slate-300" : "bg-sky-600"}" aria-hidden="true"></span>
-                    <div>
-                      <p class="text-sm font-bold text-slate-900">${echapper(message.titre)}</p>
-                      <p class="mt-1 text-xs leading-relaxed text-slate-600">${echapper(message.detail)}</p>
-                      <time class="mt-1 block text-[11px] text-slate-500">${echapper(message.date)}</time>
-                    </div>
-                  </div>
-                  ${estLue ? '<span class="text-[11px] font-bold text-slate-500">Lue</span>' : `<button type="button" onclick="marquerNotificationLue('${echapper(dossier.id)}','${echapper(message.id)}')" class="self-start text-xs font-bold text-sky-800 underline underline-offset-2">Marquer comme lue</button>`}
-                </li>`;
-              }).join("")}
-            </ul>
-            <p class="mt-4 border-t border-sky-100 pt-3 text-[11px] text-slate-500">L’état de lecture est conservé sur cet appareil. Les notifications ne sont pas envoyées par SMS ni enregistrées sur un compte central.</p>
-          </section>
-        `;
+        return "";
       }
 
       function rafraichirPanneauNotifications() {
-        const panneau = document.getElementById("panneau-boite-notifications");
         const contenu = document.getElementById("contenu-boite-notifications");
-        const badge = document.getElementById("badge-notifications-non-lues");
-        const dossier = dossierActuellementCorrespondant;
-        const boiteExistante = document.querySelector(
-          '#container-timeline-dossier [aria-labelledby="titre-boite-notifications"]',
-        );
-
-        if (!dossier || !boiteExistante) {
-          if (contenu) {
-            contenu.innerHTML =
-              '<p class="text-sm text-slate-600">Effectuez une recherche de dossier pour consulter ses notifications.</p>';
-          }
-          if (badge) badge.classList.add("hidden");
-          return;
-        }
-
-        const copieBoite = boiteExistante.cloneNode(true);
-        copieBoite.querySelector("#titre-boite-notifications")?.removeAttribute("id");
-        if (contenu) contenu.innerHTML = copieBoite.innerHTML;
-
-        const compteur = copieBoite.querySelector('[aria-live="polite"]');
-        const nombreNonLues = Number.parseInt(compteur?.textContent || "0", 10) || 0;
-        if (badge) {
-          badge.textContent = nombreNonLues > 99 ? "99+" : String(nombreNonLues);
-          badge.classList.toggle("hidden", nombreNonLues === 0);
+        if (contenu) {
+          contenu.innerHTML =
+            '<p class="text-sm text-slate-600">Effectuez une recherche de dossier pour consulter ses notifications.</p>';
         }
       }
 
       function basculerBoiteNotifications() {
         const panneau = document.getElementById("panneau-boite-notifications");
-        const bouton = document.getElementById("btn-boite-notifications");
-        if (!panneau || !bouton) return;
-
-        const ouvrir = panneau.classList.contains("hidden");
-        panneau.classList.toggle("hidden", !ouvrir);
-        bouton.setAttribute("aria-expanded", String(ouvrir));
-        if (ouvrir) rafraichirPanneauNotifications();
+        if (!panneau) return;
+        panneau.classList.add("hidden");
       }
 
       function fermerBoiteNotifications() {
         document.getElementById("panneau-boite-notifications")?.classList.add("hidden");
-        document.getElementById("btn-boite-notifications")?.setAttribute("aria-expanded", "false");
       }
 
       document.addEventListener("keydown", (event) => {
@@ -1516,14 +1439,7 @@
 
       document.addEventListener("click", (event) => {
         const panneau = document.getElementById("panneau-boite-notifications");
-        const bouton = document.getElementById("btn-boite-notifications");
-        if (
-          panneau &&
-          bouton &&
-          !panneau.classList.contains("hidden") &&
-          !panneau.contains(event.target) &&
-          !bouton.contains(event.target)
-        ) {
+        if (panneau && !panneau.classList.contains("hidden") && !panneau.contains(event.target)) {
           fermerBoiteNotifications();
         }
       });
@@ -3369,45 +3285,6 @@
         );
       }
 
-      // Démonstration interactive des états du dossier (Vert, Orange, Rouge)
-      function simulerEtatDossierPourTest(color) {
-        simulatedColorCode = color;
-        if (color === "green") {
-          dossierTermine = true;
-          notificationRetraitRecue = true;
-        } else {
-          dossierTermine = false;
-          notificationRetraitRecue = false;
-        }
-
-        // Mettre à jour l'affichage de la recherche si elle est déjà lancée
-        const placeholder = document.getElementById(
-          "placeholder-avant-recherche",
-        );
-        if (placeholder && placeholder.classList.contains("hidden")) {
-          rechercherMonDossierPrecis();
-        }
-
-        actualiserAffichageBAT();
-
-        const toast = document.createElement("div");
-        toast.className =
-          "fixed top-5 right-5 z-50 p-4 rounded-2xl shadow-2xl border text-xs flex items-center gap-3 text-white " +
-          (color === "green"
-            ? "bg-emerald-900 border-emerald-400"
-            : color === "amber"
-              ? "bg-amber-900 border-amber-400"
-              : "bg-rose-900 border-rose-400");
-        toast.innerHTML =
-          color === "green"
-            ? "<span>✅</span><span>Notification de Retrait Reçue : Le <strong>Bon à Tirer (BAT)</strong> est maintenant débloqué !</span>"
-            : color === "amber"
-              ? "<span>⏳</span><span>Dossier en cours d’instruction : Le <strong>Bon à Tirer (BAT)</strong> est verrouillé.</span>"
-              : "<span>❌</span><span>Dossier rejeté : L’acte et le BAT sont bloqués.</span>";
-        document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 4500);
-      }
-
       // ========================================================================
       // LOGIQUE DE L'ESPACE ADMINISTRATION CENTRALE (BUNEC / 333669)
       // ========================================================================
@@ -3909,7 +3786,6 @@ Object.assign(window, {
   rechercherMonDossierPrecis,
   effacerInputDeclaration,
   filtrerBans,
-  simulerEtatDossierPourTest,
   ouvrirModalSignalementBAT,
   validerBATCitoyen,
   choisirFormatActeCivil,

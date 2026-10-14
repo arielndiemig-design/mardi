@@ -2,7 +2,7 @@ const path = require("node:path");
 const fs = require("node:fs");
 
 function htmlPartials() {
-  const partialDirectory = path.resolve(__dirname, "public/frontend");
+  const partialDirectory = path.resolve(__dirname, "frontend/partials");
 
   return {
     name: "bunec-html-partials",
